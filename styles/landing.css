@@ -23,3 +23,18 @@
   font-size: 24px;
   color: blue;
 }
+
+@media screen and (max-width: 768px) {
+  .leftside,
+  .rightside {
+    height: 100vh;
+  }
+
+  .center-title {
+    top: 40%;
+  }
+
+  .center-title h1 {
+    font-size: 20px;
+  }
+}
