@@ -1,0 +1,25 @@
+.leftside,
+.rightside {
+  height: 100vh;
+  width: 100%;
+}
+
+.leftside {
+  background: yellow;
+}
+
+.rightside {
+  background: rgb(154, 238, 253);
+}
+
+.center-title {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center-title h1 {
+  font-size: 24px;
+  color: blue;
+}
