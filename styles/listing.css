@@ -1,0 +1,25 @@
+body {
+  padding-top: 20px;
+}
+.listing-main-img img {
+  width: 100%; /* Make image use full width of its container */
+  height: auto; /* Maintain aspect ratio */
+}
+.info-box {
+  padding: 15px;
+  border: 1px solid #ccc;
+  margin-top: 15px;
+}
+.info-box header {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.gallery img {
+  width: 100%;
+  height: auto;
+}
