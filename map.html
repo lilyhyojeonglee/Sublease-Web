@@ -109,6 +109,12 @@ Filter                    </button>
                                                 Lowest to Highest
                                             </label>
                                         </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="sortPrice" id="sortHighToLow" value="highToLow">
+                                            <label class="form-check-label" for="sortHighToLow">
+                                                Highest to Lowest
+                                            </label>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -117,7 +123,8 @@ Filter                    </button>
                             <div class="modal-footer">
                                 
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                <button type="button" class="btn btn-primary" onclick="applyFilters()">Save changes</button>
 
                                 <!-- <button type="button" class="btn btn-primary" onclick="applyFilters()">Save</button> -->
                             </div>
@@ -269,17 +276,45 @@ Filter                    </button>
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
-    function applyFilters() {
-        // Placeholder for filter logic
-        console.log('Applying filters...');
-        // <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
 
-        // Close modal after applying filters
+        document.addEventListener('DOMContentLoaded', function () {
+        console.log('DOM fully loaded and parsed');
+
         var modalEl = document.getElementById('filterModal');
-        var modalInstance = bootstrap.Modal.getInstance(modalEl);
-        modalInstance.hide();
-        // You would add your filter logic here, such as fetching filtered data based on form values
-    }
-</script>
+        var modalInstance = new bootstrap.Modal(document.getElementById('filterModal'), {
+            backdrop: false 
+        });
+
+        console.log('Modal instance obtained:', modalInstance);
+
+        function closeModal() {
+            modalInstance.hide();
+            removeModalBackdrop(); // Call to remove the backdrop manually
+        }
+    
+        function applyFilters() {
+            console.log('Applying filters...');
+            var modalEl = document.getElementById('filterModal');
+            var modalInstance = bootstrap.Modal.getInstance(modalEl);
+            if (modalInstance) {
+                modalInstance.hide();
+            } else {
+                console.log('Modal instance not found');
+            }
+        }
+
+    
+        document.querySelector('#filterModal .btn-primary').addEventListener('click', applyFilters);
+    
+        // Function to manually remove the modal backdrop
+        function removeModalBackdrop() {
+            document.querySelectorAll('.modal-backdrop').forEach(function (backdrop) {
+                backdrop.remove();
+            });
+        }
+    });
+    </script>
+    
+    
 </body>
 </html>
