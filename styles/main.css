@@ -1,2 +1,37 @@
 /*Only add styles that applies to the whole program. Ex. header fonts, Container sizes, etc. Specifics on in line or sth*/
 
+#home .header {
+  width: 75%;
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.container-header {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: none;
+  width: auto;
+  height: auto;
+  padding: 20px;
+}
+
+.header .pl-logo img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: auto;
+}
+
+.logo {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.logo .img {
+  width: 10%;
+  height: 10%;
+}
