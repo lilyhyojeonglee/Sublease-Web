@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Cozy House",
+        "description": "A cozy 2 bedroom house",
+        "location": "JPA",
+        "price": 800,
+        "image": "images/listing1.webp"
+    },
+    {
+        "id": 2,
+        "name": "Modern House",
+        "description": "A modern house and chill house",
+        "location": "Corner",
+        "price": 900,
+        "image": "images/listing1.webp"
+    },
+    {
+        "id": 3,
+        "name": "Country House",
+        "description": "A charming country house.",
+        "location": "JPA",
+        "price": 700,
+        "image": "images/listing1.webp"
+    }
+]

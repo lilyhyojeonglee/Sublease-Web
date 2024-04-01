@@ -28,6 +28,7 @@
     </style>
 </head>
 <body>
+    
     <div class="container-header" id="home">
     
         <div class="header">
@@ -38,6 +39,8 @@
           </div>
         </div>
       </div>
+
+      
 <div class="container-fluid">
     <div class="row">
 
@@ -132,11 +135,33 @@
                         </div>
                     </div>
                 </div>
-
+                
 
                 <div class="list-group list-group-flush border-bottom scrollarea" >
-                    <a href="listing.html" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+                <?php
+// Use a relative or absolute path that accurately locates the list.php file from the current file's location
+// Assuming list.php is in the same directory as map.php, you could simply use:
+
+// if (file_exists('views/list.php')) {
+//     include 'list.php';
+// } else {
+//     echo "Error: File not found.";
+// }
+
+// If list.php is indeed supposed to be in a different directory, adjust the path accordingly.
+// For example, if it's in a directory named 'includes' at the same level as map.php, you would use:
+$filePath = __DIR__ . '/views/list.php';
+if (file_exists($filePath)) {
+    include $filePath;
+} else {
+    echo "Error: File not found. Looking for $filePath";
+}
+?>
+<!-- PHP CODE HERE -->
+                    <!-- <a href="listing.html" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
                         <div class="d-flex w-100 align-items-center justify-content-between">
+                            
+                        </div>
                             <strong class="mb-1">List group item heading</strong>
                             <small>Wed</small>
                         </div>
@@ -266,7 +291,7 @@
                         <div class = "sublease-image" >
                             <img src="images/listing1.webp" >
                         </div>
-                    </a>
+                    </a> -->
 
                 </div>
             </div>
