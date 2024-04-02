@@ -24,10 +24,17 @@ class SubleaseLogic
         {
                 switch ($this->uri) {
                         case '/':
-                                $this->servePage('index.html');
+                                if ($this->isLoggedIn()) {
+                                        $this->servePage('dashboard.html'); // Show dashboard if logged in
+                                } else {
+                                        $this->servePage('index.html'); // Show the index page otherwise
+                                }
                                 break;
                         case '/login':
-                                $this->servePage('login.html');
+                                $this->handleLogin();
+                                break;
+                        case '/logout':
+                                $this->handleLogout();
                                 break;
                         case '/signup':
                                 $this->handleSignup();
@@ -47,11 +54,70 @@ class SubleaseLogic
                 // Your logic here to display something based on the ID
         }
 
+        private function pageNotFound()
+        {
+
+        }
+        private function handleLogin()
+        {
+                $errorMessages = [];
+
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        $phoneNumber = isset($_POST['phonenumber']) ? trim($_POST['phonenumber']) : '';
+                        $password = isset($_POST['password']) ? $_POST['password'] : '';
+
+                        // Basic validation for phone number and password
+                        if (empty($phoneNumber) || !preg_match("/^[0-9]{10}$/", $phoneNumber)) {
+                                $errorMessages['phonenumber'] = "Invalid or missing phone number";
+                        }
+
+                        if (empty($password)) {
+                                $errorMessages['password'] = "Password is required";
+                        }
+
+                        if (empty($errorMessages)) {
+                                $userAuthenticated = $this->authenticateUser($phoneNumber, $password);
+
+                                if ($userAuthenticated) {
+                                        $_SESSION['user'] = ['phonenumber' => $phoneNumber];
+                                        header("Location: map.php");
+                                        exit;
+                                } else {
+                                        $errorMessages['login'] = "Authentication failed. Please check your credentials.";
+                                        // Consider how to handle and display these error messages
+                                }
+                        }
+                }
+        }
+
+        private function authenticateUser($phoneNumber, $password)
+        {
+                
+                if ($phoneNumber == 'in the database' && $password == 'in the database') {
+                        return true;
+                }
+                return false;
+        }
+
+
+
+        private function handleLogout()
+        {
+                // Destroy the session on logout and redirect to the login or index page
+                session_destroy();
+                header("Location: index.html");
+                exit;
+        }
+
+        private function isLoggedIn()
+        {
+                // Check if user session exists
+                return isset($_SESSION['user']);
+        }
         private function handleSignup()
         {
                 $errorMessages = [];
 
-                // Check if the form was submitted
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         // Email validation
                         if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -67,8 +133,7 @@ class SubleaseLogic
                                 $errorMessages['phone'] = "Invalid phone number format";
                         }
 
-                        // You can add further processing here, such as saving the data to a database
-                        // For now, we will just redirect to the profile page if everything is fine
+
                         if (empty($errorMessages)) {
                                 header("Location: profile.html");
                                 exit;
