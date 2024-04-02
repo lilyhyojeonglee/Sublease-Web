@@ -3,18 +3,10 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
+require_once 'SubleaseLogic.php';
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// Assuming you're using the REQUEST_URI to route
+$uri = $_SERVER['REQUEST_URI'];
 
-// require_once 'controller.php';
-// controller.php is the one handles logic, I think??????
-
-if ('/' === $uri) {
-    include 'index.html';
-} elseif ('/show' === $uri && isset($_GET['id'])) {
-    show_action($_GET['id']);
-} else {
-    header('HTTP/1.1 404 Not Found');
-    echo '<html><body><h1>Page Not Found</h1></body></html>';
-}
-
+$sublease = new SubleaseLogic($uri, $_GET, $_POST);
+$sublease->run();
