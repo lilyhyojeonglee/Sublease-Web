@@ -1,9 +1,9 @@
 <?php
 // db.php
 $host = "localhost"; // Or the appropriate host for your database
-$dbname = "your_actual_database_name"; // Replace with your actual database name
-$user = "your_actual_database_user"; // Replace with your actual database username
-$password = "your_actual_database_password"; // Replace with your actual database password
+$dbname = "Sublease"; // Replace with your actual database name
+$user = "postgres"; // Replace with your actual database username
+$password = ""; // Replace with your actual database password
 $dsn = "pgsql:host=$host;dbname=$dbname;";
 
 try {
