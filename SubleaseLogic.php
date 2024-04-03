@@ -151,7 +151,7 @@ class SubleaseLogic
                             $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, phone, password) VALUES (?, ?, ?, ?, ?)");
                             $stmt->execute([$firstName, $lastName, $email, $phone, $hashedPassword]);
                             // Redirect or inform the user of a successful signup
-                            header("Location: success.html"); // or wherever you want to redirect
+                            header("Location: login.php"); // Redirect to login page after successful signup
                             exit;
                         } catch (PDOException $e) {
                             $errorMessages['database'] = "Error during signup: " . $e->getMessage();
@@ -161,5 +161,6 @@ class SubleaseLogic
             
                     // Here, handle and display the $errorMessages if any
                 }
-}
+            }
+            
 }
