@@ -1,9 +1,11 @@
 <?php
 // db.php
 $host = "localhost"; // Or the appropriate host for your database
+$port = "5432";
+
 $dbname = "Sublease"; // Replace with your actual database name
-$user = "postgres"; // Replace with your actual database username
-$password = ""; // Replace with your actual database password
+$$user = "localuser"; 
+$password = "cs4640LocalUser!";
 $dsn = "pgsql:host=$host;dbname=$dbname;";
 
 try {
