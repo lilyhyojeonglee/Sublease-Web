@@ -1,16 +1,3 @@
-<?php
-require_once 'Database.php';
-require_once 'SubleaseLogic.php'; // Adjust the path as necessary
-
-// Mocking $uri, $get, and $post for demonstration. You'll need to adapt this part.
-$uri = '/login';
-$get = $_GET;
-$post = $_POST;
-
-// Instantiating and running your application logic
-$application = new SubleaseLogic($uri, $get, $post);
-$application->run();
-?>
 <!--  reference https://stackoverflow.com/questions/22658141/-->
 <!DOCTYPE html>
 <html lang="en">
@@ -72,8 +59,8 @@ $application->run();
         
 
 
-
-        <form action="login.php" method="POST">
+<!-- 
+        <form action="/login" method="POST"> -->
           <div class="form-floating">
             <!-- Change 'type' to 'text' and add 'name' attribute for server-side processing -->
             <input type="text" class="form-control" id="floatingInput" name="phonenumber" placeholder="Phone Number">
@@ -94,7 +81,6 @@ $application->run();
               <p class="mt-5 mb-3 text-body-secondary">© 2017–2024</p>
 
       </form>
-<!-- 
       
   </main>
 

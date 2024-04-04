@@ -5,6 +5,7 @@ class SubleaseLogic
         private $uri;
         private $get;
         private $post;
+        private $errormessage;
 
 
         public function __construct($uri, $get, $post)
@@ -35,9 +36,9 @@ class SubleaseLogic
                         case '/login':
                                 $this->handleLogin();
                                 break;
-                        
-                        
-                                
+                        case '/showLogin':
+                                $this->showLogin();
+                                break;
                         case '/signup':
                                 $this->handleSignup();
                                 break;
@@ -86,13 +87,13 @@ class SubleaseLogic
 }
 
         private function handleSignup() {
-                $database = new Database(); 
-                $dbConnector = $database->getDbConnector();
+                // $database = new Database(); 
+                // $dbConnector = $database->getDbConnector();
                 
                 // Initialize the session errorMessages array if it's not already set
-                if (!isset($_SESSION['errorMessages'])) {
-                    $_SESSION['errorMessages'] = [];
-                }
+                // if (!isset($_SESSION['errorMessages'])) {
+                //     $_SESSION['errorMessages'] = [];
+                // }
             
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $firstName = $_POST['first_name'] ?? '';
@@ -105,11 +106,11 @@ class SubleaseLogic
                 
                     
                     if (empty($phone) || !preg_match("/^[0-9]{10}$/", $phone)) {
-                        $errorMessages['phone'] = "Invalid or missing phone number";
+                        $this->errormessage  = "Invalid or missing phone number";
                     }
             
                     if (empty($password)) {
-                        $errorMessages['password'] = "Password is required";
+                        $this->errormessage  = "Password is required";
                     }
                     if (empty($_SESSION['errorMessages'])) {
                         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -120,13 +121,24 @@ class SubleaseLogic
                             header("Location: login.php");
                             exit;
                         } else {
-                            $_SESSION['errorMessages']['database'] = "An error occurred during signup. Please try again.";
+                                $this->errormessage  = "An error occurred during signup. Please try again.";
                         }
                     }
             
                     // No need to return errorMessages; they're stored in $_SESSION
                 }
+                $this->showSignup(); 
             }
+
+            private function showSignup($message="")
+        {
+                
+                if (!empty($this->errormessage)) {
+                $message = "<div class='alert alert-danger'>{$this->errormessage}</div>";
+                }
+                include('signup.php');
+        }
+            
             
         
         
@@ -134,9 +146,9 @@ class SubleaseLogic
                 $masterPhone = '1234567890';
                 $master = 'qwe';
 
-                $database = new Database(); // Assuming Database class is autoloaded or required elsewhere
-                $dbConnector = $database->getDbConnector(); // Get the PostgreSQL connection
-                $errorMessages = [];
+                // $database = new Database(); // Assuming Database class is autoloaded or required elsewhere
+                // $dbConnector = $database->getDbConnector(); // Get the PostgreSQL connection
+                // $errorMessages = [];
             
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $phone = $_POST['phonenumber'] ?? '';
@@ -150,14 +162,14 @@ class SubleaseLogic
                     }
                     // Basic validation for phone number and password
                     if (empty($phone) || !preg_match("/^[0-9]{10}$/", $phone)) {
-                        $errorMessages['phonenumber'] = "Invalid or missing phone number";
+                        $this->errormessage = "Invalid or missing phone number";
                     }
             
-                    if (empty($password)) {
-                        $errorMessages['password'] = "Password is required";
+                    elseif (empty($password)) {
+                        $this->errormessage  = "Password is required";
                     }
             
-                    if (empty($errorMessages)) {
+                    elseif (empty($errorMessages)) {
                         // Prepare the query to fetch user from database
                         $result = pg_prepare($dbConnector, "login_query", "SELECT * FROM users WHERE phone = $1");
                         $result = pg_execute($dbConnector, "login_query", array($phone));
@@ -168,19 +180,27 @@ class SubleaseLogic
                                 header("Location: map.php");
                                 exit;
                             } else {
-                                $errorMessages['login'] = "Authentication failed. Please check your credentials.";
+                                $this->errormessage  = "Authentication failed. Please check your credentials.";
                             }
                         } else {
-                            $errorMessages['login'] = "Authentication failed. Please check your credentials.";
+                                $this->errormessage  = "Authentication failed. Please check your credentials.";
                         }
                     }
             
                     // Here, handle and display the $errorMessages if any
                 }
+                $this->showLogin();
             }
             
             
-
+        private function showLogin($message="")
+        {
+                
+                if (!empty($this->errormessage)) {
+                $message = "<div class='alert alert-danger'>{$this->errormessage}</div>";
+                }
+                include('login.php');
+        }
 
         private function authenticateUser($phoneNumber, $password)
         {
