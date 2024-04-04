@@ -1,17 +1,3 @@
-<?php
-// session_start(); // Ensure session starts at the very beginning
-require_once 'Database.php';
-require_once 'SubleaseLogic.php'; // Adjust the path as necessary
-
-// Mocking $uri, $get, and $post for demonstration. You'll need to adapt this part.
-$uri = '/signup';
-$get = $_GET;
-$post = $_POST;
-
-// Instantiating and running your application logic
-$application = new SubleaseLogic($uri, $get, $post);
-$application->run();
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,15 +11,7 @@ $application->run();
 </head>
 
 <body>
-  <!-- <div class="container-header" id="home">
-    <div class="header">
-        <div class="pl-logo" id="pl-logo">
-            <a href="index.html">
-                <img src="pl_logo.jpg" >
-            </a>
-        </div>
-    </div>
-  </div> -->
+  
   <div class = "container">
   <!-- Sign up section -->
   
