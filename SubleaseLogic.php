@@ -12,7 +12,7 @@ class SubleaseLogic
 
         public function __construct($uri, $get, $post)
         {
-                session_start(); 
+                session_start(); //
                 $this->uri = $uri;
                 $this->get = $get;
                 $this->post = $post;
@@ -291,7 +291,7 @@ class SubleaseLogic
                 $furnished = isset($listingData['furnished']) && $listingData['furnished'] ? 't' : 'f';
                 $petsAllowed = isset($listingData['petsAllowed']) && $listingData['petsAllowed'] ? 't' : 'f';
             
-                $query = "INSERT INTO subleases (user_id, name, description, location, address, gender, furnished, subleasefee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
+                $query = "INSERT INTO subleases (user_id, area, description, location, address, gender, furnished, subleasefee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
                 $result = pg_prepare($dbConnector, "insert_sublease", $query);
                 $result = pg_execute($dbConnector, "insert_sublease", [
                     $userId,
