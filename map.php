@@ -66,7 +66,7 @@
 
                     <div>
 
-                        <a href="login.php" class="btn btn-primary me-2">Login/Sign up</a>
+                        <a href="/login" class="btn btn-primary me-2">Login/Sign up</a>
 
                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                             data-bs-target="#filterModal">

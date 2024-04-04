@@ -37,14 +37,16 @@ $application->run();
     <?php if (!empty($_SESSION['errorMessages'])): ?>
 
       <div class="alert alert-danger" role="alert">
+        
           <?php foreach ($_SESSION['errorMessages'] as $message): ?>
               <?= htmlspecialchars($message) ?><br>
           <?php endforeach; ?>
           <?php unset($_SESSION['errorMessages']); // Clear messages after displaying ?>
       </div>
     <?php endif; ?>
+    
 
-        <form action="signup.php" method="POST">
+        <form action="/signup" method="POST">
             <!-- Form fields... -->
             <input type="text" name="first_name" placeholder="First name" required>
             <input type="text" name="last_name" placeholder="Last name" required>
