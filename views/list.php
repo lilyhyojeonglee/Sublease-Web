@@ -18,7 +18,7 @@
     ?>
         <a href="listing.php?id=<?php echo urlencode($item['id']); ?>" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
             <div class="d-flex w-100 align-items-center justify-content-between">
-                <strong class="mb-1"><?php echo htmlspecialchars($item['name']); ?></strong>
+                <strong class="mb-1"><?php echo htmlspecialchars($item['address']); ?></strong>
                 <small><?php echo htmlspecialchars($item['location']); ?></small>
             </div>
             <div class="col-10 mb-1 small"><?php echo htmlspecialchars($item['description']); ?></div>

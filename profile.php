@@ -3,24 +3,6 @@
 require_once 'SubleaseLogic.php';
 require_once 'Database.php';
 
-// Assuming {UserName} comes from the session or database
-// if (isset($_GET['logout'])) {
-//   session_destroy(); // Destroy all session data
-//   header("Location: map.php"); // Redirect to map.php
-//   exit;
-// }
-
-// Check if the user is not logged in, redirect to map.php
-// if (!isset($_SESSION['user'])) {
-//   header("Location: map.php");
-//   exit;
-// }
-
-// $userName = isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "User"; // Placeholder
-
-// Instantiating and running your application logic
-
-// Assuming {UserName} comes from the session or database
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,13 +47,13 @@ require_once 'Database.php';
             </a>
             <button>Remove</button>
             <p class="font-italic mb-1">611 Madison Ave</p>
-            <a href="submission.html">
+            <a href="submission1.html">
                 <button>edit</button>
             </a>
             <button>Remove</button>
 
             <p class="font-italic mb-0">HOME ADDRESS</p>
-            <a href="submission.html">
+            <a href="submission1.html">
                 <button>edit</button>
             </a>
             <button>Remove</button>
@@ -83,7 +65,7 @@ require_once 'Database.php';
    
 
     <div class="webweb">
-        <a href="submission.html">
+        <a href="submission.php">
             <button type="button">Upload your listing</button>
         </a>
     </div>

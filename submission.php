@@ -1,0 +1,143 @@
+<?php
+
+// Assume this class handles business logic and interacts with the database.
+require_once 'Database.php'; // Your database connection class
+require_once 'SubleaseLogic.php'; 
+
+$uri = '/submission';
+$get = $_GET;
+$post = $_POST;
+// Check if the form has been submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $subleaseLogic = new SubleaseLogic($uri, $get, $post);
+
+  // Collecting form data...
+  $listingData = [
+      'name' => 'A name for the listing', // You need to add a form field or logic to define this
+      'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING),
+      'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING),
+      'photoPath' => 'images/listing1.webp',
+      'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING),
+      'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING),
+      'furnished' => isset($_POST['furnished']) && $_POST['furnished'] === 'yes', // Assume this is how furnished data is collected
+      'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
+      'petsAllowed' => isset($_POST['pets']) && $_POST['pets'] === 'allowed',
+       // Ensure this path is correctly set based on uploaded file handling
+  ];
+
+  try {
+      $subleaseLogic->addListing($listingData);
+      // $subleaseLogic->run();
+  } catch (Exception $e) {
+      // Handle errors, such as echoing them out or logging
+      echo "Error: " . $e->getMessage();
+  }
+} else {
+  // Handle non-POST requests or include form HTML below
+}
+
+// $application->run();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Submit Sublease Listing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<div class="container">
+    <main>
+        <div class="py-5 text-center">
+            <h2>Sublease information</h2>
+            <p>Fill out the form to upload your house for sublease</p>
+        </div>
+
+        <div class="row g-5">
+            <div class="info-box">
+                <h4 class="mb-3">Sublease Information</h4>
+                <!-- Update the action to the correct script file or endpoint -->
+                <form class="needs-validation" action="submission.php" method="POST" enctype="multipart/form-data" novalidate="">
+                    <!-- Form fields here -->
+                    <!-- For example: -->
+                    <div class="Address col-12">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St" required="">
+                        <div class="invalid-feedback">
+                            Please enter your address.
+                        </div>
+                    </div>
+                    <div class="Address2 col-12">
+              <label for="address2" class="form-label">Address 2 <span class="text-body-secondary">(Optional)</span></label>
+              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+            </div>
+                    <div class="Zip col-md-3">
+              <label for="zip" class="form-label">Zip</label>
+              <input type="text" class="form-control" id="zip" placeholder="" required="">
+              <div class="invalid-feedback">
+                Zip code required.
+              </div>
+            </div>
+
+            <div class="Photo col-12">
+                  <label for="photos" class="form-label">Photos</label>
+                  <input id="photos" type="file" name="avatar" accept="image/png, image/jpeg" />
+              </div>
+            <div class="Price col-12">
+              <label for="price" class="form-label">Rent</label>
+              <div class="input-group"></div>
+                <input type="text" class="form-control" id="price" placeholder="Rent fee per month" required="">
+              <div class="invalid-feedback">
+                Please enter an amount.
+              </div>
+            </div>
+
+            <div class="Gender col-mid-3">
+                <label class="form-label">Prefer Gender</label>
+                <select class="form-select" id="gender" required="">
+                  <option value="">Choose...</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Doesn't matter</option>
+                </select>
+                
+
+          </div>
+
+          
+              
+          </div>
+            <div class="Pets my-3">
+              <label class="form-label">Pets</label>
+            <div class="form-check">
+              <input id="pets-allowed" name="pets" type="radio" class="form-check-input" checked="" required="">
+              <label class="form-check-label" for="pets-allowed">Allowed</label>
+            </div>
+            <div class="form-check">
+              <input id="pets-not-allowed" name="pets" type="radio" class="form-check-input" required="">
+              <label class="form-check-label" for="pets-not-allowed">Not allowed</label>
+            </div>
+          </div>
+            <div class="Description col-12">
+              <label for="description" class="form-label">Description</label>
+              <div class="input-group"></div>
+                <input type="text" class="form-control" id="description" placeholder="Add extra information about your listing" required="">
+              </div>
+
+
+
+          </div>
+                    <!-- Add other fields similarly, ensuring they have 'name' attributes -->
+
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Submit listing</button>
+                    <!-- <button class="w-100 btn btn-primary btn-lg" type="submit">Submit listing</button> -->
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

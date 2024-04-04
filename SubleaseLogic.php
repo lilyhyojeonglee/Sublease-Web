@@ -1,5 +1,5 @@
 <?php
-
+require_once 'Database.php';
 class SubleaseLogic
 {
         private $uri;
@@ -43,6 +43,9 @@ class SubleaseLogic
                                 break;
                         case '/logout':
                                 $this->handleLogout();
+                        case '/submission':
+                                $this->addListing();
+                                break;
                         default:
                                 $this->pageNotFound();
                                 break;
@@ -225,6 +228,41 @@ class SubleaseLogic
         // Assuming logout means the user session does not exist
                 return !isset($_SESSION['user']);
         }
+
+        public function addListing($listingData) {
+                $database = new Database(); // Assuming Database class is autoloaded or required elsewhere
+                $dbConnector = $database->getDbConnector();
+                // $dbConnector = Database::getDbConnector();
+        
+                $query = "INSERT INTO subleases (user_id, name, description, location, address, gender, furnished, subleaseFee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
+        
+                $userId = $_SESSION['user']['id'] ?? null;
+                if ($userId === null) {
+                    throw new Exception("User not logged in.");
+                }
+        
+                $result = pg_prepare($dbConnector, "insert_sublease", $query);
+                $result = pg_execute($dbConnector, "insert_sublease", [
+                    $userId,
+                    $listingData['name'], // You need to ensure 'name' is collected from the form or defined.
+                    $listingData['description'],
+                    $listingData['location'],
+                    $listingData['address'],
+                    $listingData['gender'],
+                    $listingData['furnished'] ? 'true' : 'false',
+                    $listingData['rent'],
+                    $listingData['petsAllowed'] ? 'true' : 'false',
+                    $listingData['photoPath']
+                ]);
+        
+                if (!$result) {
+                    throw new Exception('Failed to add listing: ' . pg_last_error($dbConnector));
+                }
+        
+                echo "Listing added successfully.";
+            }
+            
+            
 
         
 

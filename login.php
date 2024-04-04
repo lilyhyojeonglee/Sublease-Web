@@ -56,20 +56,18 @@ $application->run();
       </div>
     </div>
   </div>
-
+  
+  
+          
+      
   <main class="form-signin w-100 m-auto">
-    
+
+    <form action="/login" method="POST">
       <h1 class="h3 mb-3 fw-normal">Welcome!</h1>
-      <?php
-        // Display error message if login failed
-        if (isset($_SESSION['errorMessages']['login'])) {
-            echo '<div class="alert alert-danger" role="alert">'
-                . $_SESSION['errorMessages']['login'] .
-                '</div>';
-            // Clear the message after displaying it
-            unset($_SESSION['errorMessages']['login']);
-        }
-        ?>
+      <div class="col-xs-12">
+            <?= isset($message) ? $message : '' ?>
+        </div>
+
 
         
 

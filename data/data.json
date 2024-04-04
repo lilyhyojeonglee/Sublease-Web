@@ -1,7 +1,6 @@
 [
     {
         "id": 1,
-        "name": "Cozy House",
         "description": "A cozy 2 bedrodaiushdsaiudhaiosdhiohadiosom house",
         "location": "JPA",
         "image": "images/listing1.webp",
@@ -13,7 +12,6 @@
     },
     {
         "id": 2,
-        "name": "Modern House",
         "description": "A modern and chill house",
         "location": "Corner",
         "image": "images/listing1.webp",
@@ -25,7 +23,6 @@
     },
     {
         "id": 3,
-        "name": "Country House",
         "description": "A charming country house.",
         "location": "JPA",
         "image": "images/listing1.webp",
@@ -37,7 +34,6 @@
     },
     {
         "id": 4,
-        "name": "Country FLEX House",
         "description": "A charming country house.",
         "location": "JPA",
         "image": "images/listing1.webp",
