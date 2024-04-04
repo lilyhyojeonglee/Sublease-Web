@@ -16,14 +16,14 @@
 
     foreach ($data as $item):
     ?>
-        <a href="listing.html" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+        <a href="listing.php?id=<?php echo urlencode($item['id']); ?>" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
             <div class="d-flex w-100 align-items-center justify-content-between">
-                <strong class="mb-1"><?php echo ($item['name']); ?></strong>
-                <small><?php echo ($item['location']); ?></small>
+                <strong class="mb-1"><?php echo htmlspecialchars($item['name']); ?></strong>
+                <small><?php echo htmlspecialchars($item['location']); ?></small>
             </div>
-            <div class="col-10 mb-1 small"><?php echo ($item['description']); ?></div>
+            <div class="col-10 mb-1 small"><?php echo htmlspecialchars($item['description']); ?></div>
             <div class="sublease-image">
-                <img src="<?php echo ($item['image']); ?>" alt="Item image">
+                <img src="<?php echo htmlspecialchars($item['image']); ?>" alt="Item image">
             </div>
         </a>
     <?php endforeach; ?>

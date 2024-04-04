@@ -2,33 +2,61 @@
     {
         "id": 1,
         "name": "Cozy House",
-        "description": "A cozy 2 bedroom house",
+        "description": "A cozy 2 bedrodaiushdsaiudhaiosdhiohadiosom house",
         "location": "JPA",
-        "price": 800,
-        "image": "images/listing1.webp"
+        "image": "images/listing1.webp",
+        "address": "1950 Skrt Ave, Charlottesville, VA 22903",
+        "gender": "Any",
+        "furnished": true,
+        "subleaseFee": 800,
+        "pet": true
     },
     {
         "id": 2,
         "name": "Modern House",
-        "description": "A modern house and chill house",
+        "description": "A modern and chill house",
         "location": "Corner",
-        "price": 900,
-        "image": "images/listing1.webp"
+        "image": "images/listing1.webp",
+        "address": "Another Address",
+        "gender": "Male",
+        "furnished": false,
+        "subleaseFee": 900,
+        "pet": false
     },
     {
         "id": 3,
         "name": "Country House",
         "description": "A charming country house.",
         "location": "JPA",
-        "price": 700,
-        "image": "images/listing1.webp"
+        "image": "images/listing1.webp",
+        "address": "Country Road",
+        "gender": "Female",
+        "furnished": false,
+        "subleaseFee": 700,
+        "pet": true
     },
     {
-        "id": 3,
-        "name": "Country House",
+        "id": 4,
+        "name": "Country FLEX House",
         "description": "A charming country house.",
         "location": "JPA",
-        "price": 700,
-        "image": "images/listing1.webp"
+        "image": "images/listing1.webp",
+        "address": "Country SKRT Road",
+        "gender": "Male",
+        "furnished": false,
+        "subleaseFee": 700,
+        "pet": true
+    },
+    {
+        "id": 5,
+        "name": "COWBOY",
+        "description": "NICE HOUSE.",
+        "location": "KOREA",
+        "image": "images/listing1.webp",
+        "address": "677 Skrt SKrt skrt",
+        "gender": "Any",
+        "furnished": true,
+        "subleaseFee": 79900,
+        "pet": false
     }
 ]

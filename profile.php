@@ -16,7 +16,7 @@ require_once 'Database.php';
 //   exit;
 // }
 
-$userName = isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "User"; // Placeholder
+// $userName = isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "User"; // Placeholder
 
 // Instantiating and running your application logic
 
@@ -50,7 +50,7 @@ $userName = isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "User
     </div>
 
     <div class="profile-username text-center">
-        <h1>Welcome <?php echo htmlspecialchars($userName); ?></h1>
+        <h1>Welcome  {USER}</h1>
     </div>
 
     

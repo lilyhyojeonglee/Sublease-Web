@@ -25,7 +25,7 @@ class SubleaseLogic
                 switch ($this->uri) {
                         case '/':
                                 if ($this->isLoggedIn()) {
-                                        $this->servePage('map.php'); // Show dashboard if logged in
+                                        $this->servePage('index.html'); // Show dashboard if logged in
                                 } else {
                                         $this->servePage('index.html'); // Show the index page otherwise
                                 }
