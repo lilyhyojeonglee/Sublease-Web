@@ -1,5 +1,7 @@
 <?php
 require_once 'Config.php';
+require_once 'Database.php';
+
 class Database {
     private $dbConnector;
 
@@ -26,7 +28,7 @@ class Database {
             first_name VARCHAR(255),
             last_name VARCHAR(255),
             email VARCHAR(255) UNIQUE,
-            phone VARCHAR(255) UNIQUE,
+            phone BIGINT UNIQUE,
             password VARCHAR(255)
         );
     ";
