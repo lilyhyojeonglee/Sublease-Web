@@ -96,7 +96,7 @@ class SubleaseLogic
                 //     $_SESSION['errorMessages'] = [];
                 // }
         
-                $this->errormessage = '';
+                // $this->errormessage = '';
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $firstName = $_POST['first_name'] ?? '';
                     $lastName = $_POST['last_name'] ?? '';
@@ -108,13 +108,13 @@ class SubleaseLogic
                 
                     
                     if (empty($phone) || !preg_match("/^[0-9]{10}$/", $phone)) {
-                        // $this->errormessage  = "Invalid or missing phone number";
+                        $this->errormessage  = "Invalid or missing phone number";
                     }
             
                     if (empty($password)) {
-                        // $this->errormessage  = "Password is required";
+                        $this->errormessage  = "Password is required";
                     }
-                    if (empty($_SESSION['errorMessages'])) {
+                    if (empty($this->errormessage)) {
                         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                         $result = pg_prepare($dbConnector, "insert_user", "INSERT INTO users (first_name, last_name, email, phone, password) VALUES ($1, $2, $3, $4, $5)");
                         $result = pg_execute($dbConnector, "insert_user", array($firstName, $lastName, $email, $phone, $hashedPassword));

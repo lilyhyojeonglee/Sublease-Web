@@ -38,7 +38,7 @@ $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
 
           <div class="logout" style="position: absolute; top: 20px; left: 220px;">
             
-              <a href="/logout" class="btn btn-danger">IDK</a>
+              <a href="/logout" class="btn btn-danger">Log out</a>
             
           </div>
         </div>
