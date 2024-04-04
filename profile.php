@@ -15,6 +15,17 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
+if (isset($_POST['delete']) && isset($_POST['house_id'])) {
+  try {
+      $subleaseLogic->deleteListing($_POST['house_id']);
+      $message = "Listing removed successfully.";
+  } catch (Exception $e) {
+      $message = $e->getMessage(); 
+  }
+}
+
+// $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
+
 $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
 ?>
 <!DOCTYPE html>
@@ -62,7 +73,13 @@ $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
             <a href="edit_listing.php?listing_id=<?php echo htmlspecialchars($listing['house_id']); ?>">
                 <button>edit</button>
             </a>
-            <button onclick="removeListing(<?php echo htmlspecialchars($listing['house_id']); ?>)">Remove</button>
+
+            <form action="profile.php" method="post">
+                <input type="hidden" name="house_id" value="<?php echo htmlspecialchars($listing['house_id']); ?>">
+                <input type="submit" name="delete" value="Remove" class="btn btn-danger">
+            </form>
+
+
         <?php endforeach; ?>
       </div>
     </div>
