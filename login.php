@@ -92,6 +92,7 @@ $application->run();
             <label class="form-check">
               Remember me </label>
               <button type="submit" class="btn btn-primary py-2" style="width: 48%;">LOG in</button>
+              <a href="signup.php" class="btn btn-outline-primary py-2" style="width: 48%;">Sign up</a>
               <p class="mt-5 mb-3 text-body-secondary">© 2017–2024</p>
 
       </form>

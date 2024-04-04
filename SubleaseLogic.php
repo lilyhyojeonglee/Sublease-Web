@@ -10,7 +10,7 @@ class SubleaseLogic
 
         public function __construct($uri, $get, $post)
         {
-                session_start();
+                // session_start();
                 $this->uri = $uri;
                 $this->get = $get;
                 $this->post = $post;
@@ -186,7 +186,9 @@ class SubleaseLogic
 
         private function handleLogout()
         {
+                
                 if (isset($_GET['logout'])) {
+
                         session_destroy(); // Destroy the session
                         header("Location: map.php"); // Redirect to map.php
                         exit;
@@ -198,14 +200,10 @@ class SubleaseLogic
         }
 
         private function isLoggedIn()
-        {
-                if (!isset($_SESSION['user'])) {
-                        header("Location: map.php");
-                        exit;
-                    }
-                // Check if user session exists
-                // return isset($_SESSION['user']);
-        }
+{
+    return isset($_SESSION['user']);
+}
+
 
         private function isLoggedOut()
         {

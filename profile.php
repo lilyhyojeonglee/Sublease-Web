@@ -16,8 +16,11 @@ require_once 'Database.php';
 //   exit;
 // }
 
-// Assuming {UserName} comes from the session or database
 $userName = isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "User"; // Placeholder
+
+// Instantiating and running your application logic
+
+// Assuming {UserName} comes from the session or database
 ?>
 <!DOCTYPE html>
 <html lang="en">
