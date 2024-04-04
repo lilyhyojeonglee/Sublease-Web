@@ -73,7 +73,15 @@ class SubleaseLogic
                     $confirmPassword = $_POST['confirm_password'] ?? '';
             
                     // Validation logic remains the same...
+                    
+                    // Basic validation for phone number and password
+                    if (empty($phone) || !preg_match("/^[0-9]{10}$/", $phone)) {
+                        $errorMessages['phone'] = "Invalid or missing phone number";
+                    }
             
+                    if (empty($password)) {
+                        $errorMessages['password'] = "Password is required";
+                    }
                     if (empty($_SESSION['errorMessages'])) {
                         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                         $result = pg_prepare($dbConnector, "insert_user", "INSERT INTO users (first_name, last_name, email, phone, password) VALUES ($1, $2, $3, $4, $5)");
