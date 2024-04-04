@@ -49,6 +49,9 @@ class SubleaseLogic
                         case '/submission':
                                 $this->addListing();
                                 break;
+                        case '/edit':
+                                $this->editListing();
+                                break;
                         default:
                                 $this->pageNotFound();
                                 break;
@@ -278,6 +281,72 @@ class SubleaseLogic
         
         //         echo "Listing added successfully.";
         //     }
+        public function editListing() {
+                $this->message = '';
+                $database = new Database();
+                $dbConnector = $database->getDbConnector(); 
+            
+                $userId = $_SESSION['user']['id'] ?? null; 
+                if ($userId === null) {
+                    throw new Exception("User not logged in.");
+                }
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        
+                        $house_id=$_POST['house_id'] ?? '';
+                        $address = $_POST['address'] ?? '';
+                        $address2 = $_POST['address2'] ?? '';
+                        $area=$_POST['area'] ?? '';
+                        $zip = $_POST['zip'] ?? '';
+                        $photo = $_POST['photo'] ?? '';
+                        $price=$_POST['price'] ?? '';
+                        $gender = $_POST['gender'] ?? '';
+                        $furnished = $_POST['furnished'] ? 't' : 'f';
+                        $pets=$_POST['petsAllowed']? 't' : 'f';
+                        $description = $_POST['description'] ?? '';
+                        $location = null;
+                        
+                $query = "UPDATE subleases SET 
+                
+                area= $1,
+                description= $2,
+                location= $3,
+                address= $4,
+                gender= $5,
+                furnished= $6,
+                subleasefee= $7,
+                pet= $8,
+                image=$9
+                WHERE house_id = $10";
+                $result = pg_prepare($dbConnector, "update_sublease", $query);
+
+                // Example new user_id
+                $new_des = $description;
+                $new_area = $address; // Example new area
+                $house_id = $house_id; // Example house_id
+
+                $result = pg_execute($dbConnector, "update_sublease", array($area, $description, $location, $address, $gender, $furnished, $price, $pets, $photo, $house_id));
+
+
+            
+                if (!$result) {
+                        throw new Exception('Failed to add listing: ' . pg_last_error($dbConnector));
+                    } else {
+                        // Update JSON file after successful database insertion
+                        try {
+                            $database->convertDataToJson();
+                            echo "Listing added successfully and JSON updated.";
+                            $this->message = "Listing updated successfully.";
+                            $this->showProfile();
+                            exit;
+                        } catch (Exception $e) {
+                            // Handle error if JSON conversion fails
+                            echo 'Error updating JSON: ' . $e->getMessage();
+                        }
+                    }
+            
+                echo "Listing added successfully.";
+        }
+}
         public function addListing($listingData) {
                 $this->message = '';
                 $database = new Database();
@@ -291,7 +360,7 @@ class SubleaseLogic
                 $furnished = isset($listingData['furnished']) && $listingData['furnished'] ? 't' : 'f';
                 $petsAllowed = isset($listingData['petsAllowed']) && $listingData['petsAllowed'] ? 't' : 'f';
             
-                $query = "INSERT INTO subleases (user_id, name, description, location, address, gender, furnished, subleasefee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
+                $query = "INSERT INTO subleases (user_id, area, description, location, address, gender, furnished, subleasefee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
                 $result = pg_prepare($dbConnector, "insert_sublease", $query);
                 $result = pg_execute($dbConnector, "insert_sublease", [
                     $userId,
@@ -307,7 +376,7 @@ class SubleaseLogic
                 ]);
             
                 if (!$result) {
-                        throw new Exception('Failed to add listing: ' . pg_last_error($dbConnector));
+                        throw new Exception('Failed to update listing: ' . pg_last_error($dbConnector));
                     } else {
                         // Update JSON file after successful database insertion
                         try {
