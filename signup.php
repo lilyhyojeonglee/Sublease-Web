@@ -1,3 +1,18 @@
+<?php
+// session_start(); // Ensure session starts at the very beginning
+require_once 'Database.php';
+require_once 'SubleaseLogic.php'; // Adjust the path as necessary
+
+// Mocking $uri, $get, and $post for demonstration. You'll need to adapt this part.
+$uri = '/signup';
+$get = $_GET;
+$post = $_POST;
+
+// Instantiating and running your application logic
+$application = new SubleaseLogic($uri, $get, $post);
+$application->run();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,69 +33,41 @@
   </section>
   <section>
     <!-- Inside your HTML body where the signup form is defined -->
-    <form action="signup.php" method="POST">
-      <!-- Other form fields... -->
-      <input type="text" name="first_name" placeholder="First name" required>
-      <input type="text" name="last_name" placeholder="Last name" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="text" name="phone" placeholder="Phone Number" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-      <button type="submit">Sign Up</button>
-    </form>
+   
+    <?php if (!empty($_SESSION['errorMessages'])): ?>
 
-    <label for="validationServer01">First name</label>
-    <input type="text" class="form-control is-valid" id="validationServer01" placeholder="First name" value="Yoon"
-      required>
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-    </div>
-    <div class="col-md-4 mb-3">
-      <label for="validationServer02">Last name</label>
-      <input type="text" class="form-control is-valid" id="validationServer02" placeholder="Last name" value="Lee"
-        required>
-      <div class="valid-feedback">
-        Looks good!
+      <div class="alert alert-danger" role="alert">
+          <?php foreach ($_SESSION['errorMessages'] as $message): ?>
+              <?= htmlspecialchars($message) ?><br>
+          <?php endforeach; ?>
+          <?php unset($_SESSION['errorMessages']); // Clear messages after displaying ?>
       </div>
-      <div class="col-md-3 mb-3">
-        <label for="validationServer05">Email</label>
-        <input type="text" class="form-control <?= isset($errorMessages['email']) ? 'is-invalid' : '' ?>" name="email"
-          id="validationServer05" placeholder="Email" required>
-        <div class="invalid-feedback">
-          <?php echo $errorMessages['email'] ?? "Please provide an Email address."; ?>
-        </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <label for="validationServerUsername">Phone Number (User_ID)</label>
-        <input type="text" class="form-control <?= isset($errorMessages['phone']) ? 'is-invalid' : '' ?>" name="phone"
-          id="validationServerUsername" placeholder="Phone Number" required>
-        <div class="invalid-feedback">
-          <?php echo $errorMessages['phone'] ?? "Please enter a valid phone number. It will be used as your user ID for login."; ?>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-md-6 mb-3">
-          <label for="validationServer03">Password</label>
-          <input type="text" class="form-control is-invalid" id="validationServer03" placeholder="Password" required>
-          <div class="invalid-feedback">
-            Please provide a password
-          </div>
-        </div>
+    <?php endif; ?>
+
+        <form action="signup.php" method="POST">
+            <!-- Form fields... -->
+            <input type="text" name="first_name" placeholder="First name" required>
+            <input type="text" name="last_name" placeholder="Last name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="phone" placeholder="Phone Number" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+
+        
         <div class="col-md-3 mb-3">
-          <label for="validationServer04">Confirm password</label>
-          <input type="text" class="form-control is-invalid" id="validationServer04" placeholder="Confirm Password"
-            required>
+          
+
           <div class="invalid-feedback">
             Password matches: {YES OR NO}
           </div>
         </div>
-        <a href="login.html" class="btn btn-primary" type="submit" id="submitBtn">Submit form</a>
-        </form>
+
 
 
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <div class="form-check">
           <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
           <label class="form-check-label" for="invalidCheck3">
@@ -90,9 +77,9 @@
             You must agree before submitting.
           </div>
         </div>
-      </div>
+      </div> -->
 
-      </form>
+      
   </section>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

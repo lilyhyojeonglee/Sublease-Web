@@ -22,5 +22,13 @@
         "location": "JPA",
         "price": 700,
         "image": "images/listing1.webp"
+    },
+    {
+        "id": 3,
+        "name": "Country House",
+        "description": "A charming country house.",
+        "location": "JPA",
+        "price": 700,
+        "image": "images/listing1.webp"
     }
 ]

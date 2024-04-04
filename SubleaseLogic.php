@@ -54,6 +54,43 @@ class SubleaseLogic
         {
 
         }
+
+        private function handleSignup() {
+                $database = new Database(); 
+                $dbConnector = $database->getDbConnector();
+                
+                // Initialize the session errorMessages array if it's not already set
+                if (!isset($_SESSION['errorMessages'])) {
+                    $_SESSION['errorMessages'] = [];
+                }
+            
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $firstName = $_POST['first_name'] ?? '';
+                    $lastName = $_POST['last_name'] ?? '';
+                    $email = $_POST['email'] ?? '';
+                    $phone = $_POST['phone'] ?? '';
+                    $password = $_POST['password'] ?? '';
+                    $confirmPassword = $_POST['confirm_password'] ?? '';
+            
+                    // Validation logic remains the same...
+            
+                    if (empty($_SESSION['errorMessages'])) {
+                        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                        $result = pg_prepare($dbConnector, "insert_user", "INSERT INTO users (first_name, last_name, email, phone, password) VALUES ($1, $2, $3, $4, $5)");
+                        $result = pg_execute($dbConnector, "insert_user", array($firstName, $lastName, $email, $phone, $hashedPassword));
+            
+                        if ($result) {
+                            header("Location: login.php");
+                            exit;
+                        } else {
+                            $_SESSION['errorMessages']['database'] = "An error occurred during signup. Please try again.";
+                        }
+                    }
+            
+                    // No need to return errorMessages; they're stored in $_SESSION
+                }
+            }
+            
         
         
         private function handleLogin() {
@@ -122,39 +159,6 @@ class SubleaseLogic
                 // Check if user session exists
                 return isset($_SESSION['user']);
         }
-        private function handleSignup() {
-                $database = new Database(); 
-                $dbConnector = $database->getDbConnector(); 
-                $errorMessages = [];
-            
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    $firstName = $_POST['first_name'] ?? '';
-                    $lastName = $_POST['last_name'] ?? '';
-                    $email = $_POST['email'] ?? '';
-                    $phone = $_POST['phone'] ?? '';
-                    $password = $_POST['password'] ?? '';
-                    $confirmPassword = $_POST['confirm_password'] ?? '';
-            
-                    // Validation logic remains the same...
-            
-                    if (empty($errorMessages)) {
-                        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                        // Prepare the query using pg_prepare and pg_execute instead of PDO
-                        $result = pg_prepare($dbConnector, "insert_user", "INSERT INTO users (first_name, last_name, email, phone, password) VALUES ($1, $2, $3, $4, $5)");
-                        $result = pg_execute($dbConnector, "insert_user", array($firstName, $lastName, $email, $phone, $hashedPassword));
-                        
-                        if ($result) {
-                            header("Location: login.php"); // Redirect to login page after successful signup
-                            exit;
-                        } else {
-                            $errorMessages['database'] = "An error occurred during signup. Please try again.";
-                            // Additional error handling here
-                        }
-                    }
-            
-                    // Error handling logic remains the same...
-                }
-            
-        }
+        
 
 }

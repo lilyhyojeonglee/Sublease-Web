@@ -1,11 +1,12 @@
 <?php
+require_once 'Config.php';
 class Database {
     private $dbConnector;
 
-    public function __contruct(){
+    public function __construct(){
 
         $host = Config::$db["host"];
-        $user = Config::$db["local"]; //change to user when deploy server maybe
+        $user = Config::$db["user"]; //change to user when deploy server maybe
         $database = Config::$db["database"];
         $password = Config::$db["password"];
         $port = Config::$db["port"];
