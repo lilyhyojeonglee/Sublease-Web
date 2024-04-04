@@ -1,3 +1,16 @@
+<?php
+require_once 'Database.php';
+require_once 'SubleaseLogic.php'; // Adjust the path as necessary
+
+// Mocking $uri, $get, and $post for demonstration. You'll need to adapt this part.
+$uri = '/login';
+$get = $_GET;
+$post = $_POST;
+
+// Instantiating and running your application logic
+$application = new SubleaseLogic($uri, $get, $post);
+$application->run();
+?>
 <!--  reference https://stackoverflow.com/questions/22658141/-->
 <!DOCTYPE html>
 <html lang="en">
@@ -45,33 +58,45 @@
   </div>
 
   <main class="form-signin w-100 m-auto">
-    <form action="map.php" method="POST">
+    
       <h1 class="h3 mb-3 fw-normal">Welcome!</h1>
+      <?php
+        // Display error message if login failed
+        if (isset($_SESSION['errorMessages']['login'])) {
+            echo '<div class="alert alert-danger" role="alert">'
+                . $_SESSION['errorMessages']['login'] .
+                '</div>';
+            // Clear the message after displaying it
+            unset($_SESSION['errorMessages']['login']);
+        }
+        ?>
 
-      <div class="form-floating">
-        <!-- Change 'type' to 'text' and add 'name' attribute for server-side processing -->
-        <input type="text" class="form-control" id="floatingInput" name="phonenumber" placeholder="phone number">
-        <label for="floatingInput">Phone Number</label>
-      </div>
-      <div class="form-floating">
-        <!-- Add 'name' attribute for server-side processing -->
-        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
-        <label for="floatingPassword">Password</label>
-      </div>
+        
 
-      <div class="form-check text-start my-3">
-        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-        <label class="form-check-label" for="flexCheckDefault">
-          Remember me
-        </label>
-      </div>
 
-      <!-- Adjusted button types -->
-      <button class="btn btn-primary py-2" type="submit" style="width: 48%;">log in</button>
-      <a href="signup.php" class="btn btn-outline-primary py-2" style="width: 48%;">Sign up</a>
 
-      <p class="mt-5 mb-3 text-body-secondary">© 2017–2024</p>
-    </form>
+        <form action="login.php" method="POST">
+          <div class="form-floating">
+            <!-- Change 'type' to 'text' and add 'name' attribute for server-side processing -->
+            <input type="text" class="form-control" id="floatingInput" name="phonenumber" placeholder="Phone Number">
+            <label for="floatingInput">Phone Number</label>
+          </div>
+          <div class="form-floating">
+            <!-- Add 'name' attribute for server-side processing -->
+            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div>
+
+          <div class="form-check text-start my-3">
+            <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+            <label class="form-check">
+              Remember me </label>
+              <button type="submit" class="btn btn-primary py-2" style="width: 48%;">LOG in</button>
+              <p class="mt-5 mb-3 text-body-secondary">© 2017–2024</p>
+
+      </form>
+<!-- 
+      
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
