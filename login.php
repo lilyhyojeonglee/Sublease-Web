@@ -56,17 +56,15 @@ $application->run();
       </div>
     </div>
   </div>
-  
-  
-          
-      
+
   <main class="form-signin w-100 m-auto">
+<<<<<<< HEAD
 
     <form action="/login" method="POST">
+=======
+    <form action="map.php" method="POST">
+>>>>>>> parent of cb6424b (url navigations)
       <h1 class="h3 mb-3 fw-normal">Welcome!</h1>
-      <div class="col-xs-12">
-            <?= isset($message) ? $message : '' ?>
-        </div>
 
 
         

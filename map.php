@@ -85,6 +85,10 @@ $application->run();
     <a href="profile.php" class="btn btn-primary me-2">Account</a>
 <?php endif; ?>
 
+<<<<<<< HEAD
+=======
+                        <a href="login.php" class="btn btn-primary me-2">Login/Sign up</a>
+>>>>>>> parent of cb6424b (url navigations)
 
                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
                     </div>
