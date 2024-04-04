@@ -1,5 +1,6 @@
 <?php
 require_once 'Database.php';
+
 class SubleaseLogic
 {
         private $uri;
@@ -87,14 +88,15 @@ class SubleaseLogic
 }
 
         private function handleSignup() {
-                // $database = new Database(); 
-                // $dbConnector = $database->getDbConnector();
+                $database = new Database(); 
+                $dbConnector = $database->getDbConnector();
                 
                 // Initialize the session errorMessages array if it's not already set
                 // if (!isset($_SESSION['errorMessages'])) {
                 //     $_SESSION['errorMessages'] = [];
                 // }
-            
+        
+                $this->errormessage = '';
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $firstName = $_POST['first_name'] ?? '';
                     $lastName = $_POST['last_name'] ?? '';
@@ -106,11 +108,11 @@ class SubleaseLogic
                 
                     
                     if (empty($phone) || !preg_match("/^[0-9]{10}$/", $phone)) {
-                        $this->errormessage  = "Invalid or missing phone number";
+                        // $this->errormessage  = "Invalid or missing phone number";
                     }
             
                     if (empty($password)) {
-                        $this->errormessage  = "Password is required";
+                        // $this->errormessage  = "Password is required";
                     }
                     if (empty($_SESSION['errorMessages'])) {
                         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -146,8 +148,8 @@ class SubleaseLogic
                 $masterPhone = '1234567890';
                 $master = 'qwe';
 
-                // $database = new Database(); // Assuming Database class is autoloaded or required elsewhere
-                // $dbConnector = $database->getDbConnector(); // Get the PostgreSQL connection
+                $database = new Database(); // Assuming Database class is autoloaded or required elsewhere
+                $dbConnector = $database->getDbConnector(); // Get the PostgreSQL connection
                 // $errorMessages = [];
             
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -311,7 +313,22 @@ class SubleaseLogic
             }
             
             
-
+            public function getUserListings($userId) {
+                $database = new Database();
+                $dbConnector = $database->getDbConnector();
+        
+                $query = "SELECT * FROM subleases WHERE user_id = $1";
+                $result = pg_prepare($dbConnector, "fetch_user_listings", $query);
+                $result = pg_execute($dbConnector, "fetch_user_listings", array($userId));
+        
+                if (!$result) {
+                    throw new Exception('Failed to fetch user listings: ' . pg_last_error($dbConnector));
+                }
+        
+                $listings = pg_fetch_all($result);
+                return $listings ?: [];
+            }
+            
         
 
 }

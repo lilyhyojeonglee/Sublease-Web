@@ -2,7 +2,20 @@
 // Check if the user is not logged in, redirect to map.php
 require_once 'SubleaseLogic.php';
 require_once 'Database.php';
+$database = new Database();
+$uri = '/profile';
+$get = $_GET;
+$post = $_POST;
 
+$subleaseLogic = new SubleaseLogic($uri, $get, $post);
+
+// Check if the user is not logged in, redirect to login.php or another appropriate page
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,36 +44,26 @@ require_once 'Database.php';
         </div>
     </div>
 
-    <div class="profile-username text-center">
-        <h1>Welcome  {USER}</h1>
-    </div>
-
     
-    <div class="card-body p-4 text-black">
-        <div class="mb-5">
-          <h2>Your Listing</h2>
-          
-          <div class="p-4" style="background-color: #f8f9fa">
-            <p class="font-italic mb-1" style="margin: 0;">1709 JPA</p>
-            <a href="submission.html">
-                <button>edit</button>
-            </a>
-            <button>Remove</button>
-            <p class="font-italic mb-1">611 Madison Ave</p>
-            <a href="submission1.html">
-                <button>edit</button>
-            </a>
-            <button>Remove</button>
+    <div class="profile-username text-center">
+    <h1>Welcome <?php echo htmlspecialchars($_SESSION['user']['first_name']); ?></h1>
+</div>
 
-            <p class="font-italic mb-0">HOME ADDRESS</p>
-            <a href="submission1.html">
+<div class="card-body p-4 text-black">
+    <div class="mb-5">
+      <h2>Your Listing</h2>
+
+      <div class="p-4" style="background-color: #f8f9fa">
+        <?php foreach ($userListings as $listing): ?>
+            <p class="font-italic mb-1"><?php echo htmlspecialchars($listing['address']); ?></p>
+            <a href="edit_listing.php?listing_id=<?php echo htmlspecialchars($listing['house_id']); ?>">
                 <button>edit</button>
             </a>
-            <button>Remove</button>
-
-          </div>
-        </div>
+            <button onclick="removeListing(<?php echo htmlspecialchars($listing['house_id']); ?>)">Remove</button>
+        <?php endforeach; ?>
+      </div>
     </div>
+</div>
 
    
 
