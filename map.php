@@ -1,3 +1,17 @@
+<?php
+// session_start(); // Ensure session starts at the very beginning
+require_once 'Database.php';
+require_once 'SubleaseLogic.php'; // Adjust the path as necessary
+
+// Mocking $uri, $get, and $post for demonstration. You'll need to adapt this part.
+$uri = '/map';
+$get = $_GET;
+$post = $_POST;
+
+// Instantiating and running your application logic
+$application = new SubleaseLogic($uri, $get, $post);
+$application->run();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,15 +77,16 @@
                         </svg>
                         <span class="fs-5 fw-semibold">List group</span>
                     </a>
-
+<!-- EDITED TO DISPLAY DIFFERENT BUTTON BAR FOR LOGIN USER AND GUEST USER -->
                     <div>
+                    <?php if (!(isset($_SESSION['user']))): ?>
+                        <a href="login.php" class="btn btn-primary me-2">Login/Sign up</a>
+                    <?php else: ?>
+                        <a href="profile.php" class="btn btn-primary me-2">Account</a>
+                    <?php endif; ?>
 
-                        <a href="/login" class="btn btn-primary me-2">Login/Sign up</a>
 
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                            data-bs-target="#filterModal">
-                            Filter
-                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
                     </div>
 
 

@@ -1,3 +1,27 @@
+<?php
+// Check if the user is not logged in, redirect to map.php
+require_once 'SubleaseLogic.php';
+require_once 'Database.php';
+
+// Assuming {UserName} comes from the session or database
+// if (isset($_GET['logout'])) {
+//   session_destroy(); // Destroy all session data
+//   header("Location: map.php"); // Redirect to map.php
+//   exit;
+// }
+
+// Check if the user is not logged in, redirect to map.php
+// if (!isset($_SESSION['user'])) {
+//   header("Location: map.php");
+//   exit;
+// }
+
+$userName = isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "User"; // Placeholder
+
+// Instantiating and running your application logic
+
+// Assuming {UserName} comes from the session or database
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,19 +32,25 @@
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <div class="container-header" id="home">
-    
+<div class="container-header" id="home">
         <div class="header">
           <div class="pl-logo" id="pl-logo">
             <a href="index.html">
               <img src="pl_logo.jpg">
             </a>
           </div>
+          <!-- Logout Button on the Right Top Corner -->
+
+          <div class="logout" style="position: absolute; top: 20px; left: 220px;">
+            
+              <a href="/logout" class="btn btn-danger">IDK</a>
+            
+          </div>
         </div>
     </div>
 
-    <div class="profile-username text-center" >
-        <h1>Welcome {UserName}</h1>
+    <div class="profile-username text-center">
+        <h1>Welcome <?php echo htmlspecialchars($userName); ?></h1>
     </div>
 
     
