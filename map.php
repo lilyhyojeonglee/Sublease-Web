@@ -1,14 +1,11 @@
 <?php
-// session_start(); // Ensure session starts at the very beginning
 require_once 'Database.php';
-require_once 'SubleaseLogic.php'; // Adjust the path as necessary
+require_once 'SubleaseLogic.php'; 
 
-// Mocking $uri, $get, and $post for demonstration. You'll need to adapt this part.
 $uri = '/map';
 $get = $_GET;
 $post = $_POST;
 
-// Instantiating and running your application logic
 $application = new SubleaseLogic($uri, $get, $post);
 $application->run();
 ?>
