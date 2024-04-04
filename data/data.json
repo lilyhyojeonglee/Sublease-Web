@@ -1,9 +1,9 @@
 [
     {
-        "house_id": "1",
+        "house_id": "8",
         "propertyDetails": {
-            "area": "MSC",
-            "description": "",
+            "area": "Not",
+            "description": "Testing!",
             "location": null,
             "address": "5492 Coreopsis Court #B",
             "image": "images/listing1.webp"
@@ -11,7 +11,7 @@
         "rentalTerms": {
             "gender": "Doesn&#039;t matter",
             "furnished": true,
-            "subleasefee": "12331",
+            "subleasefee": "800",
             "pet": true
         }
     }

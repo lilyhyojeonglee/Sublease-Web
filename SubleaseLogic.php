@@ -342,6 +342,33 @@ class SubleaseLogic
                 return $listings ?: [];
             }
             
-        
+        public function deleteListing($house_id){
+                $userId = $_SESSION['user']['id'] ?? null;
+                if ($userId === null) {
+                        throw new Exception("User not logged in or does not own the listing.");
+                }
+
+                $database = new Database();
+                $dbConnector = $database->getDbConnector();
+
+                $deleteQuery = "DELETE FROM subleases WHERE house_id = $1";
+                $result = pg_prepare($dbConnector, "delete_listing", $deleteQuery);
+                $result = pg_execute($dbConnector, "delete_listing", array($house_id));
+
+                if (!$result) {
+                        error_log('Failed to delete listing: ' . pg_last_error($dbConnector));
+                        throw new Exception('Failed to delete listing: ' . pg_last_error($dbConnector));
+                }
+
+                // Update JSON file after successful database deletion
+                try {
+                        $database->convertDataToJson();
+                } catch (Exception $e) {
+                        error_log('Error updating JSON after deleting listing: ' . $e->getMessage());
+                        throw new Exception('Error updating JSON after deleting listing: ' . $e->getMessage());
+                }
+
+                return "Listing removed successfully.";
+        }
 
 }
