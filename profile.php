@@ -52,6 +52,9 @@ $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
 <div class="card-body p-4 text-black">
     <div class="mb-5">
       <h2>Your Listing</h2>
+      <div class="col-xs-12">
+            <?= isset($message) ? $message : '' ?>
+        </div>
 
       <div class="p-4" style="background-color: #f8f9fa">
         <?php foreach ($userListings as $listing): ?>

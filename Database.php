@@ -92,7 +92,7 @@ class Database {
             $listing = [
                 "house_id" => $row['house_id'],
                 "propertyDetails" => [
-                    "name" => $row['area'], 
+                    "name" => $row['name'], 
                     "description" => $row['description'],
                     "location" => $row['location'], //maybe need modification, since we will get longtitude and latitude using api
                     "address" => $row['address'],

@@ -11,12 +11,25 @@ $post = $_POST;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $subleaseLogic = new SubleaseLogic($uri, $get, $post);
 
+  // Collecting form data
+  // $listingData = [
+  //     'name' => 'A name for the listing', 
+  //     'description' => filter_input(INPUT_POST, 'description'),
+  //     'location' => filter_input(INPUT_POST, 'location'),
+  //     'photoPath' => 'images/listing1.webp',
+  //     'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING),
+  //     'gender' => filter_input(INPUT_POST, 'gender'),
+  //     'furnished' => isset($_POST['furnished']) && $_POST['furnished'] === 'yes', // Assume this is how furnished data is collected
+  //     'rent' => filter_input(INPUT_POST, 'price'),
+  //     'petsAllowed' => isset($_POST['pets']) && $_POST['pets'] === 'allowed',
+
+  // ];
 
   $listingData = [
     'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
     'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
     'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-    'photoPath' => 'images/listing1.webp', 
+    'photoPath' => 'images/listing1.webp', // Assuming static or handle file upload to get path
     'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS) . 
     (!empty($_POST['address2']) ? ' ' . filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : ''),
     'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
@@ -81,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <option>JPA</option>
                         <option>Corner</option>
                         <option>MSC</option>
-                        <option>Not listed</option>
+                        <option>Not</option>
                       </select>
                     </div>
 

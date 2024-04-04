@@ -7,6 +7,7 @@ class SubleaseLogic
         private $get;
         private $post;
         private $errormessage;
+        private $message;
 
 
         public function __construct($uri, $get, $post)
@@ -203,6 +204,14 @@ class SubleaseLogic
                 }
                 include('login.php');
         }
+        private function showProfile($message="")
+        {
+                
+                if (!empty($this->message)) {
+                $message = "<div class='alert alert-primary'>{$this->message}</div>";
+                }
+                include('profile.php');
+        }
 
         private function authenticateUser($phoneNumber, $password)
         {
@@ -270,6 +279,7 @@ class SubleaseLogic
         //         echo "Listing added successfully.";
         //     }
         public function addListing($listingData) {
+                $this->message = '';
                 $database = new Database();
                 $dbConnector = $database->getDbConnector(); 
             
@@ -303,6 +313,9 @@ class SubleaseLogic
                         try {
                             $database->convertDataToJson();
                             echo "Listing added successfully and JSON updated.";
+                            $this->message = "Listing added successfully.";
+                            $this->showProfile();
+                            exit;
                         } catch (Exception $e) {
                             // Handle error if JSON conversion fails
                             echo 'Error updating JSON: ' . $e->getMessage();
