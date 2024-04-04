@@ -2,16 +2,32 @@
     {
         "house_id": "8",
         "propertyDetails": {
-            "area": "Not",
+            "area": "",
             "description": "Testing!",
             "location": null,
-            "address": "5492 Coreopsis Court #B",
+            "address": "611asd",
             "image": "images/listing1.webp"
         },
         "rentalTerms": {
-            "gender": "Doesn&#039;t matter",
+            "gender": "Female",
             "furnished": true,
             "subleasefee": "800",
+            "pet": true
+        }
+    },
+    {
+        "house_id": "10",
+        "propertyDetails": {
+            "area": "",
+            "description": "sadsdsd",
+            "location": null,
+            "address": "611Basdsadad",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Doesn't matter",
+            "furnished": true,
+            "subleasefee": "123",
             "pet": true
         }
     }

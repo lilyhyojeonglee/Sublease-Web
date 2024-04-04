@@ -297,7 +297,7 @@ class SubleaseLogic
                         $address2 = $_POST['address2'] ?? '';
                         $area=$_POST['area'] ?? '';
                         $zip = $_POST['zip'] ?? '';
-                        $photo = $_POST['photo'] ?? '';
+                        $photo = 'images/listing1.webp';
                         $price=$_POST['price'] ?? '';
                         $gender = $_POST['gender'] ?? '';
                         $furnished = $_POST['furnished'] ? 't' : 'f';
@@ -319,11 +319,10 @@ class SubleaseLogic
                 WHERE house_id = $10";
                 $result = pg_prepare($dbConnector, "update_sublease", $query);
 
-                // Example new user_id
                 $new_des = $description;
-                $new_area = $address; // Example new area
-                $house_id = $house_id; // Example house_id
-
+                $new_area = $address; 
+                $house_id = $house_id; 
+                
                 $result = pg_execute($dbConnector, "update_sublease", array($area, $description, $location, $address, $gender, $furnished, $price, $pets, $photo, $house_id));
 
 
