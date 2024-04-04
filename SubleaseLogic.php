@@ -249,18 +249,17 @@ class SubleaseLogic
         //     }
         public function addListing($listingData) {
                 $database = new Database();
-                $dbConnector = $database->getDbConnector(); // Assuming getDbConnector is a method within SubleaseLogic that correctly fetches the database connection.
+                $dbConnector = $database->getDbConnector(); 
             
-                $userId = $_SESSION['user']['id'] ?? null; // Ensure that user ID is stored in session upon login.
+                $userId = $_SESSION['user']['id'] ?? null; 
                 if ($userId === null) {
                     throw new Exception("User not logged in.");
                 }
             
-                // Assuming 'furnished' and 'petsAllowed' are checkboxes in your form.
                 $furnished = isset($listingData['furnished']) && $listingData['furnished'] ? 't' : 'f';
                 $petsAllowed = isset($listingData['petsAllowed']) && $listingData['petsAllowed'] ? 't' : 'f';
             
-                $query = "INSERT INTO subleases (user_id, name, description, location, address, gender, furnished, subleaseFee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
+                $query = "INSERT INTO subleases (user_id, name, description, location, address, gender, furnished, subleasefee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
                 $result = pg_prepare($dbConnector, "insert_sublease", $query);
                 $result = pg_execute($dbConnector, "insert_sublease", [
                     $userId,
@@ -276,8 +275,17 @@ class SubleaseLogic
                 ]);
             
                 if (!$result) {
-                    throw new Exception('Failed to add listing: ' . pg_last_error($dbConnector));
-                }
+                        throw new Exception('Failed to add listing: ' . pg_last_error($dbConnector));
+                    } else {
+                        // Update JSON file after successful database insertion
+                        try {
+                            $database->convertDataToJson();
+                            echo "Listing added successfully and JSON updated.";
+                        } catch (Exception $e) {
+                            // Handle error if JSON conversion fails
+                            echo 'Error updating JSON: ' . $e->getMessage();
+                        }
+                    }
             
                 echo "Listing added successfully.";
             }

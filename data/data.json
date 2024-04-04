@@ -1,60 +1,82 @@
 [
     {
-        "id": 1,
-        "description": "A cozy 2 bedrodaiushdsaiudhaiosdhiohadiosom house",
-        "location": "JPA",
-        "image": "images/listing1.webp",
-        "address": "1950 Skrt Ave, Charlottesville, VA 22903",
-        "gender": "Any",
-        "furnished": true,
-        "subleaseFee": 800,
-        "pet": true
+        "house_id": "1",
+        "propertyDetails": {
+            "name": null,
+            "description": "Ad",
+            "location": null,
+            "address": "611B Madison Ave",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Male",
+            "furnished": true,
+            "subleasefee": "123",
+            "pet": true
+        }
     },
     {
-        "id": 2,
-        "description": "A modern and chill house",
-        "location": "Corner",
-        "image": "images/listing1.webp",
-        "address": "Another Address",
-        "gender": "Male",
-        "furnished": false,
-        "subleaseFee": 900,
-        "pet": false
+        "house_id": "2",
+        "propertyDetails": {
+            "name": null,
+            "description": "Ad",
+            "location": null,
+            "address": "611B Madison Ave",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Male",
+            "furnished": true,
+            "subleasefee": "123",
+            "pet": true
+        }
     },
     {
-        "id": 3,
-        "description": "A charming country house.",
-        "location": "JPA",
-        "image": "images/listing1.webp",
-        "address": "Country Road",
-        "gender": "Female",
-        "furnished": false,
-        "subleaseFee": 700,
-        "pet": true
+        "house_id": "3",
+        "propertyDetails": {
+            "name": null,
+            "description": "Good house",
+            "location": null,
+            "address": "5492 Coreopsis Court #B",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Male",
+            "furnished": true,
+            "subleasefee": "940",
+            "pet": true
+        }
     },
     {
-        "id": 4,
-        "description": "A charming country house.",
-        "location": "JPA",
-        "image": "images/listing1.webp",
-        "address": "Country SKRT Road",
-        "gender": "Male",
-        "furnished": false,
-        "subleaseFee": 700,
-        "pet": true
+        "house_id": "4",
+        "propertyDetails": {
+            "name": null,
+            "description": "My house",
+            "location": null,
+            "address": "611B Madison Ave",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Doesn&#039;t matter",
+            "furnished": true,
+            "subleasefee": "600",
+            "pet": true
+        }
     },
     {
-        "id": 5,
-        "name": "COWBOY",
-        "description": "NICE HOUSE.",
-        "location": "KOREA",
-        "image": "images/listing1.webp",
-        "address": "677 Skrt SKrt skrt",
-        "gender": "Any",
-        "furnished": true,
-        "subleaseFee": 79900,
-        "pet": false
+        "house_id": "5",
+        "propertyDetails": {
+            "name": null,
+            "description": "Not bad house",
+            "location": null,
+            "address": "2247 Commonwealth dr #B",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Female",
+            "furnished": true,
+            "subleasefee": "100",
+            "pet": true
+        }
     }
-
-
 ]

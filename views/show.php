@@ -1,6 +1,6 @@
 <?php
 
-$houseId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+// $houseId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
 $jsonDir = 'data/data.json';
 $jsonData = file_get_contents($jsonDir);
@@ -11,7 +11,7 @@ $houses = json_decode($jsonData, true);
 // Search for the house by ID
 $selectedHouse = null;
 foreach ($houses as $house) {
-    if ($house['id'] === $houseId) {
+    if ($house['house_id'] === $houseId) {
         $selectedHouse = $house;
         break;
     }
@@ -60,7 +60,7 @@ function displayBoolean($value) {
 <div class="container-header" id="home">
     <div class="header">
         <div class="pl-logo" id="pl-logo">
-            <a href="index.php"> 
+            <a href="map.php"> 
                 <img src="pl_logo.jpg">
             </a>
         </div>
@@ -71,15 +71,15 @@ function displayBoolean($value) {
     <div class="row">
         <div class="col-md-6">
             <div class="large-image">
-                <img src="<?php echo htmlspecialchars($selectedHouse['image']); ?>" alt="Large Listing Image">
+                <img src="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['image']); ?>" alt="Large Listing Image">
             </div>
         </div>
         <div class="col-md-6">
             <div class="gallery">
-                <img src="<?php echo htmlspecialchars($selectedHouse['image']); ?>" alt="Listing Image">
-                <img src="<?php echo htmlspecialchars($selectedHouse['image']); ?>" alt="Listing Image">
-                <img src="<?php echo htmlspecialchars($selectedHouse['image']); ?>" alt="Listing Image">
-                <img src="<?php echo htmlspecialchars($selectedHouse['image']); ?>" alt="Listing Image">
+                <img src="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['image']); ?>" alt="Large Listing Image">
+                <img src="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['image']); ?>" alt="Large Listing Image">
+                <img src="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['image']); ?>" alt="Large Listing Image">
+                <img src="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['image']); ?>" alt="Large Listing Image">
             </div>
         </div>
     </div>
@@ -87,24 +87,27 @@ function displayBoolean($value) {
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-12">
-                <div class="info-box text-center">
+            <div class="info-box text-center">
                     <header>Address</header>
-                    <p><?php echo htmlspecialchars($selectedHouse['address']); ?></p>
+                    <p><?php echo htmlspecialchars($selectedHouse['propertyDetails']['address']); ?></p>
                 </div>
                 <div class="info-box">
                     <header>Details</header>
-                    <p>Gender: <?php echo htmlspecialchars($selectedHouse['gender']); ?><br>
-                        Furnished: <?php echo displayBoolean($selectedHouse['furnished']); ?><br>
-                        Sublease Fee: $<?php echo htmlspecialchars($selectedHouse['subleaseFee']); ?><br>
-                        Pet: <?php echo displayBoolean($selectedHouse['pet']); ?></p>
+                    <p>Gender: <?php echo ($selectedHouse['rentalTerms']['gender']); ?><br>
+                        Area: <?php echo ($selectedHouse['propertyDetails']['location']); ?><br>
+                        Furnished: <?php echo displayBoolean($selectedHouse['rentalTerms']['furnished']); ?><br>
+                        Sublease Fee: $<?php echo ($selectedHouse['rentalTerms']['subleasefee']); ?><br>
+                        Pet: <?php echo displayBoolean($selectedHouse['rentalTerms']['pet']); ?></p>
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="info-box"> 
+            <div class="info-box"> 
                     <header>Description</header>
-                    <p><?php echo htmlspecialchars($selectedHouse['description']); ?></p>
+                    <p><?php echo htmlspecialchars($selectedHouse['propertyDetails']['description']); ?></p>
                 </div>
             </div>
+
+
             <div class="col-md-4">
                     <div class="info-box" id="contact-box" onclick="revealContact()">
                         <header>Contact</header>

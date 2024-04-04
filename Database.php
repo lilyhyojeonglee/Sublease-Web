@@ -76,6 +76,56 @@ class Database {
         return $this->dbConnector;
     }
 
+    public function convertDataToJson() {
+        // SQL query to fetch all listings
+        $query = "SELECT * FROM subleases";
+        $result = pg_query($this->dbConnector, $query);
 
+        if (!$result) {
+            error_log('Query failed: ' . pg_last_error($this->dbConnector));
+            throw new Exception('Query failed');
+        }
+
+        $listings = [];
+
+        while ($row = pg_fetch_assoc($result)) {
+            $listing = [
+                "house_id" => $row['house_id'],
+                "propertyDetails" => [
+                    "name" => $row['area'], 
+                    "description" => $row['description'],
+                    "location" => $row['location'], //maybe need modification, since we will get longtitude and latitude using api
+                    "address" => $row['address'],
+                    "image" => $row['image']
+                ],
+                "rentalTerms" => [
+                    "gender" => $row['gender'],
+                    "furnished" => (bool) $row['furnished'], // Cast to boolean for JSON
+                    "subleasefee" => $row['subleasefee'],
+                    "pet" => (bool) $row['pet'] // Cast to boolean for JSON
+                ]
+            ];
+
+            $listings[] = $listing;
+        }
+
+        // Convert the $listings array to JSON
+        $jsonData = json_encode($listings, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        if ($jsonData === false) {
+            error_log('JSON encode failed: ' . json_last_error_msg());
+            throw new Exception('JSON encode failed');
+        }
+
+        // Write JSON data to file
+        $filePath = 'data/data.json';
+        if (file_put_contents($filePath, $jsonData) === false) {
+            error_log('Failed to write JSON data to file');
+            throw new Exception('Failed to write JSON data to file');
+        }
+
+        echo "Data successfully written to {$filePath}";
+    }
 
 }
+
+
