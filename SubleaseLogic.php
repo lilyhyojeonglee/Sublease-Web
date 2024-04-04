@@ -216,17 +216,51 @@ class SubleaseLogic
                 return !isset($_SESSION['user']);
         }
 
+        // public function addListing($listingData) {
+        //         $database = new Database(); 
+        //         $dbConnector = $database->getDbConnector();
+        
+        //         $query = "INSERT INTO subleases (user_id, name, description, location, address, gender, furnished, subleaseFee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
+        
+        //         $userId = $_SESSION['user']['id'] ?? null;
+        //         if ($userId === null) {
+        //             throw new Exception("User not logged in.");
+        //         }
+        
+        //         $result = pg_prepare($dbConnector, "insert_sublease", $query);
+        //         $result = pg_execute($dbConnector, "insert_sublease", [
+        //             $userId,
+        //             $listingData['name'], 
+        //             $listingData['description'],
+        //             $listingData['location'],
+        //             $listingData['address'],
+        //             $listingData['gender'],
+        //             $listingData['furnished'] ? 'true' : 'false',
+        //             $listingData['rent'],
+        //             $listingData['petsAllowed'] ? 'true' : 'false',
+        //             $listingData['photoPath']
+        //         ]);
+        
+        //         if (!$result) {
+        //             throw new Exception('Failed to add listing: ' . pg_last_error($dbConnector));
+        //         }
+        
+        //         echo "Listing added successfully.";
+        //     }
         public function addListing($listingData) {
-                $database = new Database(); 
-                $dbConnector = $database->getDbConnector();
-        
-                $query = "INSERT INTO subleases (user_id, name, description, location, address, gender, furnished, subleaseFee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
-        
-                $userId = $_SESSION['user']['id'] ?? null;
+                $database = new Database();
+                $dbConnector = $database->getDbConnector(); // Assuming getDbConnector is a method within SubleaseLogic that correctly fetches the database connection.
+            
+                $userId = $_SESSION['user']['id'] ?? null; // Ensure that user ID is stored in session upon login.
                 if ($userId === null) {
                     throw new Exception("User not logged in.");
                 }
-        
+            
+                // Assuming 'furnished' and 'petsAllowed' are checkboxes in your form.
+                $furnished = isset($listingData['furnished']) && $listingData['furnished'] ? 't' : 'f';
+                $petsAllowed = isset($listingData['petsAllowed']) && $listingData['petsAllowed'] ? 't' : 'f';
+            
+                $query = "INSERT INTO subleases (user_id, name, description, location, address, gender, furnished, subleaseFee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
                 $result = pg_prepare($dbConnector, "insert_sublease", $query);
                 $result = pg_execute($dbConnector, "insert_sublease", [
                     $userId,
@@ -235,16 +269,16 @@ class SubleaseLogic
                     $listingData['location'],
                     $listingData['address'],
                     $listingData['gender'],
-                    $listingData['furnished'] ? 'true' : 'false',
+                    $listingData['furnished'] ? 't' : 'f',
                     $listingData['rent'],
-                    $listingData['petsAllowed'] ? 'true' : 'false',
+                    $listingData['petsAllowed'] ? 't' : 'f',
                     $listingData['photoPath']
                 ]);
-        
+            
                 if (!$result) {
                     throw new Exception('Failed to add listing: ' . pg_last_error($dbConnector));
                 }
-        
+            
                 echo "Listing added successfully.";
             }
             

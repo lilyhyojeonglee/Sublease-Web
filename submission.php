@@ -12,18 +12,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $subleaseLogic = new SubleaseLogic($uri, $get, $post);
 
   // Collecting form data
-  $listingData = [
-      'name' => 'A name for the listing', 
-      'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING),
-      'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING),
-      'photoPath' => 'images/listing1.webp',
-      'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING),
-      'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING),
-      'furnished' => isset($_POST['furnished']) && $_POST['furnished'] === 'yes', // Assume this is how furnished data is collected
-      'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
-      'petsAllowed' => isset($_POST['pets']) && $_POST['pets'] === 'allowed',
+  // $listingData = [
+  //     'name' => 'A name for the listing', 
+  //     'description' => filter_input(INPUT_POST, 'description'),
+  //     'location' => filter_input(INPUT_POST, 'location'),
+  //     'photoPath' => 'images/listing1.webp',
+  //     'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING),
+  //     'gender' => filter_input(INPUT_POST, 'gender'),
+  //     'furnished' => isset($_POST['furnished']) && $_POST['furnished'] === 'yes', // Assume this is how furnished data is collected
+  //     'rent' => filter_input(INPUT_POST, 'price'),
+  //     'petsAllowed' => isset($_POST['pets']) && $_POST['pets'] === 'allowed',
 
-  ];
+  // ];
+
+  $listingData = [
+    'name' => filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS), // Assuming there's a 'name' field in your form
+    'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+    'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+    'photoPath' => 'images/listing1.webp', // Assuming static or handle file upload to get path
+    'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+    'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+    'furnished' => isset($_POST['furnished']) ? true : false, // Assuming checkbox named 'furnished'
+    'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
+    'petsAllowed' => isset($_POST['petsAllowed']) ? true : false, // Assuming checkbox or radio named 'pets'
+];
 
   try {
       $subleaseLogic->addListing($listingData);
@@ -61,8 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h4 class="mb-3">Sublease Information</h4>
                 <!-- Update the action to the correct script file or endpoint -->
                 <form class="needs-validation" action="submission.php" method="POST" enctype="multipart/form-data" novalidate="">
-                    <!-- Form fields here -->
-                    <!-- For example: -->
+            
                     <div class="Address col-12">
                         <label for="address" class="form-label">Address</label>
                         <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St" required="">
@@ -71,25 +82,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </div>
                     <div class="Address2 col-12">
-              <label for="address2" class="form-label">Address 2 <span class="text-body-secondary">(Optional)</span></label>
-              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-            </div>
+                      <label for="address2" class="form-label">Address 2 <span class="text-body-secondary">(Optional)</span></label>
+                      <input type="text" class="form-control" id="address2" name="address2" placeholder="Apartment or suite">
+                    </div>
                     <div class="Zip col-md-3">
-              <label for="zip" class="form-label">Zip</label>
-              <input type="text" class="form-control" id="zip" placeholder="" required="">
-              <div class="invalid-feedback">
+                    <label for="zip" class="form-label">Zip</label>
+                    <input type="text" class="form-control" id="zip" name="zip" placeholder="" required="">
+                    <div class="invalid-feedback">
                 Zip code required.
               </div>
             </div>
 
             <div class="Photo col-12">
                   <label for="photos" class="form-label">Photos</label>
-                  <input id="photos" type="file" name="avatar" accept="image/png, image/jpeg" />
+                  <input id="photos" type="file" name="photo" accept="image/png, image/jpeg" />
               </div>
             <div class="Price col-12">
               <label for="price" class="form-label">Rent</label>
               <div class="input-group"></div>
-                <input type="text" class="form-control" id="price" placeholder="Rent fee per month" required="">
+                <input type="text" class="form-control" id="price" name="price" placeholder="Rent fee per month" required="">
               <div class="invalid-feedback">
                 Please enter an amount.
               </div>
@@ -97,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="Gender col-mid-3">
                 <label class="form-label">Prefer Gender</label>
-                <select class="form-select" id="gender" required="">
+                <select type="option" class="form-select" id="gender" name="gender" required="">
                   <option value="">Choose...</option>
                   <option>Male</option>
                   <option>Female</option>
@@ -107,11 +118,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
           </div>
 
-          
+          <!-- <div class="Furnished col-mid-3"> -->
+          <div class="form-check">
+            <input id="furnished" name="furnished" type="checkbox" class="form-check-input" value="true">
+            <label class="form-check-label" for="furnished">Check if its Furnished</label>
+          </div>
+          <!-- 
+                  <option value="">Choose...</option>
+                  <option>Furnished</option>
+                  <option>NOT Furnished</option>
+
+                </select> -->
+                
+
+          </div>
               
           </div>
             <div class="Pets my-3">
-              <label class="form-label">Pets</label>
+            <div class="form-check">
+              <input id="pets-allowed" name="petsAllowed" type="checkbox" class="form-check-input" value="true">
+              <label class="form-check-label" for="pets-allowed">Check if Pets Allowed</label>
+            </div>
+              <!-- <label class="form-label">Pets</label>
             <div class="form-check">
               <input id="pets-allowed" name="pets" type="radio" class="form-check-input" checked="" required="">
               <label class="form-check-label" for="pets-allowed">Allowed</label>
@@ -119,12 +147,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-check">
               <input id="pets-not-allowed" name="pets" type="radio" class="form-check-input" required="">
               <label class="form-check-label" for="pets-not-allowed">Not allowed</label>
-            </div>
+            </div> -->
           </div>
             <div class="Description col-12">
               <label for="description" class="form-label">Description</label>
               <div class="input-group"></div>
-                <input type="text" class="form-control" id="description" placeholder="Add extra information about your listing" required="">
+                <input type="text" class="form-control" id="description" name="description" placeholder="Add extra information about your listing" required="">
               </div>
 
 
