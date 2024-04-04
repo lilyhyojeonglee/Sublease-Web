@@ -49,7 +49,7 @@ class Database {
             CREATE TABLE IF NOT EXISTS subleases (
                 house_id SERIAL PRIMARY KEY,
                 user_id INTEGER NOT NULL,
-                name VARCHAR(255),
+                area VARCHAR(255),
                 description TEXT,
                 location VARCHAR(255),
                 address VARCHAR(255),

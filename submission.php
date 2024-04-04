@@ -26,16 +26,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // ];
 
   $listingData = [
-    'name' => filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS), // Assuming there's a 'name' field in your form
+    'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
     'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
     'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
     'photoPath' => 'images/listing1.webp', // Assuming static or handle file upload to get path
     'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS) . 
     (!empty($_POST['address2']) ? ' ' . filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : ''),
     'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-    'furnished' => isset($_POST['furnished']) ? true : false, // Assuming checkbox named 'furnished'
+    'furnished' => isset($_POST['furnished']) ? true : false, 
     'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
-    'petsAllowed' => isset($_POST['petsAllowed']) ? true : false, // Assuming checkbox or radio named 'pets'
+    'petsAllowed' => isset($_POST['petsAllowed']) ? true : false,
 ];
 
   try {
@@ -86,6 +86,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       <label for="address2" class="form-label">Address 2 <span class="text-body-secondary">(Optional)</span></label>
                       <input type="text" class="form-control" id="address2" name="address2" placeholder="Apartment or suite">
                     </div>
+
+                    <div class="Area col-12">
+                      <label for="area" class="form-label">Area <span class="text-body-secondary"></span></label>
+                      <select type="option" class="form-select" id="area" name="area" required="">
+                        <option value="">Choose...</option>
+                        <option>JPA</option>
+                        <option>Corner</option>
+                        <option>MSC</option>
+                        <option>Not listed</option>
+                      </select>
+                    </div>
+
                     <div class="Zip col-md-3">
                     <label for="zip" class="form-label">Zip</label>
                     <input type="text" class="form-control" id="zip" name="zip" placeholder="" required="">

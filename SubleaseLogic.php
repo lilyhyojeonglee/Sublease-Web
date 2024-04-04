@@ -264,7 +264,7 @@ class SubleaseLogic
                 $result = pg_prepare($dbConnector, "insert_sublease", $query);
                 $result = pg_execute($dbConnector, "insert_sublease", [
                     $userId,
-                    $listingData['name'], 
+                    $listingData['area'], 
                     $listingData['description'],
                     $listingData['location'],
                     $listingData['address'],
