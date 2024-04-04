@@ -102,9 +102,8 @@ class SubleaseLogic
                     $password = $_POST['password'] ?? '';
                     $confirmPassword = $_POST['confirm_password'] ?? '';
             
-                    // Validation logic remains the same...
+                
                     
-                    // Basic validation for phone number and password
                     if (empty($phone) || !preg_match("/^[0-9]{10}$/", $phone)) {
                         $errorMessages['phone'] = "Invalid or missing phone number";
                     }
@@ -201,20 +200,9 @@ class SubleaseLogic
         {
                 
                 session_destroy();
-                // header("Location: map.php");
-                // session_start();
                 $_SESSION['user'] = [];
                 $this->showmap();
-                // if (isset($_GET['logout'])) {
-
-                //         session_destroy(); // Destroy the session
-                //         header("Location: map.php"); // Redirect to map.php
-                //         exit;
-                //     }
-                // Destroy the session on logout and redirect to the login or index page
-                // session_destroy();
-                // header("Location: index.html");
-                // exit;
+                
         }
 
         private function isLoggedIn()
@@ -225,14 +213,12 @@ class SubleaseLogic
 
         private function isLoggedOut()
         {
-        // Assuming logout means the user session does not exist
                 return !isset($_SESSION['user']);
         }
 
         public function addListing($listingData) {
-                $database = new Database(); // Assuming Database class is autoloaded or required elsewhere
+                $database = new Database(); 
                 $dbConnector = $database->getDbConnector();
-                // $dbConnector = Database::getDbConnector();
         
                 $query = "INSERT INTO subleases (user_id, name, description, location, address, gender, furnished, subleaseFee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
         
@@ -244,7 +230,7 @@ class SubleaseLogic
                 $result = pg_prepare($dbConnector, "insert_sublease", $query);
                 $result = pg_execute($dbConnector, "insert_sublease", [
                     $userId,
-                    $listingData['name'], // You need to ensure 'name' is collected from the form or defined.
+                    $listingData['name'], 
                     $listingData['description'],
                     $listingData['location'],
                     $listingData['address'],

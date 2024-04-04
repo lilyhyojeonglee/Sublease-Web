@@ -11,9 +11,9 @@ $post = $_POST;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $subleaseLogic = new SubleaseLogic($uri, $get, $post);
 
-  // Collecting form data...
+  // Collecting form data
   $listingData = [
-      'name' => 'A name for the listing', // You need to add a form field or logic to define this
+      'name' => 'A name for the listing', 
       'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING),
       'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING),
       'photoPath' => 'images/listing1.webp',
@@ -22,21 +22,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       'furnished' => isset($_POST['furnished']) && $_POST['furnished'] === 'yes', // Assume this is how furnished data is collected
       'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
       'petsAllowed' => isset($_POST['pets']) && $_POST['pets'] === 'allowed',
-       // Ensure this path is correctly set based on uploaded file handling
+
   ];
 
   try {
       $subleaseLogic->addListing($listingData);
-      // $subleaseLogic->run();
+
   } catch (Exception $e) {
-      // Handle errors, such as echoing them out or logging
       echo "Error: " . $e->getMessage();
   }
 } else {
   // Handle non-POST requests or include form HTML below
 }
 
-// $application->run();
+
 ?>
 
 <!DOCTYPE html>
