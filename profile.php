@@ -42,11 +42,9 @@ $userName = isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "User
           <!-- Logout Button on the Right Top Corner -->
 
           <div class="logout" style="position: absolute; top: 20px; left: 220px;">
-            <?php if (!isset($_SESSION['logout'])) : ?>
-             <a href="map.php" class="btn btn-danger">Logout</a>
-            <?php else: ?>
-              <a href="profile.php" class="btn btn-danger">IDK</a>
-            <?php endif; ?>
+            
+              <a href="/logout" class="btn btn-danger">IDK</a>
+            
           </div>
         </div>
     </div>

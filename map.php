@@ -79,11 +79,11 @@ $application->run();
                     </a>
 <!-- EDITED TO DISPLAY DIFFERENT BUTTON BAR FOR LOGIN USER AND GUEST USER -->
                     <div>
-                    <?php if ((isset($_SESSION['login']))): ?>
-    <a href="login.php" class="btn btn-primary me-2">Login/Sign up</a>
-<?php else: ?>
-    <a href="profile.php" class="btn btn-primary me-2">Account</a>
-<?php endif; ?>
+                    <?php if (!(isset($_SESSION['user']))): ?>
+                        <a href="login.php" class="btn btn-primary me-2">Login/Sign up</a>
+                    <?php else: ?>
+                        <a href="profile.php" class="btn btn-primary me-2">Account</a>
+                    <?php endif; ?>
 
                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
                     </div>

@@ -1,6 +1,5 @@
 <?php
 
-
 class SubleaseLogic
 {
         private $uri;
@@ -10,7 +9,7 @@ class SubleaseLogic
 
         public function __construct($uri, $get, $post)
         {
-                // session_start();
+                session_start(); 
                 $this->uri = $uri;
                 $this->get = $get;
                 $this->post = $post;
@@ -26,7 +25,7 @@ class SubleaseLogic
                 switch ($this->uri) {
                         case '/':
                                 if ($this->isLoggedIn()) {
-                                        $this->servePage('index.html'); // Show dashboard if logged in
+                                        $this->servePage('map.php'); // Show dashboard if logged in
                                 } else {
                                         $this->servePage('index.html'); // Show the index page otherwise
                                 }
@@ -38,13 +37,13 @@ class SubleaseLogic
                                 $this->handleLogin();
                                 break;
                         
-                        case '/logout':
-                                $this->handleLogout();
-                                break;
+                        
+                                
                         case '/signup':
                                 $this->handleSignup();
                                 break;
-                        
+                        case '/logout':
+                                $this->handleLogout();
                         default:
                                 $this->pageNotFound();
                                 break;
@@ -62,7 +61,7 @@ class SubleaseLogic
 
         private function pageNotFound()
         {
-
+                // include('map.php');
         }
 
         private function handleProfile()
@@ -183,16 +182,24 @@ class SubleaseLogic
         }
 
 
-
+        private function showmap()
+        {
+                include('map.php');
+        }
         private function handleLogout()
         {
                 
-                if (isset($_GET['logout'])) {
+                session_destroy();
+                // header("Location: map.php");
+                // session_start();
+                $_SESSION['user'] = [];
+                $this->showmap();
+                // if (isset($_GET['logout'])) {
 
-                        session_destroy(); // Destroy the session
-                        header("Location: map.php"); // Redirect to map.php
-                        exit;
-                    }
+                //         session_destroy(); // Destroy the session
+                //         header("Location: map.php"); // Redirect to map.php
+                //         exit;
+                //     }
                 // Destroy the session on logout and redirect to the login or index page
                 // session_destroy();
                 // header("Location: index.html");
@@ -200,9 +207,9 @@ class SubleaseLogic
         }
 
         private function isLoggedIn()
-{
-    return isset($_SESSION['user']);
-}
+        {
+        return isset($_SESSION['user']);
+        }
 
 
         private function isLoggedOut()
