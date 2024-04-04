@@ -77,7 +77,7 @@ $application->run();
 <!-- EDITED TO DISPLAY DIFFERENT BUTTON BAR FOR LOGIN USER AND GUEST USER -->
                     <div>
                     <?php if (!(isset($_SESSION['user']))): ?>
-                        <a href="login.php" class="btn btn-primary me-2">Login/Sign up</a>
+                        <a href="/showLogin" class="btn btn-primary me-2">Login/Sign up</a>
                     <?php else: ?>
                         <a href="profile.php" class="btn btn-primary me-2">Account</a>
                     <?php endif; ?>
