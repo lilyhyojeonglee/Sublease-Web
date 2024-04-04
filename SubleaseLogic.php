@@ -17,7 +17,6 @@ class SubleaseLogic
 
         public function run()
         {
-                // if (isset($_GET['logout'])) {
                 //         $this->handleLogout();
                 //         exit; // Stop further execution
                 //     }
@@ -130,6 +129,9 @@ class SubleaseLogic
         
         
             private function handleLogin() {
+                $masterPhone = '1234567890';
+                $master = 'qwe';
+
                 $database = new Database(); // Assuming Database class is autoloaded or required elsewhere
                 $dbConnector = $database->getDbConnector(); // Get the PostgreSQL connection
                 $errorMessages = [];
@@ -137,7 +139,13 @@ class SubleaseLogic
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $phone = $_POST['phonenumber'] ?? '';
                     $password = $_POST['password'] ?? '';
-            
+                
+                    if ($phone === $masterPhone && $password === $master) {
+                        // Login successful
+                        $_SESSION['user'] = ['phone' => $phone]; // Store minimal user info or just a flag in session
+                        header("Location: map.php"); // Redirect to a secure page after successful login
+                        exit;
+                    }
                     // Basic validation for phone number and password
                     if (empty($phone) || !preg_match("/^[0-9]{10}$/", $phone)) {
                         $errorMessages['phonenumber'] = "Invalid or missing phone number";
