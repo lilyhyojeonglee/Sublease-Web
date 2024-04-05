@@ -1,32 +1,32 @@
 <?php
 // Check if the user is not logged in, redirect to map.php
-require_once '../../opt/src/sublease/SubleaseLogic.php';
-require_once '../../opt/src/sublease/Database.php';
-$database = new Database();
-$uri = '/profile';
-$get = $_GET;
-$post = $_POST;
+// require_once 'opt/src/sublease/SubleaseLogic.php';
+// require_once 'opt/src/sublease/Database.php';
+// $database = new Database();
+// $uri = '/profile';
+// $get = $_GET;
+// $post = $_POST;
 
-$subleaseLogic = new SubleaseLogic($uri, $get, $post);
+// $subleaseLogic = new SubleaseLogic($uri, $get, $post);
 
-// Check if the user is not logged in, redirect to login.php or another appropriate page
-if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
-    exit;
-}
+// // Check if the user is not logged in, redirect to login.php or another appropriate page
+// if (!isset($_SESSION['user'])) {
+//     header("Location: login.php");
+//     exit;
+// }
 
-if (isset($_POST['delete']) && isset($_POST['house_id'])) {
-  try {
-      $subleaseLogic->deleteListing($_POST['house_id']);
-      $message = "Listing removed successfully.";
-  } catch (Exception $e) {
-      $message = $e->getMessage(); 
-  }
-}
+// if (isset($_POST['delete']) && isset($_POST['house_id'])) {
+//   try {
+//       $subleaseLogic->deleteListing($_POST['house_id']);
+//       $message = "Listing removed successfully.";
+//   } catch (Exception $e) {
+//       $message = $e->getMessage(); 
+//   }
+// }
 
 // $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
 
-$userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
+// $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

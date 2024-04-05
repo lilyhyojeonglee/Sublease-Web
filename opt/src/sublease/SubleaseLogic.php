@@ -13,7 +13,7 @@ class SubleaseLogic
         public function __construct($uri, $get, $post)
         {
                 session_start(); //
-                $this->uri = $uri;
+                $this->uri = $_SERVER['REQUEST_URI'];
                 $this->get = $get;
                 $this->post = $post;
         }
@@ -23,11 +23,14 @@ class SubleaseLogic
                 //         $this->handleLogout();
                 //         exit; // Stop further execution
                 //     }
-
-                $this->uri = "example";
+                $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+                $uri = str_replace('/opt/src/sublease', '', $uri);
+                $this->uri = $uri;
+                // $this->uri = "example";
                 
 
                 switch ($this->uri) {
+                        
                         case '/':
                                 if ($this->isLoggedIn()) {
                                         $this->servePage('index.html'); // Show dashboard if logged in
@@ -37,6 +40,9 @@ class SubleaseLogic
                                 break;
                         case '/profile':
                                 $this->handleProfile();
+                                break;
+                        case '/map':
+                                $this->showmap();
                                 break;
                         case '/login':
                                 $this->handleLogin();
@@ -56,7 +62,11 @@ class SubleaseLogic
                                 $this->editListing();
                                 break;
                         default:
-                                $this->showmap();
+                                if ($this->isLoggedIn()) {
+                                        $this->servePage('index.html'); // Show dashboard if logged in
+                                } else {
+                                        $this->servePage('index.html'); // Show the index page otherwise
+                                }
                                 break;
                 }
         }
@@ -80,12 +90,15 @@ class SubleaseLogic
         // Check if user is logged in before serving the profile page
         if ($this->isLoggedIn()) {
           
-                include("opt/src/sublease/template/profile.php"); // Adjust the path as necessary
+                $this->showProfile(); // Adjust the path as necessary
+                return;
         } 
 
         if($this->isLoggedOut()) {
-                header("Location: login.php");
-                exit;
+                $this->showLogin();
+                // include("template/login.php");
+                // header("Location: login.php");
+                return;
         }
         
         // else {
@@ -127,7 +140,7 @@ class SubleaseLogic
                         $result = pg_execute($dbConnector, "insert_user", array($firstName, $lastName, $email, $phone, $hashedPassword));
             
                         if ($result) {
-                            header("Location: login.php");
+                            $this->showLogin();
                             exit;
                         } else {
                                 $this->errormessage  = "An error occurred during signup. Please try again.";
@@ -145,7 +158,7 @@ class SubleaseLogic
                 if (!empty($this->errormessage)) {
                 $message = "<div class='alert alert-danger'>{$this->errormessage}</div>";
                 }
-                header("Location: signup.php");
+                include("template/signup.php");
         }
             
             
@@ -166,8 +179,8 @@ class SubleaseLogic
                     if ($phone === $masterPhone && $password === $master) {
                         // Login successful
                         $_SESSION['user'] = ['phone' => $phone]; // Store minimal user info or just a flag in session
-                        header("Location: map.php"); // Redirect to a secure page after successful login
-                        exit;
+                        header("Location: opt/src/sublease/template/map.php"); // Redirect to a secure page after successful login
+                        return;
                     }
                     // Basic validation for phone number and password
                     if (empty($phone) || !preg_match("/^[0-9]{10}$/", $phone)) {
@@ -186,8 +199,10 @@ class SubleaseLogic
                             // Check if user exists and password is correct
                             if (password_verify($password, $user['password'])) {
                                 $_SESSION['user'] = $user; // Store user info in session
-                                header("Location: map.php");
-                                exit;
+                                header("Location: /map");
+                                // $this->uri = '/map';
+                                
+                                return;
                             } else {
                                 $this->errormessage  = "Authentication failed. Please check your credentials.";
                             }
@@ -208,11 +223,11 @@ class SubleaseLogic
                 if (!empty($this->errormessage)) {
                 $message = "<div class='alert alert-danger'>{$this->errormessage}</div>";
                 }
-                include("opt/src/sublease/template/login.php");
+                include("template/login.php");
         }
         private function showProfile($message="")
         {
-                
+                $userListings = $this->getUserListings($_SESSION['user']['id']);
                 if (!empty($this->message)) {
                 $message = "<div class='alert alert-primary'>{$this->message}</div>";
                 }
@@ -231,7 +246,9 @@ class SubleaseLogic
 
         private function showmap()
         {
-                include("opt/src/sublease/template/map.php");
+                include("template/map.php");
+                header("Location: opt/src/sublease/template/map.php");
+                // include("template/map.php");
         }
         private function handleLogout()
         {

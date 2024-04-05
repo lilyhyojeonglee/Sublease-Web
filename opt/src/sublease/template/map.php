@@ -37,7 +37,7 @@
         <div class="header">
             <div class="pl-logo" id="pl-logo">
                 <a href="index.html">
-                    <img src="pl_logo.jpg">
+                    <img src="/opt/src/sublease/template/images/pl_logo.jpg" style="width: 100px;">
                 </a>
             </div>
         </div>
@@ -48,7 +48,7 @@
         <div class="row">
 
             <section class="col">
-                <img src="opt/src/sublease/template/images/temp-map.jpeg" style="width: 70%;">
+                <img src="/opt/src/sublease/template/images/temp-map.jpeg" style="width: 70%;">
             </section>
 
             <section class="sidebar">
@@ -66,9 +66,9 @@
 <!-- EDITED TO DISPLAY DIFFERENT BUTTON BAR FOR LOGIN USER AND GUEST USER -->
                     <div>
                     <?php if (!(isset($_SESSION['user']))): ?>
-                        <a href="/showLogin" class="btn btn-primary me-2">Login/Sign up</a>
+                        <a href="/login" class="btn btn-primary me-2">Login/Sign up</a>
                     <?php else: ?>
-                        <a href="profile.php" class="btn btn-primary me-2">Account</a>
+                        <a href="/profile" class="btn btn-primary me-2">Account</a>
                     <?php endif; ?>
 
                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
