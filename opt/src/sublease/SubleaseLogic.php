@@ -23,7 +23,10 @@ class SubleaseLogic
                 //         $this->handleLogout();
                 //         exit; // Stop further execution
                 //     }
+
+                $this->uri = "example";
                 
+
                 switch ($this->uri) {
                         case '/':
                                 if ($this->isLoggedIn()) {
@@ -53,7 +56,7 @@ class SubleaseLogic
                                 $this->editListing();
                                 break;
                         default:
-                                $this->pageNotFound();
+                                $this->showmap();
                                 break;
                 }
         }
@@ -77,7 +80,7 @@ class SubleaseLogic
         // Check if user is logged in before serving the profile page
         if ($this->isLoggedIn()) {
           
-                include 'profile.php'; // Adjust the path as necessary
+                include("opt/src/sublease/template/profile.php"); // Adjust the path as necessary
         } 
 
         if($this->isLoggedOut()) {
@@ -142,7 +145,7 @@ class SubleaseLogic
                 if (!empty($this->errormessage)) {
                 $message = "<div class='alert alert-danger'>{$this->errormessage}</div>";
                 }
-                include('signup.php');
+                header("Location: signup.php");
         }
             
             
@@ -205,7 +208,7 @@ class SubleaseLogic
                 if (!empty($this->errormessage)) {
                 $message = "<div class='alert alert-danger'>{$this->errormessage}</div>";
                 }
-                include('login.php');
+                include("opt/src/sublease/template/login.php");
         }
         private function showProfile($message="")
         {
@@ -213,7 +216,7 @@ class SubleaseLogic
                 if (!empty($this->message)) {
                 $message = "<div class='alert alert-primary'>{$this->message}</div>";
                 }
-                include('profile.php');
+                include("opt/src/sublease/template/profile.php");
         }
 
         private function authenticateUser($phoneNumber, $password)
@@ -228,7 +231,7 @@ class SubleaseLogic
 
         private function showmap()
         {
-                include('map.php');
+                include("opt/src/sublease/template/map.php");
         }
         private function handleLogout()
         {

@@ -1,6 +1,6 @@
 <?php
-require_once 'Database.php';
-require_once 'SubleaseLogic.php'; 
+require_once 'opt/src/sublease/Database.php';
+require_once 'opt/src/sublease/SubleaseLogic.php'; 
 
 $uri = '/map';
 $get = $_GET;

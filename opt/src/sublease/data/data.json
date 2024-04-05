@@ -1,0 +1,18 @@
+[
+    {
+        "house_id": "1",
+        "propertyDetails": {
+            "area": "JPA",
+            "description": "GOOD",
+            "location": null,
+            "address": "571 McCormick Road  Balz Dobie",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Female",
+            "furnished": true,
+            "subleasefee": "1234",
+            "pet": true
+        }
+    }
+]
