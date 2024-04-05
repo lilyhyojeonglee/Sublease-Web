@@ -1,7 +1,7 @@
 <?php
 // Check if the user is not logged in, redirect to map.php
-require_once 'SubleaseLogic.php';
-require_once 'Database.php';
+require_once '../../opt/src/sublease/SubleaseLogic.php';
+require_once '../../opt/src/sublease/Database.php';
 $database = new Database();
 $uri = '/profile';
 $get = $_GET;

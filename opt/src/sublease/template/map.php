@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,7 +68,7 @@
                     <?php if (!(isset($_SESSION['user']))): ?>
                         <a href="/showLogin" class="btn btn-primary me-2">Login/Sign up</a>
                     <?php else: ?>
-                        <a href="opt/src/sublease/template/profile.php" class="btn btn-primary me-2">Account</a>
+                        <a href="profile.php" class="btn btn-primary me-2">Account</a>
                     <?php endif; ?>
 
                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>

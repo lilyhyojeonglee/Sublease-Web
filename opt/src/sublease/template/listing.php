@@ -1,7 +1,7 @@
 <?php
 
 $houseId = $_GET['id']; 
-include 'opt/src/sublease/template/views/show.php';
+include("views/show.php");
 ?>
 
 <!DOCTYPE html>
