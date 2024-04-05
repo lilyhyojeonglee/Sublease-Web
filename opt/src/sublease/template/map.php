@@ -1,14 +1,4 @@
-<?php
-require_once 'opt/src/sublease/Database.php';
-require_once 'opt/src/sublease/SubleaseLogic.php'; 
 
-$uri = '/map';
-$get = $_GET;
-$post = $_POST;
-
-$application = new SubleaseLogic($uri, $get, $post);
-$application->run();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +49,7 @@ $application->run();
         <div class="row">
 
             <section class="col">
-                <img src="images/temp-map.jpeg" style="width: 70%;">
+                <img src="opt/src/sublease/template/images/temp-map.jpeg" style="width: 70%;">
             </section>
 
             <section class="sidebar">
@@ -79,7 +69,7 @@ $application->run();
                     <?php if (!(isset($_SESSION['user']))): ?>
                         <a href="/showLogin" class="btn btn-primary me-2">Login/Sign up</a>
                     <?php else: ?>
-                        <a href="profile.php" class="btn btn-primary me-2">Account</a>
+                        <a href="opt/src/sublease/template/profile.php" class="btn btn-primary me-2">Account</a>
                     <?php endif; ?>
 
                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>

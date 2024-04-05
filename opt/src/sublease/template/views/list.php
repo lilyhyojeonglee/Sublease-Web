@@ -4,7 +4,7 @@
 <h2>Sublease Availability</h2>
 <div class="list-group list-group-flush border-bottom scrollarea">
     <?php
-    $jsonPath = 'data/data.json';
+    $jsonPath = 'opt/src/sublease/template/data/data.json';
 
     if (file_exists($jsonPath)) {
         $json = file_get_contents($jsonPath);
