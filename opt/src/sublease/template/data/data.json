@@ -14,5 +14,21 @@
             "subleasefee": "1234",
             "pet": true
         }
+    },
+    {
+        "house_id": "3",
+        "propertyDetails": {
+            "area": "Corner",
+            "description": "extra",
+            "location": null,
+            "address": "571 McCormick Road Balz Dobie",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Female",
+            "furnished": true,
+            "subleasefee": "123",
+            "pet": true
+        }
     }
 ]

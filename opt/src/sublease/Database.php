@@ -117,13 +117,13 @@ class Database {
         }
 
         // Write JSON data to file
-        $filePath = 'data/data.json';
+        $filePath = 'opt/src/sublease/template/data/data.json';
         if (file_put_contents($filePath, $jsonData) === false) {
             error_log('Failed to write JSON data to file');
             throw new Exception('Failed to write JSON data to file');
         }
 
-        echo "Data successfully written to {$filePath}";
+        // echo "Data successfully written to {$filePath}";
     }
 
 }

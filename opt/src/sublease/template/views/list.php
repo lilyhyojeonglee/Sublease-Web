@@ -23,7 +23,7 @@
             </div>
             <div class="col-10 mb-1 small"><?php echo htmlspecialchars($item['propertyDetails']['description']); ?></div>
             <div class="sublease-image">
-                <img src="<?php echo htmlspecialchars($item['propertyDetails']['image']); ?>" alt="Item image">
+                <img src="opt/src/sublease/template/images/listing1.webp" alt="Item image">
             </div>
         </a>
     <?php endforeach; ?>

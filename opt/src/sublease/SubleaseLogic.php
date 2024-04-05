@@ -56,7 +56,7 @@ class SubleaseLogic
                         case '/logout':
                                 $this->handleLogout();
                         case '/submission':
-                                $this->addListing();
+                                $this->handlesubmission();
                                 break;
                         case '/edit':
                                 $this->editListing();
@@ -87,9 +87,17 @@ class SubleaseLogic
 
         private function handleProfile()
 {
+        
         // Check if user is logged in before serving the profile page
         if ($this->isLoggedIn()) {
-          
+                if (isset($_POST['delete']) && isset($_POST['house_id'])) {
+                        try {
+                        $this->deleteListing($_POST['house_id']);
+                        $this->message = "Listing removed successfully.";
+                        } catch (Exception $e) {
+                        $this->message = $e->getMessage(); 
+                        }
+                }
                 $this->showProfile(); // Adjust the path as necessary
                 return;
         } 
@@ -255,7 +263,8 @@ class SubleaseLogic
                 
                 session_destroy();
                 $_SESSION['user'] = [];
-                $this->showmap();
+                header("Location: /map");
+                return;
                 
         }
 
@@ -366,6 +375,41 @@ class SubleaseLogic
                 echo "Listing added successfully.";
         }
 }
+        public function handlesubmission(){
+                $this->message = '';
+                $database = new Database();
+                $dbConnector = $database->getDbConnector(); 
+            
+                $userId = $_SESSION['user']['id'] ?? null; 
+                if ($userId === null) {
+                    throw new Exception("User not logged in.");
+                }
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        
+                        $listingData = [
+                                'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
+                                'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                                'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                                'photoPath' => 'images/listing1.webp', // Assuming static or handle file upload to get path
+                                'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS) . 
+                                (!empty($_POST['address2']) ? ' ' . filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : ''),
+                                'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                                'furnished' => isset($_POST['furnished']) ? true : false, 
+                                'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
+                                'petsAllowed' => isset($_POST['petsAllowed']) ? true : false,
+                        ];
+                        
+                        try {
+                                $this->addListing($listingData);
+                        
+                        } catch (Exception $e) {
+                                echo "Error: " . $e->getMessage();
+                        } 
+                } else {
+                // Handle non-POST requests or include form HTML below
+                }
+                
+        }
         public function addListing($listingData) {
                 $this->message = '';
                 $database = new Database();
@@ -375,7 +419,6 @@ class SubleaseLogic
                 if ($userId === null) {
                     throw new Exception("User not logged in.");
                 }
-            
                 $furnished = isset($listingData['furnished']) && $listingData['furnished'] ? 't' : 'f';
                 $petsAllowed = isset($listingData['petsAllowed']) && $listingData['petsAllowed'] ? 't' : 'f';
             

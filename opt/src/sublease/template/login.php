@@ -38,7 +38,7 @@
     <div class="header">
       <div class="pl-logo" id="pl-logo">
         <a href="index.html">
-          <img src="pl_logo.jpg">
+          <img src="opt/src/sublease/template/images/pl_logo.jpg">
         </a>
       </div>
     </div>

@@ -70,11 +70,11 @@
       <div class="p-4" style="background-color: #f8f9fa">
         <?php foreach ($userListings as $listing): ?>
             <p class="font-italic mb-1"><?php echo htmlspecialchars($listing['address']); ?></p>
-            <a href="edit_listing.php?listing_id=<?php echo htmlspecialchars($listing['house_id']); ?>">
+            <a href="opt/src/sublease/template/edit_listing.php?listing_id=<?php echo htmlspecialchars($listing['house_id']); ?>">
                 <button>edit</button>
             </a>
 
-            <form action="profile.php" method="post">
+            <form action="/profile" method="post">
                 <input type="hidden" name="house_id" value="<?php echo htmlspecialchars($listing['house_id']); ?>">
                 <input type="submit" name="delete" value="Remove" class="btn btn-danger">
             </form>
@@ -88,7 +88,7 @@
    
 
     <div class="webweb">
-        <a href="submission.php">
+        <a href="opt/src/sublease/template/submission.php">
             <button type="button">Upload your listing</button>
         </a>
     </div>

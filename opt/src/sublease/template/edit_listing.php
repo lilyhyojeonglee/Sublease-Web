@@ -1,7 +1,7 @@
 <?php
 //<a href="edit_listing.php?listing_id=<?php echo htmlspecialchars($listing['house_id']);
 $houseId = $_GET['listing_id'];
-$jsonDir = 'data/data.json';
+$jsonDir = 'opt/src/sublease/template/data/data.json';
 $jsonData = file_get_contents($jsonDir);
 
 // Decode the JSON data into an array

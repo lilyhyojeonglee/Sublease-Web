@@ -1,52 +1,52 @@
 <?php
 
 // Assume this class handles business logic and interacts with the database.
-require_once 'Database.php'; // Your database connection class
-require_once 'SubleaseLogic.php'; 
+// require_once 'Database.php'; // Your database connection class
+// require_once 'SubleaseLogic.php'; 
 
-$uri = '/submission';
-$get = $_GET;
-$post = $_POST;
-// Check if the form has been submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $subleaseLogic = new SubleaseLogic($uri, $get, $post);
+// $uri = '/submission';
+// $get = $_GET;
+// $post = $_POST;
+// // Check if the form has been submitted
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//   $subleaseLogic = new SubleaseLogic($uri, $get, $post);
 
-  // Collecting form data
-  // $listingData = [
-  //     'name' => 'A name for the listing', 
-  //     'description' => filter_input(INPUT_POST, 'description'),
-  //     'location' => filter_input(INPUT_POST, 'location'),
-  //     'photoPath' => 'images/listing1.webp',
-  //     'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING),
-  //     'gender' => filter_input(INPUT_POST, 'gender'),
-  //     'furnished' => isset($_POST['furnished']) && $_POST['furnished'] === 'yes', // Assume this is how furnished data is collected
-  //     'rent' => filter_input(INPUT_POST, 'price'),
-  //     'petsAllowed' => isset($_POST['pets']) && $_POST['pets'] === 'allowed',
+//   Collecting form data
+//   $listingData = [
+//       'name' => 'A name for the listing', 
+//       'description' => filter_input(INPUT_POST, 'description'),
+//       'location' => filter_input(INPUT_POST, 'location'),
+//       'photoPath' => 'images/listing1.webp',
+//       'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING),
+//       'gender' => filter_input(INPUT_POST, 'gender'),
+//       'furnished' => isset($_POST['furnished']) && $_POST['furnished'] === 'yes', // Assume this is how furnished data is collected
+//       'rent' => filter_input(INPUT_POST, 'price'),
+//       'petsAllowed' => isset($_POST['pets']) && $_POST['pets'] === 'allowed',
 
-  // ];
+//   ];
 
-  $listingData = [
-    'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
-    'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-    'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-    'photoPath' => 'images/listing1.webp', // Assuming static or handle file upload to get path
-    'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS) . 
-    (!empty($_POST['address2']) ? ' ' . filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : ''),
-    'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-    'furnished' => isset($_POST['furnished']) ? true : false, 
-    'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
-    'petsAllowed' => isset($_POST['petsAllowed']) ? true : false,
-];
+//   $listingData = [
+//     'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
+//     'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+//     'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+//     'photoPath' => 'images/listing1.webp', // Assuming static or handle file upload to get path
+//     'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS) . 
+//     (!empty($_POST['address2']) ? ' ' . filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : ''),
+//     'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+//     'furnished' => isset($_POST['furnished']) ? true : false, 
+//     'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
+//     'petsAllowed' => isset($_POST['petsAllowed']) ? true : false,
+// ];
 
-  try {
-      $subleaseLogic->addListing($listingData);
+//   try {
+//       $subleaseLogic->addListing($listingData);
 
-  } catch (Exception $e) {
-      echo "Error: " . $e->getMessage();
-  }
-} else {
-  // Handle non-POST requests or include form HTML below
-}
+//   } catch (Exception $e) {
+//       echo "Error: " . $e->getMessage();
+//   }
+// } else {
+//   // Handle non-POST requests or include form HTML below
+// }
 
 
 ?>
@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="info-box">
                 <h4 class="mb-3">Sublease Information</h4>
                 <!-- Update the action to the correct script file or endpoint -->
-                <form class="needs-validation" action="submission.php" method="POST" enctype="multipart/form-data" novalidate="">
+                <form class="needs-validation" action="/submission" method="POST" enctype="multipart/form-data" novalidate="">
             
                     <div class="Address col-12">
                         <label for="address" class="form-label">Address</label>
