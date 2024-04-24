@@ -109,6 +109,7 @@ function initAutocomplete() {
             } else {
                 document.getElementById('zip').value = ''; 
         }
+      }
         
     });
 }
@@ -192,9 +193,9 @@ function initAutocomplete() {
             <label class="form-check-label" for="furnished">Check if its Furnished</label>
           </div>
           
-                  <option value="">Choose...</option>
+                  <!-- <option value="">Choose...</option>
                   <option>Furnished</option>
-                  <option>NOT Furnished</option>
+                  <option>NOT Furnished</option> -->
 
                 </select>
                 
