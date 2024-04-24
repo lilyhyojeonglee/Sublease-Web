@@ -47,14 +47,13 @@ include 'views/show.php';
 <script>
     // JavaScript function to reveal contact information
     function revealContact() {
-        var contactInfo = document.getElementById('contact-info');
-        // Check the current state of the paragraph text
-        if (contactInfo.innerText === 'Log in to reveal') {
-            contactInfo.innerText = 'email@example.com'; // Replace with your actual email
-        } else {
-            contactInfo.innerText = 'Log in to reveal'; // Hides the email if clicked again
-        }
-    }
+    fetch('/getContactInfo')  // Assuming '/getContactInfo' is the endpoint we will create in PHP
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('contact-info').innerText = data;
+        })
+        .catch(error => console.error('Error fetching contact info:', error));
+}
     </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

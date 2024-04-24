@@ -55,6 +55,10 @@ class SubleaseLogic
                         case '/edit':
                                 $this->editListing();
                                 break;
+                        case '/getContactInfo':
+                                $this->handleContactInfo();
+                                break;
+                                    
                         default:
                                 $this->pageNotFound();
                                 break;
@@ -464,6 +468,33 @@ class SubleaseLogic
 
                 return "Listing removed successfully.";
         }
+
+        private function handleContactInfo() {
+                if ($this->isLoggedIn()) {
+                    $userId = $_SESSION['user']['id'];
+                    $email = $this->getUserEmail($userId);
+                    echo $email;
+                } else {
+                    echo "Please login to reveal email.";
+                }
+                exit;
+            }
+            
+            private function getUserEmail($userId) {
+                $database = new Database();
+                $dbConnector = $database->getDbConnector();
+                $query = "SELECT email FROM users WHERE id = $1";
+                $result = pg_prepare($dbConnector, "fetch_user_email", $query);
+                $result = pg_execute($dbConnector, "fetch_user_email", array($userId));
+            
+                if ($row = pg_fetch_assoc($result)) {
+                    return $row['email'];
+                } else {
+                    error_log('Failed to fetch email: ' . pg_last_error($dbConnector));
+                    return "Email not found.";
+                }
+            }
+            
 
        
 
