@@ -21,6 +21,7 @@ $application->run();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/main.css">
+    <script type="module" src="./index.js"></script>
 
     <!-- Custom CSS -->
     <style>
@@ -44,11 +45,30 @@ $application->run();
             text-decoration: underline;
             background: blue;
         }
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      gmp-map {
+        height: 100%;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
     </style>
 </head>
 
 <body>
 
+      
+
+
+
+    
+  
     <div class="container-header" id="home">
 
         <div class="header">
@@ -64,9 +84,10 @@ $application->run();
     <div class="container-fluid">
         <div class="row">
 
-            <section class="col">
-                <img src="images/temp-map.jpeg" style="width: 70%;">
-            </section>
+            <div class="col-8">
+            <div id="map"></div>
+            
+            </div>
 
             <section class="sidebar">
 
@@ -84,6 +105,8 @@ $application->run();
                     <div>
                     <?php if (!(isset($_SESSION['user']))): ?>
                         <a href="/showLogin" class="btn btn-primary me-2">Login/Sign up</a>
+                        <!-- <a href="temp.html" class="btn btn-primary me-2">Login/Sign up</a> -->
+
                     <?php else: ?>
                         <a href="profile.php" class="btn btn-primary me-2">Account</a>
                     <?php endif; ?>
@@ -229,35 +252,21 @@ $application->run();
             </section>
         </div>
     </div>
+    
+
+<!-- prettier-ignore -->
+<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+    ({key: "AIzaSyCNOZZ7qu-OgHKxCvIsYYRNL9J8e8aX10o", v: "beta"});</script>
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+        <script async src = " https://maps.googleapis.com/maps/api/js?key=AIzaSyCNOZZ7qu-OgHKxCvIsYYRNL9J8e8aX10o&callback=console.debug&libraries=maps, marker&v=beta ">  </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
-        // $(document).ready(function() {
-        //     $('#savechange').click(function(){
-        //         $.ajax({
-        //             type:'GET',
-        //             url:"filter.php",
-        //             data:{
-        //                 gender:$('#gender').val(),
-        //             },
-        //             success:function(data){
-        //                 $('#listings').html(data)
-        //             }
-        //         })
-        //     })
-        //     $("list-group-item").on("mouseover", function() {
-        //         $(this).addClass("hover");
-        //     });
-        //     $("list-group-item").on("mouseout", function() {
-        //         $(this).removeClass("hover");
-        //     });
-
-        // });
+       
 
         $(document).ready(function() {
     // Event listener for the "Save changes" button click

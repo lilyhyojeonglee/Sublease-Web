@@ -52,6 +52,8 @@ class Database {
                 area VARCHAR(255),
                 description TEXT,
                 location VARCHAR(255),
+                latitude VARCHAR(255),
+                longitude VARCHAR(255),
                 address VARCHAR(255),
                 gender VARCHAR(50),
                 furnished BOOLEAN,

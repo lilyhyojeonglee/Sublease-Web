@@ -49,6 +49,9 @@ class SubleaseLogic
                         case '/submission':
                                 $this->addListing();
                                 break;
+                        case '/applyFilters':
+                                $this->applyFilters();
+                                break;
                         case '/edit':
                                 $this->editListing();
                                 break;
@@ -359,13 +362,15 @@ class SubleaseLogic
                 $furnished = isset($listingData['furnished']) && $listingData['furnished'] ? 't' : 'f';
                 $petsAllowed = isset($listingData['petsAllowed']) && $listingData['petsAllowed'] ? 't' : 'f';
             
-                $query = "INSERT INTO subleases (user_id, area, description, location, address, gender, furnished, subleasefee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
+                $query = "INSERT INTO subleases (user_id, area, description, location, latitude, longitude, address, gender, furnished, subleasefee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
                 $result = pg_prepare($dbConnector, "insert_sublease", $query);
                 $result = pg_execute($dbConnector, "insert_sublease", [
                     $userId,
                     $listingData['area'], 
                     $listingData['description'],
                     $listingData['location'],
+                    $listingData['latitude'],
+                    $listingData['longitude'],
                     $listingData['address'],
                     $listingData['gender'],
                     $listingData['furnished'] ? 't' : 'f',
@@ -438,5 +443,7 @@ class SubleaseLogic
 
                 return "Listing removed successfully.";
         }
+
+       
 
 }

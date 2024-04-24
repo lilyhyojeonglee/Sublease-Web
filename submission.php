@@ -29,6 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
     'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
     'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+    'latitude' => filter_input(INPUT_POST, 'latitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
+    'longitude' => filter_input(INPUT_POST, 'longitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
     'photoPath' => 'images/listing1.webp', // Assuming static or handle file upload to get path
     'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS) . 
     (!empty($_POST['address2']) ? ' ' . filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : ''),
@@ -60,6 +62,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="stylesheet" href="styles/main.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNOZZ7qu-OgHKxCvIsYYRNL9J8e8aX10o&libraries=places"></script>
+    <script>
+    // Initialize Place Autocomplete
+    function initAutocomplete() {
+      var input = document.getElementById('address');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.addListener('place_changed', function() {
+          var place = autocomplete.getPlace();
+          if (place.geometry) {
+              document.getElementById('latitude').value = place.geometry.location.lat();
+              document.getElementById('longitude').value = place.geometry.location.lng();
+          }
+      });
+    }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -74,7 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h4 class="mb-3">Sublease Information</h4>
                 <!-- Update the action to the correct script file or endpoint -->
                 <form class="needs-validation" action="submission.php" method="POST" enctype="multipart/form-data" novalidate="">
-            
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
                     <div class="Address col-12">
                         <label for="address" class="form-label">Address</label>
                         <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St" required="">
@@ -179,5 +197,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </main>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        initAutocomplete();
+    });
+</script>
 </body>
 </html>

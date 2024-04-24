@@ -1,33 +1,33 @@
 [
     {
-        "house_id": "12",
+        "house_id": "1",
         "propertyDetails": {
             "area": "JPA",
-            "description": "Not a Cool House",
+            "description": "",
             "location": null,
-            "address": "5492 5000",
+            "address": "1800 Jefferson Park Avenue, Charlottesville, VA, USA",
             "image": "images/listing1.webp"
         },
         "rentalTerms": {
             "gender": "Male",
             "furnished": true,
-            "subleasefee": "9000",
+            "subleasefee": "1000",
             "pet": true
         }
     },
     {
-        "house_id": "13",
+        "house_id": "2",
         "propertyDetails": {
-            "area": "MSC",
-            "description": "SKRT",
+            "area": "JPA",
+            "description": "asdfghjk",
             "location": null,
-            "address": "611B Madison Ave",
+            "address": "1800 Jefferson Park Avenue, Charlottesville, VA, USA",
             "image": "images/listing1.webp"
         },
         "rentalTerms": {
-            "gender": "Female",
+            "gender": "Male",
             "furnished": true,
-            "subleasefee": "123",
+            "subleasefee": "1000",
             "pet": true
         }
     }
