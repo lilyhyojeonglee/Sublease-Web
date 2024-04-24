@@ -109,7 +109,7 @@ elseif (empty($listingData['gender'])) {
                         </select>     
                     <div class="mb-3">
                         <label for="price" class="form-label">Rent</label>
-                        <input type="text" class="form-control" id="price" name="price" value="<?php echo htmlspecialchars($selectedHouse['rentalTerms']['subleasefee']); ?>" required>
+                        <input type="text" class="form-control" id="price" name="price" value="<?php echo htmlspecialchars($selectedHouse['rentalTerms']['subleaseFee']); ?>" required>
                         <div class="invalid-feedback">Please enter an amount.</div>
                     </div>
                     <div class="mb-3">

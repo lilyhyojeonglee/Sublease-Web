@@ -96,7 +96,7 @@ function displayBoolean($value) {
                     <p>Gender: <?php echo ($selectedHouse['rentalTerms']['gender']); ?><br>
                         Area: <?php echo ($selectedHouse['propertyDetails']['location']); ?><br>
                         Furnished: <?php echo displayBoolean($selectedHouse['rentalTerms']['furnished']); ?><br>
-                        Sublease Fee: $<?php echo ($selectedHouse['rentalTerms']['subleasefee']); ?><br>
+                        Sublease Fee: $<?php echo ($selectedHouse['rentalTerms']['subleaseFee']); ?><br>
                         Pet: <?php echo displayBoolean($selectedHouse['rentalTerms']['pet']); ?></p>
                 </div>
             </div>
