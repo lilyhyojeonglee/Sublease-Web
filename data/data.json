@@ -1,17 +1,49 @@
 [
     {
-        "house_id": "12",
+        "house_id": "15",
         "propertyDetails": {
             "area": "Corner",
-            "description": "ASd",
+            "description": "",
             "location": null,
-            "address": "611 Madison Avenue, Charlottesville, VA, USA B",
+            "address": "123 East Main Street, Charlottesville, VA, USA",
             "image": "images/listing1.webp"
         },
         "rentalTerms": {
             "gender": "Male",
             "furnished": true,
-            "subleasefee": "890",
+            "subleasefee": "100",
+            "pet": true
+        }
+    },
+    {
+        "house_id": "16",
+        "propertyDetails": {
+            "area": "Corner",
+            "description": "",
+            "location": null,
+            "address": "2340 Commonwealth Drive, Charlottesville, VA, USA",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Female",
+            "furnished": true,
+            "subleasefee": "345",
+            "pet": true
+        }
+    },
+    {
+        "house_id": "17",
+        "propertyDetails": {
+            "area": "Not",
+            "description": "",
+            "location": null,
+            "address": "5678 Heards Mountain Road, Covesville, VA, USA #B",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Female",
+            "furnished": true,
+            "subleasefee": "700",
             "pet": true
         }
     }
