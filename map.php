@@ -329,7 +329,7 @@ $application->run();
                                 <strong class="mb-1">${listing.address}</strong>
                                 <small>${listing.area}</small>
                             </div>
-                            <div class="col-10 mb-1 small">${listing.description}</div>
+                            <div class="col-10 mb-1 small">$${listing.subleasefee}</div>
                             <div class="sublease-image">
                                 <img src="${listing.image}" alt="Item image">
                             </div>
