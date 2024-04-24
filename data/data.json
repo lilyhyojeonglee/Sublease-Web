@@ -1,21 +1,5 @@
 [
     {
-        "house_id": "15",
-        "propertyDetails": {
-            "area": "Corner",
-            "description": "",
-            "location": null,
-            "address": "123 East Main Street, Charlottesville, VA, USA",
-            "image": "images/listing1.webp"
-        },
-        "rentalTerms": {
-            "gender": "Male",
-            "furnished": true,
-            "subleasefee": "100",
-            "pet": true
-        }
-    },
-    {
         "house_id": "16",
         "propertyDetails": {
             "area": "Corner",
@@ -26,9 +10,9 @@
         },
         "rentalTerms": {
             "gender": "Female",
-            "furnished": true,
-            "subleasefee": "345",
-            "pet": true
+            "furnished": false,
+            "subleaseFee": "345",
+            "pet": false
         }
     },
     {
@@ -42,9 +26,89 @@
         },
         "rentalTerms": {
             "gender": "Female",
-            "furnished": true,
-            "subleasefee": "700",
+            "furnished": false,
+            "subleaseFee": "700",
             "pet": true
+        }
+    },
+    {
+        "house_id": "18",
+        "propertyDetails": {
+            "area": "Corner",
+            "description": "",
+            "location": null,
+            "address": "666 Evergreen Avenue, Charlottesville, VA, USA 4",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Male",
+            "furnished": false,
+            "subleaseFee": "3333333",
+            "pet": false
+        }
+    },
+    {
+        "house_id": "19",
+        "propertyDetails": {
+            "area": "Corner",
+            "description": "",
+            "location": null,
+            "address": "00000, Far Hills, NJ, USA 4",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Female",
+            "furnished": true,
+            "subleaseFee": "900",
+            "pet": false
+        }
+    },
+    {
+        "house_id": "20",
+        "propertyDetails": {
+            "area": "Corner",
+            "description": "",
+            "location": null,
+            "address": "00000, Far Hills, NJ, USA 4",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Female",
+            "furnished": true,
+            "subleaseFee": "900",
+            "pet": false
+        }
+    },
+    {
+        "house_id": "21",
+        "propertyDetails": {
+            "area": "Not",
+            "description": "",
+            "location": null,
+            "address": "5555 Columbia Pike, Arlington, VA, USA try",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Female",
+            "furnished": false,
+            "subleaseFee": "1232313",
+            "pet": true
+        }
+    },
+    {
+        "house_id": "15",
+        "propertyDetails": {
+            "area": "MSC",
+            "description": "",
+            "location": null,
+            "address": "123 East Main Street, Charlottesville, VA, USA",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Male",
+            "furnished": false,
+            "subleaseFee": "123",
+            "pet": false
         }
     }
 ]
