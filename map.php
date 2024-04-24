@@ -148,17 +148,17 @@ $listingsData = $application->getAllListings();
 
                                     <form id="filterForm">
                                         <!-- area, subleasefee(max), gender, furnished, pet,  -->
-                                        <div class="mb-3">
+                                        <!-- <div class="mb-3">
                                             <label for="dateRange" class="form-label">Date of Range</label>
                                             <input type="date" class="form-control" id="dateRange">
-                                        </div>
+                                        </div> -->
                                         <!-- dateRange numberOfBeds budgetRange sortLowToHigh sortHighToLow-->
-                                        <div class="mb-3">
+                                        <!-- <div class="mb-3">
                                             <label for="numberOfBeds" class="form-label">Number of Beds</label>
-                                            <input type="number" class="form-control" id="numberOfBeds">
-                                        </div>
+                                            <input type="number" class="form-control" id="numberOfBeds"> -->
+                                        <!-- </div> -->
                                         <div class="mb-3">
-                                            <label for="budgetRange" class="form-label">Budget Range</label>
+                                            <label for="budgetRange" class="form-label">Max Budget</label>
                                             <input type="text" class="form-control" id="budgetRange">
                                         </div>
                                         <div class="mb-3">
@@ -337,11 +337,9 @@ $listingsData = $application->getAllListings();
                         sortPrice: sortPrice,
                         furnished: furnished,
                         petsallowed: petsallowed
-                    }, // Send the gender filter value as data
+                    }, 
                     success: function(data){
-                        // $('#listings').html(data);                  
-                        // Update the listings container with the filtered data
-                        
+    
                         displayFilteredListings(data);
                         
                         

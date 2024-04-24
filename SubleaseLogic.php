@@ -81,10 +81,9 @@ class SubleaseLogic
 
         private function handleProfile()
 {
-        // Check if user is logged in before serving the profile page
         if ($this->isLoggedIn()) {
           
-                include 'profile.php'; // Adjust the path as necessary
+                include 'profile.php'; 
         } 
 
         if($this->isLoggedOut()) {
@@ -138,7 +137,6 @@ class SubleaseLogic
                         }
                     }
             
-                    // No need to return errorMessages; they're stored in $_SESSION
                 }
                 $this->showSignup(); 
             }
