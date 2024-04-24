@@ -30,5 +30,21 @@
             "subleasefee": "880",
             "pet": true
         }
+    },
+    {
+        "house_id": "4",
+        "propertyDetails": {
+            "area": "Not",
+            "description": "GOOD",
+            "location": null,
+            "address": "4321 Scottsville Road, Charlottesville, VA, USA",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Female",
+            "furnished": true,
+            "subleasefee": "900",
+            "pet": true
+        }
     }
 ]

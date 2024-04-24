@@ -24,14 +24,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
     'petsAllowed' => isset($_POST['petsAllowed']) ? true : false,
 ];
-if (!empty($listingData['latitude']) && !empty($listingData['longitude'])) {
+if (empty($listingData['latitude']) || empty($listingData['longitude'])) {
+  echo '<div class="alert alert-danger" role="alert">Please type address and choose one from the suggestions.</div>';
+} 
+elseif(empty($listingData['area'])) {
+  echo '<div class="alert alert-danger" role="alert">Please choose an area.</div>';
+} 
+elseif (empty($listingData['rent'])) {
+  echo '<div class="alert alert-danger" role="alert">Enter sublease fee.</div>';
+} 
+elseif (empty($listingData['gender'])) {
+  echo '<div class="alert alert-danger" role="alert">Please choose a gender preference.</div>';
+} 
+else {
   try {
       $subleaseLogic->addListing($listingData);
   } catch (Exception $e) {
       echo "Error: " . $e->getMessage();
   }
-} else {
-  echo '<div class="alert alert-danger" role="alert">Enter valid address</div>';
 }
 } else {
 // Handle non-POST requests
