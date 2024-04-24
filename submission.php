@@ -10,21 +10,6 @@ $post = $_POST;
 // Check if the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $subleaseLogic = new SubleaseLogic($uri, $get, $post);
-
-  // Collecting form data
-  // $listingData = [
-  //     'name' => 'A name for the listing', 
-  //     'description' => filter_input(INPUT_POST, 'description'),
-  //     'location' => filter_input(INPUT_POST, 'location'),
-  //     'photoPath' => 'images/listing1.webp',
-  //     'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING),
-  //     'gender' => filter_input(INPUT_POST, 'gender'),
-  //     'furnished' => isset($_POST['furnished']) && $_POST['furnished'] === 'yes', // Assume this is how furnished data is collected
-  //     'rent' => filter_input(INPUT_POST, 'price'),
-  //     'petsAllowed' => isset($_POST['pets']) && $_POST['pets'] === 'allowed',
-
-  // ];
-
   $listingData = [
     'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
     'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
@@ -39,16 +24,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
     'petsAllowed' => isset($_POST['petsAllowed']) ? true : false,
 ];
-
+if (!empty($listingData['latitude']) && !empty($listingData['longitude'])) {
   try {
       $subleaseLogic->addListing($listingData);
-
   } catch (Exception $e) {
       echo "Error: " . $e->getMessage();
   }
 } else {
-  // Handle non-POST requests or include form HTML below
+  echo '<div class="alert alert-danger" role="alert">Enter valid address</div>';
 }
+} else {
+// Handle non-POST requests
+}
+//   try {
+//       $subleaseLogic->addListing($listingData);
+
+//   } catch (Exception $e) {
+//       echo "Error: " . $e->getMessage();
+//   }
+// } else {
+//   // Handle non-POST requests or include form HTML below
+// }
 
 
 ?>
@@ -63,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <link rel="stylesheet" href="styles/main.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNOZZ7qu-OgHKxCvIsYYRNL9J8e8aX10o&libraries=places"></script>
-    <script>
+    <!-- <script>
     // Initialize Place Autocomplete
     function initAutocomplete() {
       var input = document.getElementById('address');
@@ -77,6 +73,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       });
     }
     </script>
+   -->
+   <script>
+// Initialize Place Autocomplete
+function initAutocomplete() {
+    var input = document.getElementById('address');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.setFields(['address_components', 'geometry']); // Specify that you need address components and geometry
+    autocomplete.addListener('place_changed', function() {
+        var place = autocomplete.getPlace();
+        if (place.geometry) {
+            document.getElementById('latitude').value = place.geometry.location.lat();
+            document.getElementById('longitude').value = place.geometry.location.lng();
+        }
+        // Extract postal code from address components
+        if (place.address_components) {
+            var postalCode = '';
+            for (var i = 0; i < place.address_components.length; i++) {
+                var addressType = place.address_components[i].types[0];
+                if (addressType === 'postal_code') {
+                    postalCode = place.address_components[i].long_name;
+                    break;
+                }
+            }
+            if (postalCode) {
+                document.getElementById('zip').value = postalCode;
+            } else {
+                document.getElementById('zip').value = ''; // Clear zip code if no postal code found
+            }
+        }
+    });
+}
+</script>
+
 </head>
 <body>
 <div class="container">

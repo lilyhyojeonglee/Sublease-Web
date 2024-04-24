@@ -5,29 +5,29 @@
             "area": "JPA",
             "description": "",
             "location": null,
-            "address": "1800 Jefferson Park Avenue, Charlottesville, VA, USA",
+            "address": "5492 Ashleigh Road, Fairfax, VA, USA",
             "image": "images/listing1.webp"
         },
         "rentalTerms": {
-            "gender": "Male",
+            "gender": "Female",
             "furnished": true,
-            "subleasefee": "1000",
+            "subleasefee": "123123",
             "pet": true
         }
     },
     {
-        "house_id": "2",
+        "house_id": "3",
         "propertyDetails": {
-            "area": "JPA",
-            "description": "asdfghjk",
+            "area": "Corner",
+            "description": "",
             "location": null,
-            "address": "1800 Jefferson Park Avenue, Charlottesville, VA, USA",
+            "address": "611 Madison Avenue, Charlottesville, VA, USA",
             "image": "images/listing1.webp"
         },
         "rentalTerms": {
-            "gender": "Male",
+            "gender": "Female",
             "furnished": true,
-            "subleasefee": "1000",
+            "subleasefee": "880",
             "pet": true
         }
     }
