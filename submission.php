@@ -109,7 +109,7 @@ function initAutocomplete() {
             } else {
                 document.getElementById('zip').value = ''; 
         }
-      }
+        
     });
 }
 </script>
@@ -227,7 +227,6 @@ function initAutocomplete() {
 
           </div>
 
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Submit listing</button>
                     <button class="w-100 btn btn-primary btn-lg" type="submit">Submit listing</button>
                 </form>
             </div>
