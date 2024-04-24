@@ -55,7 +55,7 @@ if (!$result) {
     // Handle query execution failure
     throw new Exception('Failed to fetch user listings: ' . pg_last_error($dbConnector));
 }
-echo $query;
+// echo $query;
 // Fetch all the listings and return them as JSON
 $listings = pg_fetch_all($result);
 echo json_encode($listings);
