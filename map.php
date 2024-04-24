@@ -228,33 +228,28 @@ $listingsData = $application->getAllListings();
                     </div> -->
                     <h2>Sublease Availability</h2>
                         <div id="listings" class="list-group list-group-flush border-bottom scrollarea">
+                        <?php 
+                            $listings = json_decode($listingsData); // Decode the JSON string into an array
                             
-                            <?php
+                            foreach ($listings as $item):
+                                $house_id = $item->house_id;
+                                $address = htmlspecialchars($item->address);
+                                $area = htmlspecialchars($item->area);
+                                $subleasefee = htmlspecialchars($item->subleasefee);
+                                $image = htmlspecialchars($item->image);
+                        ?>
+                        <a href="listing.php?id=<?php echo urlencode($house_id); ?>" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-house-id="<?php echo $house_id; ?>">
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <strong class="mb-1"><?php echo $address; ?></strong>
+                                <small><?php echo $area; ?></small>
+                            </div>
+                            <div class="col-10 mb-1 small">$<?php echo $subleasefee; ?></div>
+                            <div class="sublease-image">
+                                <img src="<?php echo $image; ?>" alt="Item image">
+                            </div>
+                        </a>
+                        <?php endforeach; ?>
                             
-                            $jsonPath = 'data/data.json';
-
-                            if (file_exists($jsonPath)) {
-                                $json = file_get_contents($jsonPath);
-                                $data = json_decode($json, true);
-                            } else {
-                                echo "Error: json file not found.";
-
-                            }
-
-                            foreach ($data as $item):
-                            ?>
-                            
-                                <a href="listing.php?id=<?php echo urlencode($item['house_id']); ?>" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <strong class="mb-1"><?php echo htmlspecialchars($item['propertyDetails']['address']); ?></strong>
-                                        <small><?php echo ($item['propertyDetails']['area']); ?></small>
-                                    </div>
-                                    <div class="col-10 mb-1 small">$<?php echo htmlspecialchars($item['rentalTerms']['subleasefee']); ?></div>
-                                    <div class="sublease-image">
-                                        <img src="<?php echo htmlspecialchars($item['propertyDetails']['image']); ?>" alt="Item image">
-                                    </div>
-                                </a>
-                            <?php endforeach; ?>
                 </div>
             </section>
         </div>
