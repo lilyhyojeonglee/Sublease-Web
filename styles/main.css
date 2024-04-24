@@ -40,3 +40,18 @@
   height: 800px; /* The height is 400 pixels */
   width: 100%; /* The width is the width of the web page */
 }
+
+.navbar {
+  height: 80px; 
+  padding-top: 15px;
+  padding-bottom: 15px;
+  line-height: 50px; 
+}
+
+.navbar-brand{
+    font-size: 30px; 
+}
+
+.navbar-nav .nav-link {
+    font-size: 30px;
+}

@@ -10,7 +10,6 @@ $application = new SubleaseLogic($uri, $get, $post);
 $application->run();
 $listingsData = $application->getAllListings();
 
-?>
 
 ?>
 <!DOCTYPE html>
@@ -30,7 +29,9 @@ $listingsData = $application->getAllListings();
     <!-- Custom CSS -->
     <style>
         /* Adjust sidebar width and styling as needed */
+        
         .sidebar {
+            
             position: fixed;
             right: 250px;
             width: 600px;
@@ -61,6 +62,7 @@ $listingsData = $application->getAllListings();
         height: 100%;
         margin: 0;
         padding: 0;
+        padding-top: 50px;
       }
     </style>
 </head>
@@ -76,11 +78,20 @@ $listingsData = $application->getAllListings();
     <div class="container-header" id="home">
 
         <div class="header">
-            <div class="pl-logo" id="pl-logo">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="font-size: 30px; padding-left: 20px;" >Sublease.com</a>
+            
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              
+            </div>
+            </div>
+        </nav>
+            <!-- <div class="pl-logo" id="pl-logo">
                 <a href="index.html">
                     <img src="pl_logo.jpg">
                 </a>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -93,7 +104,7 @@ $listingsData = $application->getAllListings();
             
             </div>
 
-            <section class="sidebar">
+            <section class="col-4 sidebar ">
 
                 <!-- Sidebar -->
                 <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary"
@@ -103,7 +114,7 @@ $listingsData = $application->getAllListings();
                         <svg class="bi pe-none me-2" width="30" height="24">
                             <use xlink:href="#bootstrap"></use>
                         </svg>
-                        <span class="fs-5 fw-semibold">List group</span>
+                        <h3 >Sublease Availability</h3>
                     </a>
 <!-- EDITED TO DISPLAY DIFFERENT BUTTON BAR FOR LOGIN USER AND GUEST USER -->
                     <div>
@@ -214,19 +225,9 @@ $listingsData = $application->getAllListings();
                     </div>
 
 
-                    <!-- <div class="list-group list-group-flush border-bottom scrollarea">
-                        <div class="col-xs-12">STH<?= isset($message) ? $message : '' ?></div>
-                        <?php
-            
-                        // $filePath = __DIR__ . '/views/list.php';
-                        // if (file_exists($filePath)) {
-                        //     include $filePath;
-                        // } else {
-                        //     echo "Error: File not found. Looking for $filePath";
-                        // }
-                        ?>
-                    </div> -->
-                    <h2>Sublease Availability</h2>
+                   
+                   
+                    <!-- <h2>Sublease Availability</h2> -->
                         <div id="listings" class="list-group list-group-flush border-bottom scrollarea">
                         <?php 
                             $listings = json_decode($listingsData); // Decode the JSON string into an array
