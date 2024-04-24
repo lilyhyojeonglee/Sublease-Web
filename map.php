@@ -38,6 +38,12 @@ $application->run();
         .sublease-image img {
             width: 500px;
         }
+
+        .hover {
+            cursor: pointer;
+            text-decoration: underline;
+            background: blue;
+        }
     </style>
 </head>
 
@@ -103,10 +109,12 @@ $application->run();
                                 <div class="modal-body">
 
                                     <form id="filterForm">
+                                        <!-- area, subleasefee(max), gender, furnished, pet,  -->
                                         <div class="mb-3">
                                             <label for="dateRange" class="form-label">Date of Range</label>
                                             <input type="date" class="form-control" id="dateRange">
                                         </div>
+                                        <!-- dateRange numberOfBeds budgetRange sortLowToHigh sortHighToLow-->
                                         <div class="mb-3">
                                             <label for="numberOfBeds" class="form-label">Number of Beds</label>
                                             <input type="number" class="form-control" id="numberOfBeds">
@@ -119,10 +127,30 @@ $application->run();
                                             <label for="gender" class="form-label">Gender</label>
                                             <select class="form-select" id="gender">
                                                 <option selected>Choose...</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
                                             </select>
                                         </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Furnished</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="furnished"
+                                                    id="furnished" value="True" >
+                                                <label class="form-check-label" for="furnished">
+                                                    Furnished
+                                                </label>
+                                            </div>
+                                        </div>  
+                                        <div class="mb-3">
+                                            <label class="form-label">Pets</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="petsallowed"
+                                                    id="petsallowed" value="True" >
+                                                <label class="form-check-label" for="petsallowed">
+                                                    Pets Allowed
+                                                </label>
+                                            </div>
+                                        </div> 
                                         <div class="mb-3">
                                             <label class="form-label">Sort by Price</label>
                                             <div class="form-check">
@@ -149,8 +177,8 @@ $application->run();
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
                                     <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                                    <button type="button" class="btn btn-primary" onclick="applyFilters()">Save
-                                        changes</button>
+                                    <!-- <button type="button" id="savechange" class="btn btn-primary" onclick="applyFilters()">Save changes</button> -->
+                                    <button type="button" id="savechange" class="btn btn-primary" ">Save changes</button>
 
                                     <!-- <button type="button" class="btn btn-primary" onclick="applyFilters()">Save</button> -->
                                 </div>
@@ -159,17 +187,44 @@ $application->run();
                     </div>
 
 
-                    <div class="list-group list-group-flush border-bottom scrollarea">
+                    <!-- <div class="list-group list-group-flush border-bottom scrollarea">
+                        <div class="col-xs-12">STH<?= isset($message) ? $message : '' ?></div>
                         <?php
             
-                        $filePath = __DIR__ . '/views/list.php';
-                        if (file_exists($filePath)) {
-                            include $filePath;
-                        } else {
-                            echo "Error: File not found. Looking for $filePath";
-                        }
+                        // $filePath = __DIR__ . '/views/list.php';
+                        // if (file_exists($filePath)) {
+                        //     include $filePath;
+                        // } else {
+                        //     echo "Error: File not found. Looking for $filePath";
+                        // }
                         ?>
-                    </div>
+                    </div> -->
+                    <h2>Sublease Availability</h2>
+                        <div id="listings" class="list-group list-group-flush border-bottom scrollarea">
+                            <?php
+                            $jsonPath = 'data/data.json';
+
+                            if (file_exists($jsonPath)) {
+                                $json = file_get_contents($jsonPath);
+                                $data = json_decode($json, true);
+                            } else {
+                                echo "Error: json file not found.";
+
+                            }
+
+                            foreach ($data as $item):
+                            ?>
+                                <a href="listing.php?id=<?php echo urlencode($item['house_id']); ?>" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+                                    <div class="d-flex w-100 align-items-center justify-content-between">
+                                        <strong class="mb-1"><?php echo htmlspecialchars($item['propertyDetails']['address']); ?></strong>
+                                        <small><?php echo ($item['propertyDetails']['area']); ?></small>
+                                    </div>
+                                    <div class="col-10 mb-1 small"><?php echo htmlspecialchars($item['propertyDetails']['description']); ?></div>
+                                    <div class="sublease-image">
+                                        <img src="<?php echo htmlspecialchars($item['propertyDetails']['image']); ?>" alt="Item image">
+                                    </div>
+                                </a>
+                            <?php endforeach; ?>
                 </div>
             </section>
         </div>
@@ -179,8 +234,119 @@ $application->run();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+    <script>
+        // $(document).ready(function() {
+        //     $('#savechange').click(function(){
+        //         $.ajax({
+        //             type:'GET',
+        //             url:"filter.php",
+        //             data:{
+        //                 gender:$('#gender').val(),
+        //             },
+        //             success:function(data){
+        //                 $('#listings').html(data)
+        //             }
+        //         })
+        //     })
+        //     $("list-group-item").on("mouseover", function() {
+        //         $(this).addClass("hover");
+        //     });
+        //     $("list-group-item").on("mouseout", function() {
+        //         $(this).removeClass("hover");
+        //     });
+
+        // });
+
+        $(document).ready(function() {
+    // Event listener for the "Save changes" button click
+            $('#savechange').click(function(){
+                // Get the selected gender filter value
+                var gender = $('#gender').val();
+                var dateRange = $('#dateRange').val();
+                var numberOfBeds = $('#numberOfBeds').val();
+                var budgetRange = $('#budgetRange').val();
+                var sortPrice = $('input[name="sortPrice"]:checked').val();
+                var furnished = $('#furnished').is(':checked'); 
+                var petsallowed = $('#petsallowed').is(':checked');
+                // dateRange numberOfBeds budgetRange sortLowToHigh sortHighToLow
+                
+                // Make an AJAX request to filter.php with the selected gender filter
+                $.ajax({
+                    type: 'GET',
+                    url: "filter.php",
+                    data: { 
+                        gender: gender,
+                        dateRange: dateRange,
+                        numberOfBeds: numberOfBeds,
+                        budgetRange: budgetRange,
+                        sortPrice: sortPrice,
+                        furnished: furnished,
+                        petsallowed: petsallowed
+                    }, // Send the gender filter value as data
+                    success: function(data){
+                        // $('#listings').html(data);                  
+                        // Update the listings container with the filtered data
+                        
+                        displayFilteredListings(data);
+                        closeModal();
+                        
+                    },
+                    error: function(xhr, status, error) {
+                        $('#listings').html(data);
+                        // Handle AJAX request errors
+                        console.error("AJAX Error: " + status + " - " + error);
+                    }
+                });
+            });
+            
+            // Function to display filtered listings in the listings container
+            
+            function displayFilteredListings(data) {
+                // Clear previous listings
+                $('#listings').empty();
+                
+                // Parse the JSON response
+                var listings = JSON.parse(data);
+                
+                // Iterate over the listings and append them to the container
+                listings.forEach(function(listing) {
+                    // Create HTML for each listing item
+                    
+                    var listingHtml = `
+                        <a href="listing.php?id=${encodeURIComponent(listing.house_id)}" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <strong class="mb-1">${listing.address}</strong>
+                                <small>${listing.area}</small>
+                            </div>
+                            <div class="col-10 mb-1 small">${listing.description}</div>
+                            <div class="sublease-image">
+                                <img src="${listing.image}" alt="Item image">
+                            </div>
+                        </a>
+                    `;
+                    
+                    // Append the listing HTML to the container
+                    $('#listings').append(listingHtml);
+                });
+            }
+            var modalEl = document.getElementById('filterModal');
+            var modalInstance = new bootstrap.Modal(document.getElementById('filterModal'), {
+                backdrop: false
+            });
+            const closeModal = () => {
+                modalInstance.hide();
+                removeModalBackdrop();
+            }
+            const removeModalBackdrop = () => {
+                document.querySelectorAll('.modal-backdrop').forEach(function (backdrop) {
+                    backdrop.remove();
+                });
+            }
+
+            
+        });
         document.addEventListener('DOMContentLoaded', function () {
             console.log('DOM fully loaded and parsed');
 
@@ -195,19 +361,7 @@ $application->run();
                 modalInstance.hide();
                 removeModalBackdrop(); // Call to remove the backdrop manually
             }
-
-            function applyFilters() {
-                console.log('Applying filters...');
-                var modalEl = document.getElementById('filterModal');
-                var modalInstance = bootstrap.Modal.getInstance(modalEl);
-                if (modalInstance) {
-                    modalInstance.hide();
-                } else {
-                    console.log('Modal instance not found');
-                }
-            }
-
-
+            
             document.querySelector('#filterModal .btn-primary').addEventListener('click', applyFilters);
 
             // Function to manually remove the modal backdrop
