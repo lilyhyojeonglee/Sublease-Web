@@ -23,16 +23,16 @@ if($gender == 'Female' || $gender == 'Male' ){
     $values[]= " gender = '" . $gender . "' ";
     // $values[] = $gender
 }
-if($petsallowed =True){
+if($petsallowed === "true"){
     $values[]= " pet=true ";
 }
-if($furnished){
+if($furnished === "true"){
     $values[]= " furnished=true ";
 }
 if ($maxBudget !== null && is_numeric($maxBudget)) {
     $values[] = "subleasefee <= {$maxBudget}";
 }
-if (!empty($conditions)) {
+if (!empty($values)) {
     $query .= " WHERE";
     $query .= implode(" AND ", $values);
 }
@@ -54,7 +54,7 @@ if (!$result) {
     // Handle query execution failure
     throw new Exception('Failed to fetch user listings: ' . pg_last_error($dbConnector));
 }
-// echo $query;
+echo $query;
 // Fetch all the listings and return them as JSON
 $listings = pg_fetch_all($result);
 echo json_encode($listings);
