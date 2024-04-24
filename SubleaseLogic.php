@@ -69,7 +69,15 @@ class SubleaseLogic
         {
                 include $page;
         }
-        
+        private function showAction($id)
+        {
+                // Your logic here to display something based on the ID
+        }
+
+        private function pageNotFound()
+        {
+                // include('map.php');
+        }
 
         private function handleProfile()
 {
