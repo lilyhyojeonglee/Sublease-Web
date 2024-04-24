@@ -219,7 +219,7 @@ $application->run();
                                         <strong class="mb-1"><?php echo htmlspecialchars($item['propertyDetails']['address']); ?></strong>
                                         <small><?php echo ($item['propertyDetails']['area']); ?></small>
                                     </div>
-                                    <div class="col-10 mb-1 small"><?php echo htmlspecialchars($item['propertyDetails']['description']); ?></div>
+                                    <div class="col-10 mb-1 small">$<?php echo htmlspecialchars($item['rentalTerms']['subleasefee']); ?></div>
                                     <div class="sublease-image">
                                         <img src="<?php echo htmlspecialchars($item['propertyDetails']['image']); ?>" alt="Item image">
                                     </div>

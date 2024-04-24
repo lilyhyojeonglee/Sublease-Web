@@ -1,31 +1,31 @@
 [
     {
-        "house_id": "8",
+        "house_id": "12",
         "propertyDetails": {
-            "area": "",
-            "description": "Testing!",
+            "area": "JPA",
+            "description": "Not a Cool House",
             "location": null,
-            "address": "611asd",
+            "address": "5492 5000",
             "image": "images/listing1.webp"
         },
         "rentalTerms": {
-            "gender": "Female",
+            "gender": "Male",
             "furnished": true,
-            "subleasefee": "800",
+            "subleasefee": "9000",
             "pet": true
         }
     },
     {
-        "house_id": "10",
+        "house_id": "13",
         "propertyDetails": {
-            "area": "",
-            "description": "sadsdsd",
+            "area": "MSC",
+            "description": "SKRT",
             "location": null,
-            "address": "611Basdsadad",
+            "address": "611B Madison Ave",
             "image": "images/listing1.webp"
         },
         "rentalTerms": {
-            "gender": "Doesn't matter",
+            "gender": "Female",
             "furnished": true,
             "subleasefee": "123",
             "pet": true
