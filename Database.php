@@ -96,20 +96,21 @@ class Database {
                 "propertyDetails" => [
                     "area" => $row['area'], 
                     "description" => $row['description'],
-                    "location" => $row['location'], //maybe need modification, since we will get longtitude and latitude using api
+                    "location" => $row['location'], // Consider using lat and lon if needed
                     "address" => $row['address'],
                     "image" => $row['image']
                 ],
                 "rentalTerms" => [
                     "gender" => $row['gender'],
-                    "furnished" => (bool) $row['furnished'], // Cast to boolean for JSON
-                    "subleasefee" => $row['subleasefee'],
-                    "pet" => (bool) $row['pet'] // Cast to boolean for JSON
+                    "furnished" => $row['furnished'] === 't', // Correctly interpret 't' as true and 'f' as false
+                    "subleaseFee" => $row['subleasefee'],
+                    "pet" => $row['pet'] === 't' // Correctly interpret 't' as true and 'f' as false
                 ]
             ];
-
+        
             $listings[] = $listing;
         }
+        
 
         // Convert the $listings array to JSON
         $jsonData = json_encode($listings, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);

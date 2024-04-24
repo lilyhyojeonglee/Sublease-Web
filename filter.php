@@ -7,7 +7,7 @@ $gender = $_GET["gender"];
 $sortPrice = $_GET["sortPrice"];
 $petsallowed = $_GET["petsallowed"];
 $furnished = $_GET["furnished"];
-$maxBudget = $_GET["budgetRange"] ?? null;
+$maxBudget = $_GET["budgetRange"];
 
 $database = new Database();
 $dbConnector = $database->getDbConnector();
@@ -29,13 +29,14 @@ if($petsallowed =True){
 if($furnished){
     $values[]= " furnished=true ";
 }
-if ($maxBudget !== null && is_numeric($maxBudget)) {
-    $values[] = "subleasefee <= {$maxBudget}";
+if (is_numeric($maxBudget)) {
+    $values[] = "subleasefee < {$maxBudget}";
 }
-if (!empty($conditions)) {
+if (!empty($value)) {
     $query .= " WHERE";
     $query .= implode(" AND ", $values);
 }
+
 
 if ($sortPrice  === 'lowToHigh') {
     $query .= " ORDER BY subleasefee ASC";
