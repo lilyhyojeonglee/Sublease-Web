@@ -45,9 +45,8 @@ include 'views/show.php';
 <body>
    
 <script>
-    // JavaScript function to reveal contact information
     function revealContact() {
-    fetch('/getContactInfo')  // Assuming '/getContactInfo' is the endpoint we will create in PHP
+    fetch('/getContactInfo') 
         .then(response => response.text())
         .then(data => {
             document.getElementById('contact-info').innerText = data;
