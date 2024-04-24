@@ -21,7 +21,7 @@ $application->run();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/main.css">
-    <script type="module" src="./index.js"></script>
+    <!-- <script type="module" src="./index.js"></script> -->
 
     <!-- Custom CSS -->
     <style>
@@ -237,6 +237,7 @@ $application->run();
 
                             foreach ($data as $item):
                             ?>
+                            
                                 <a href="listing.php?id=<?php echo urlencode($item['house_id']); ?>" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
                                     <div class="d-flex w-100 align-items-center justify-content-between">
                                         <strong class="mb-1"><?php echo htmlspecialchars($item['propertyDetails']['address']); ?></strong>
@@ -266,7 +267,36 @@ $application->run();
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
-       
+       let map;
+
+        async function initMap() {
+        // The location of Uluru
+        const position = { lat: 38.0341532, lng: -78.5176498 };
+        // Request needed libraries.
+        //@ts-ignore
+        const { Map } = await google.maps.importLibrary("maps");
+        const { AdvancedMarkerView } = await google.maps.importLibrary("marker");
+
+        // The map, centered at Uluru
+        map = new Map(document.getElementById("map"), {
+            zoom: 15,
+            center: position,
+            mapId: "DEMO_MAP_ID",
+        });
+
+        // The marker, positioned at Uluru
+        const marker = new AdvancedMarkerView({
+            map: map,
+            position: position,
+            title: "Uluru",
+        });
+        
+        }
+
+        // Call the initMap function when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            initMap();
+        });
 
         $(document).ready(function() {
     // Event listener for the "Save changes" button click
@@ -299,7 +329,7 @@ $application->run();
                         // Update the listings container with the filtered data
                         
                         displayFilteredListings(data);
-                        closeModal();
+                        
                         
                     },
                     error: function(xhr, status, error) {
@@ -307,7 +337,9 @@ $application->run();
                         // Handle AJAX request errors
                         console.error("AJAX Error: " + status + " - " + error);
                     }
+
                 });
+                closeModal();
             });
             
             // Function to display filtered listings in the listings container
@@ -339,6 +371,28 @@ $application->run();
                     // Append the listing HTML to the container
                     $('#listings').append(listingHtml);
                 });
+                displayMarkersOnMap(data);
+            }
+            function displayMarkersOnMap(data) {
+                var listings = JSON.parse(data);
+                // Remove existing markers from the map
+                map.data.forEach(function(feature) {
+                    map.data.remove(feature);
+                });
+
+                // Iterate over the listings and create markers for each listing
+                listings.forEach(function(listing) {
+                    // Extract latitude and longitude from the listing data
+                    const latitude = parseFloat(listing.latitude);
+                    const longitude = parseFloat(listing.longitude);
+
+                    // Create a marker for each listing
+                    new google.maps.Marker({
+                        position: { lat: latitude, lng: longitude },
+                        map: map,
+                        title: listing.address
+                    });
+                });
             }
             var modalEl = document.getElementById('filterModal');
             var modalInstance = new bootstrap.Modal(document.getElementById('filterModal'), {
@@ -356,30 +410,30 @@ $application->run();
 
             
         });
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('DOM fully loaded and parsed');
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     console.log('DOM fully loaded and parsed');
 
-            var modalEl = document.getElementById('filterModal');
-            var modalInstance = new bootstrap.Modal(document.getElementById('filterModal'), {
-                backdrop: false
-            });
+        //     var modalEl = document.getElementById('filterModal');
+        //     var modalInstance = new bootstrap.Modal(document.getElementById('filterModal'), {
+        //         backdrop: false
+        //     });
 
-            console.log('Modal instance obtained:', modalInstance);
+        //     console.log('Modal instance obtained:', modalInstance);
 
-            function closeModal() {
-                modalInstance.hide();
-                removeModalBackdrop(); // Call to remove the backdrop manually
-            }
+        //     function closeModal() {
+        //         modalInstance.hide();
+        //         removeModalBackdrop(); // Call to remove the backdrop manually
+        //     }
             
-            document.querySelector('#filterModal .btn-primary').addEventListener('click', applyFilters);
+        //     document.querySelector('#filterModal .btn-primary').addEventListener('click', applyFilters);
 
-            // Function to manually remove the modal backdrop
-            function removeModalBackdrop() {
-                document.querySelectorAll('.modal-backdrop').forEach(function (backdrop) {
-                    backdrop.remove();
-                });
-            }
-        });
+        //     // Function to manually remove the modal backdrop
+        //     function removeModalBackdrop() {
+        //         document.querySelectorAll('.modal-backdrop').forEach(function (backdrop) {
+        //             backdrop.remove();
+        //         });
+        //     }
+        // });
     </script>
 
 
