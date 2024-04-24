@@ -109,6 +109,7 @@ function initAutocomplete() {
             } else {
                 document.getElementById('zip').value = ''; 
         }
+      }
     });
 }
 </script>
@@ -185,17 +186,17 @@ function initAutocomplete() {
 
           </div>
 
-          <!-- <div class="Furnished col-mid-3"> -->
+          <div class="Furnished col-mid-3">
           <div class="form-check">
             <input id="furnished" name="furnished" type="checkbox" class="form-check-input" value="true">
             <label class="form-check-label" for="furnished">Check if its Furnished</label>
           </div>
-          <!-- 
+          
                   <option value="">Choose...</option>
                   <option>Furnished</option>
                   <option>NOT Furnished</option>
 
-                </select> -->
+                </select>
                 
 
           </div>
@@ -225,10 +226,9 @@ function initAutocomplete() {
 
 
           </div>
-                    <!-- Add other fields similarly, ensuring they have 'name' attributes -->
 
                     <button class="w-100 btn btn-primary btn-lg" type="submit">Submit listing</button>
-                    <!-- <button class="w-100 btn btn-primary btn-lg" type="submit">Submit listing</button> -->
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Submit listing</button>
                 </form>
             </div>
         </div>
