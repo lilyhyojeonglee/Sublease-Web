@@ -1,6 +1,5 @@
 <?php
 
-// Assume this class handles business logic and interacts with the database.
 require_once 'Database.php'; // Your database connection class
 require_once 'SubleaseLogic.php'; 
 
@@ -35,8 +34,7 @@ elseif (empty($listingData['rent'])) {
 } 
 elseif (empty($listingData['gender'])) {
   echo '<div class="alert alert-danger" role="alert">Please choose a gender preference.</div>';
-} 
-else {
+} else {
   try {
       $subleaseLogic->addListing($listingData);
   } catch (Exception $e) {
@@ -109,8 +107,7 @@ function initAutocomplete() {
             if (postalCode) {
                 document.getElementById('zip').value = postalCode;
             } else {
-                document.getElementById('zip').value = ''; // Clear zip code if no postal code found
-            }
+                document.getElementById('zip').value = ''; 
         }
     });
 }

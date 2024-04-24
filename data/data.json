@@ -1,24 +1,8 @@
 [
     {
-        "house_id": "1",
-        "propertyDetails": {
-            "area": "JPA",
-            "description": "",
-            "location": null,
-            "address": "5492 Ashleigh Road, Fairfax, VA, USA",
-            "image": "images/listing1.webp"
-        },
-        "rentalTerms": {
-            "gender": "Female",
-            "furnished": true,
-            "subleasefee": "123123",
-            "pet": true
-        }
-    },
-    {
         "house_id": "3",
         "propertyDetails": {
-            "area": "Corner",
+            "area": "JPA",
             "description": "",
             "location": null,
             "address": "611 Madison Avenue, Charlottesville, VA, USA",
@@ -27,23 +11,39 @@
         "rentalTerms": {
             "gender": "Female",
             "furnished": true,
-            "subleasefee": "880",
+            "subleasefee": "8804",
+            "pet": true
+        }
+    },
+    {
+        "house_id": "1",
+        "propertyDetails": {
+            "area": "Corner",
+            "description": "",
+            "location": null,
+            "address": "5492 Ashleigh Road, Fairfax, VA, USA",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Male",
+            "furnished": true,
+            "subleasefee": "900",
             "pet": true
         }
     },
     {
         "house_id": "4",
         "propertyDetails": {
-            "area": "Not",
-            "description": "GOOD",
+            "area": "MSC",
+            "description": "EDIT WORKS",
             "location": null,
             "address": "4321 Scottsville Road, Charlottesville, VA, USA",
             "image": "images/listing1.webp"
         },
         "rentalTerms": {
-            "gender": "Female",
+            "gender": "Doesn't matter",
             "furnished": true,
-            "subleasefee": "900",
+            "subleasefee": "990",
             "pet": true
         }
     }

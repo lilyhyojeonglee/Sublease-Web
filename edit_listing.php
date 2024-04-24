@@ -1,4 +1,6 @@
 <?php
+require_once 'Database.php'; 
+require_once 'SubleaseLogic.php';
 //<a href="edit_listing.php?listing_id=<?php echo htmlspecialchars($listing['house_id']);
 $houseId = $_GET['listing_id'];
 $jsonDir = 'data/data.json';
@@ -20,153 +22,128 @@ if (null === $selectedHouse) {
     echo "House not found";
     exit;
 }
+
+$subleaseLogic = new SubleaseLogic("/edit", $_GET, $_POST);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//  $subleaseLogic = new SubleaseLogic($uri, $get, $post);
+  $listingData = [
+    'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
+    'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+    'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+    'latitude' => filter_input(INPUT_POST, 'latitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
+    'longitude' => filter_input(INPUT_POST, 'longitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
+    'photoPath' => 'images/listing1.webp', // Assuming static or handle file upload to get path
+    'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS) . 
+    (!empty($_POST['address2']) ? ' ' . filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : ''),
+    'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+    'furnished' => isset($_POST['furnished']) ? true : false, 
+    'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
+    'petsAllowed' => isset($_POST['petsAllowed']) ? true : false,
+];
+// if (empty($listingData['latitude']) || empty($listingData['longitude'])) {
+//   echo '<div class="alert alert-danger" role="alert">Please type address and choose one from the suggestions.</div>';
+// } 
+if(empty($listingData['area'])) {
+  echo '<div class="alert alert-danger" role="alert">Please choose an area.</div>';
+} 
+elseif (empty($listingData['rent'])) {
+  echo '<div class="alert alert-danger" role="alert">Enter sublease fee.</div>';
+} 
+elseif (empty($listingData['gender'])) {
+  echo '<div class="alert alert-danger" role="alert">Please choose a gender preference.</div>';
+} else {
+  try {
+      $subleaseLogic->editListing($listingData);
+  } catch (Exception $e) {
+      echo "Error: " . $e->getMessage();
+  }
+}
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
-    <!-- Bootstrap CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Listing</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
-
-    <style>
-        body {
-            padding-top: 20px;
-        }
-        .gallery {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Adjusts to a 2x2 grid */
-            gap: 10px;
-        }
-        .gallery img {
-            width: 100%;
-            height: auto;
-        }
-        .info-box {
-            padding: 15px;
-            border: 1px solid #ccc;
-            margin-top: 15px;
-        }
-        .info-box header {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .large-image img {
-            width: 100%;
-            height: auto;
-        }
-    </style>
 </head>
 <body>
-   
-
-    <h1><?=$houseId?></h1>
+<div class="container">
+    <h1>Edit Listing: <?php echo htmlspecialchars($houseId); ?></h1>
     <main>
-        
         <div class="py-5 text-center">
-            <h2>Sublease information</h2>
-            <p>Fill out the form to upload your house for sublease</p>
+            <h2>Sublease Information</h2>
+            <p>Update the form to edit your house for sublease</p>
         </div>
-        <div class="container">
         <div class="row g-5">
             <div class="info-box">
                 <h4 class="mb-3">Sublease Information</h4>
-                <!-- Update the action to the correct script file or endpoint -->
-                <form class="needs-validation" action="/edit" method="POST" enctype="multipart/form-data" novalidate="">
-                    <input type="hidden" name="house_id" value=<?=$houseId?> >
-            
-                    <div class="Address col-12">
+                <form class="needs-validation" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?listing_id=<?php echo htmlspecialchars($houseId); ?>" method="POST" enctype="multipart/form-data" novalidate>
+                    <input type="hidden" name="house_id" value="<?php echo htmlspecialchars($houseId); ?>">
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
+
+                    <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" value=<?php echo htmlspecialchars($selectedHouse['propertyDetails']['address']); ?> required="">
-                        <div class="invalid-feedback">
-                            Please enter your address.
+                        <input type="text" class="form-control" id="address" name="address" value="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['address']); ?>" readonly>
+                        <div class="invalid-feedback">Please enter your address.</div>
+                    </div>
+                    <!-- <div class="mb-3">
+                        <label for="zip" class="form-label">Zip</label>
+                        <input type="text" class="form-control" id="zip" name="zip" value="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['zip']); ?>" readonly>
+                        <div class="invalid-feedback">Zip code required.</div>
+                    </div> -->
+                    <!-- Other form fields remain editable as before -->
+                    <div class="mb-3">
+                      <label for="area" class="form-label">Area <span class="text-body-secondary"></span></label>
+                        <select type="option" class="form-select" id="area" name="area" required="">
+                          <option value="">Choose...</option>
+                          <option>JPA</option>
+                          <option>Corner</option>
+                          <option>MSC</option>
+                          <option>Not</option>
+                        </select>     
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Rent</label>
+                        <input type="text" class="form-control" id="price" name="price" value="<?php echo htmlspecialchars($selectedHouse['rentalTerms']['subleasefee']); ?>" required>
+                        <div class="invalid-feedback">Please enter an amount.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Prefer Gender</label>
+                        <select class="form-select" id="gender" name="gender" required>
+                            <option value="">Choose...</option>
+                            <option value="Male" <?php echo $selectedHouse['rentalTerms']['gender'] === 'Male' ? 'selected' : ''; ?>>Male</option>
+                            <option value="Female" <?php echo $selectedHouse['rentalTerms']['gender'] === 'Female' ? 'selected' : ''; ?>>Female</option>
+                            <option value="Doesn't matter" <?php echo $selectedHouse['rentalTerms']['gender'] === "Doesn't matter" ? 'selected' : ''; ?>>Doesn't matter</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input id="furnished" name="furnished" type="checkbox" class="form-check-input" <?php echo $selectedHouse['rentalTerms']['furnished'] ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="furnished">Check if it's Furnished</label>
                         </div>
                     </div>
-                    <div class="Address2 col-12">
-                      <label for="address2" class="form-label">Address 2 <span class="text-body-secondary">(Optional)</span></label>
-                      <input type="text" class="form-control" id="address2" name="address2" placeholder="Apartment or suite">
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input id="pets-allowed" name="petsAllowed" type="checkbox" class="form-check-input" <?php echo $selectedHouse['rentalTerms']['pet'] ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="pets-allowed">Check if Pets Allowed</label>
+                        </div>
                     </div>
-                    
-                    <div class="Area col-12">
-                      <label for="area" class="form-label">Area <span class="text-body-secondary"></span></label>
-                      <select type="option" class="form-select" id="area" name="area" required="">
-                        <option value=<?php echo ($selectedHouse['propertyDetails']['location']); ?>>Choose...</option>
-                        <option>JPA</option>
-                        <option>Corner</option>
-                        <option>MSC</option>
-                        <option>Not</option>
-                      </select>
+                    <div class="mb-3">
+                        <label for="description" the form-label">Description</label>
+                        <input type="text" class="form-control" id="description" name="description" value="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['description']); ?>" required>
                     </div>
-
-                    <div class="Zip col-md-3">
-                    <label for="zip" class="form-label">Zip</label>
-                    <input type="text" class="form-control" id="zip" name="zip" placeholder="" required="">
-                    <div class="invalid-feedback">
-                Zip code required.
-              </div>
-            </div>
-
-            <div class="Photo col-12">
-                  <label for="photos" class="form-label">Photos</label>
-                  <input id="photos" type="file" name="photo" accept="image/png, image/jpeg" />
-              </div>
-            <div class="Price col-12">
-              <label for="price" class="form-label">Rent</label>
-              <div class="input-group"></div>
-                <input type="text" class="form-control" id="price" name="price" placeholder="Rent fee per month" value=<?php echo ($selectedHouse['rentalTerms']['subleasefee']); ?>>
-              <div class="invalid-feedback">
-                Please enter an amount.
-              </div>
-            </div>
-
-            <div class="Gender col-mid-3">
-                <label class="form-label">Prefer Gender</label>
-                <select type="option" class="form-select" id="gender" name="gender">
-                  <option ><?php echo ($selectedHouse['rentalTerms']['gender']); ?></option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Doesn't matter</option>
-                </select>
-                
-
-            </div>
-
-          <!-- <div class="Furnished col-mid-3"> -->
-          <div class="form-check">
-            <input id="furnished" name="furnished" type="checkbox" class="form-check-input" value="true" <?php if(($selectedHouse['rentalTerms']['furnished']) == "true") echo "checked"; ?>>
-            <label class="form-check-label" for="furnished">Check if its Furnished</label>
-          </div>
-         
-            <div class="form-check">
-              <input id="pets-allowed" name="petsAllowed" type="checkbox" class="form-check-input" value="true" <?php if(($selectedHouse['rentalTerms']['pet']) == "true") echo "checked"; ?>>
-              <label class="form-check-label" for="pets-allowed">Check if Pets Allowed</label>
-            </div>
-              
-          <!-- </div> -->
-            <div class="Description col-12">
-              <label for="description" class="form-label">Description</label>
-              <div class="input-group"></div>
-                <input type="text" class="form-control" id="description" name="description" value=<?php echo htmlspecialchars($selectedHouse['propertyDetails']['description']); ?> placeholder="Add extra information about your listing" required="">
-              </div>
-
-
-
-          </div>
-                    <!-- Add other fields similarly, ensuring they have 'name' attributes -->
-
                     <button class="w-100 btn btn-primary btn-lg" type="submit">Update listing</button>
-                    <!-- <button class="w-100 btn btn-primary btn-lg" type="submit">Submit listing</button> -->
                 </form>
             </div>
         </div>
-        </div>
     </main>
+</div>
 
-    
-    
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
