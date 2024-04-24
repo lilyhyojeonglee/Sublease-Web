@@ -414,6 +414,27 @@ class SubleaseLogic
                 $listings = pg_fetch_all($result);
                 return $listings ?: [];
             }
+
+            public function getAllListings() {
+                $database = new Database();
+                $dbConnector = $database->getDbConnector();
+                
+                $query = "SELECT * FROM subleases";
+                $result = pg_query($dbConnector, $query);
+                
+                if (!$result) {
+                    throw new Exception('Failed to fetch listings: ' . pg_last_error($dbConnector));
+                }
+                
+                $listings = pg_fetch_all($result);
+                
+                // Close the database connection
+                pg_close($dbConnector);
+                
+                // Convert listings to JSON format
+                return json_encode($listings);
+            }
+            
             
         public function deleteListing($house_id){
                 $userId = $_SESSION['user']['id'] ?? null;

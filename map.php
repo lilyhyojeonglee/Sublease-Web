@@ -8,6 +8,10 @@ $post = $_POST;
 
 $application = new SubleaseLogic($uri, $get, $post);
 $application->run();
+$listingsData = $application->getAllListings();
+
+?>
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -224,7 +228,9 @@ $application->run();
                     </div> -->
                     <h2>Sublease Availability</h2>
                         <div id="listings" class="list-group list-group-flush border-bottom scrollarea">
+                            
                             <?php
+                            
                             $jsonPath = 'data/data.json';
 
                             if (file_exists($jsonPath)) {
@@ -284,13 +290,25 @@ $application->run();
             mapId: "DEMO_MAP_ID",
         });
 
+
         // The marker, positioned at Uluru
         const marker = new AdvancedMarkerView({
             map: map,
             position: position,
             title: "Uluru",
         });
-        
+        const listings = <?php echo $listingsData; ?>;
+
+        // Plot markers on the map
+        listings.forEach(listing => {
+            const { latitude, longitude, address } = listing;
+
+            new google.maps.Marker({
+                map: map,
+                position: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
+                title: address,
+            });
+        });
         }
 
         // Call the initMap function when the DOM is loaded
