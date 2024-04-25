@@ -3,11 +3,11 @@
 require_once 'SubleaseLogic.php';
 require_once 'Database.php';
 $database = new Database();
-$uri = '/profile';
+// $uri = '/profile';
 $get = $_GET;
-$post = $_POST;
+// $post = $_POST;
 
-$subleaseLogic = new SubleaseLogic($uri, $get, $post);
+$subleaseLogic = new SubleaseLogic($get);
 
 // Check if the user is not logged in, redirect to login.php or another appropriate page
 if (!isset($_SESSION['user'])) {

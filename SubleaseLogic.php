@@ -3,19 +3,19 @@ require_once 'Database.php';
 
 class SubleaseLogic
 {
-        private $uri;
+        // private $uri;
         private $get;
-        private $post;
+        // private $post;
         private $errormessage;
         private $message;
 
 
-        public function __construct($uri, $get, $post)
+        public function __construct($get)
         {
                 session_start(); //
-                $this->uri = $uri;
+                // $this->uri = $uri;
                 $this->get = $get;
-                $this->post = $post;
+                // $this->post = $post;
         }
 
         public function run()
