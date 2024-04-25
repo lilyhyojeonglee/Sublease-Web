@@ -230,7 +230,7 @@ class SubleaseLogic
                             if (password_verify($password, $user['password'])) {
                                 $_SESSION['user'] = $user; // Store user info in session
 
-                                header("?command=showmap"); //knknkn
+                                header("Location: index.php?command=showmap"); //knknkn
                                 exit; 
                             } else {
                                 $this->errormessage  = "Authentication failed. Please check your credentials.";
