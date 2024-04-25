@@ -32,30 +32,30 @@ class SubleaseLogic
                                         $this->servePage('index.html'); // Show the index page otherwise
                                 }
                                 break;
-                        case '/profile':
+                        case "'profile":
                                 $this->handleProfile();
                                 break;
-                        case '/login':
+                        case "login":
                                 $this->handleLogin();
                                 break;
-                        case '/showLogin':
+                        case "showLogin":
                                 $this->showLogin();
                                 break;
-                        case '/signup':
+                        case  "signup":
                                 $this->handleSignup();
                                 break;
-                        case '/logout':
+                        case "logout":
                                 $this->handleLogout();
-                        case '/submission':
+                        case "submission":
                                 $this->addListing();
                                 break;
-                        case '/applyFilters':
+                        case "applyFilters":
                                 $this->applyFilters();
                                 break;
-                        case '/edit':
+                        case "eidt":
                                 $this->editListing();
                                 break;
-                        case '/getContactInfo':
+                        case "getContactInfo":
                                 $this->handleContactInfo();
                                 break;
                                     
