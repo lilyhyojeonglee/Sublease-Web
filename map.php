@@ -2,12 +2,12 @@
 require_once 'Database.php';
 require_once 'SubleaseLogic.php'; 
 
-$uri = '/map';
+// $uri = '/map';
 $get = $_GET;
-$post = $_POST;
+// $post = $_POST;
 
-$application = new SubleaseLogic($uri, $get, $post);
-$application->run();
+$application = new SubleaseLogic($get);
+// $application->run();
 $listingsData = $application->getAllListings();
 
 

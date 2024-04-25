@@ -15,6 +15,7 @@ class SubleaseLogic
                 session_start(); //
                 // $this->uri = $uri;
                 $this->get = $get;
+                // $this-> showAction();
                 // $this->post = $post;
         }
 
@@ -23,16 +24,21 @@ class SubleaseLogic
                 //         $this->handleLogout();
                 //         exit; // Stop further execution
                 //     }
+                // $command = "example";
+                // if (isset($this->input["command"]))
+                //     $command = $this->input["command"];
+
+                $command = "mainPage";
+                if (isset($this->get["command"]))
+                    $command = $this->get["command"];
+
                 
-                switch ($this->uri) {
-                        case "":
-                                if ($this->isLoggedIn()) {
-                                        $this->servePage('index.html'); // Show dashboard if logged in
-                                } else {
-                                        $this->servePage('index.html'); // Show the index page otherwise
-                                }
-                                break;
-                        case "'profile":
+                switch ($command) {
+                        // case "mainPage":
+                        //         $this->showAction();
+                        //         break;
+                                
+                        case "profile":
                                 $this->handleProfile();
                                 break;
                         case "login":
@@ -60,8 +66,16 @@ class SubleaseLogic
                                 break;
                                     
                         default:
-                                $this->pageNotFound();
+                                $this->showAction();
                                 break;
+                                // $this->pageNotFound();
+                                // break;
+                                // if ($this->isLoggedIn()) {
+                                //         $this->servePage('index.html'); // Show dashboard if logged in
+                                // } else {
+                                //         $this->servePage('index.html'); // Show the index page otherwise
+                                // }
+                                // break;
                 }
         }
 
@@ -69,9 +83,9 @@ class SubleaseLogic
         {
                 include $page;
         }
-        private function showAction($id)
+        private function showAction()
         {
-                // Your logic here to display something based on the ID
+               include 'index.html';
         }
 
         private function pageNotFound()
