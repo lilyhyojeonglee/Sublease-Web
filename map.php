@@ -1,14 +1,6 @@
 <?php
-require_once 'Database.php';
-require_once 'SubleaseLogic.php'; 
 
-// $uri = '/map';
-$get = $_GET;
-// $post = $_POST;
-
-$application = new SubleaseLogic($get);
-// $application->run();
-$listingsData = $application->getAllListings();
+$listingsData = $this->getAllListings();
 
 
 ?>
@@ -118,13 +110,8 @@ $listingsData = $application->getAllListings();
                     </a>
 <!-- EDITED TO DISPLAY DIFFERENT BUTTON BAR FOR LOGIN USER AND GUEST USER -->
                     <div>
-                    <?php if (!(isset($_SESSION['user']))): ?>
-                        <a href="?command=showLogin" class="btn btn-primary me-2">Login/Sign up</a>
-                        <!-- <a href="temp.html" class="btn btn-primary me-2">Login/Sign up</a> -->
-
-                    <?php else: ?>
-                        <a href="?command=profile" class="btn btn-primary me-2">Account</a>
-                    <?php endif; ?>
+                    <?= $message ?>
+                    
 
                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
                     </div>

@@ -58,6 +58,7 @@ class SubleaseLogic
                                 break;
                         case "logout":
                                 $this->handleLogout();
+                                break;
                         case "submission":
                                 $this->handlesubmission();
                                 break;
@@ -114,7 +115,7 @@ class SubleaseLogic
                 } 
 
                 if($this->isLoggedOut()) {
-                        header("Location: login.php");
+                        header("Location: index.php?command=showLogin");
                         exit;
                 }
                 
@@ -265,8 +266,16 @@ class SubleaseLogic
         }
 
 
-        private function showmap()
+        private function showmap($message="")
         {
+                $this->message="";
+                $name = $_SESSION['user'];
+                if ($_SESSION['user']=[]){
+                        $message = "<a href='?command=showLogin' class='btn btn-primary me-2'>Login/Sign up</a>";
+                }else{
+                        $message = "<a href='?command=profile' class='btn btn-primary me-2'>Account</a>";
+                }
+                
                 include('map.php');
         }
         private function handleLogout()
@@ -274,7 +283,8 @@ class SubleaseLogic
                 
                 session_destroy();
                 $_SESSION['user'] = [];
-                $this->showmap();
+                header("Location: index.php?command=showmap");
+                
                 
         }
 
