@@ -25,7 +25,7 @@ class SubleaseLogic
                 //     }
                 
                 switch ($this->uri) {
-                        case '/':
+                        case "":
                                 if ($this->isLoggedIn()) {
                                         $this->servePage('index.html'); // Show dashboard if logged in
                                 } else {
