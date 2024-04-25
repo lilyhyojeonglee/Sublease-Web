@@ -164,7 +164,7 @@ class SubleaseLogic
                         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                         $result = pg_prepare($dbConnector, "insert_user", "INSERT INTO users (first_name, last_name, email, phone, password) VALUES ($1, $2, $3, $4, $5)");
                         $result = pg_execute($dbConnector, "insert_user", array($firstName, $lastName, $email, $phone, $hashedPassword));
-                        header("?command=showLogin");
+                        header("Location: index.php?command=showLogin");
                         exit;
                         // if ($result) {
                         //         header("?command=showLogin");
