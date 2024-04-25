@@ -119,7 +119,7 @@ $listingsData = $application->getAllListings();
 <!-- EDITED TO DISPLAY DIFFERENT BUTTON BAR FOR LOGIN USER AND GUEST USER -->
                     <div>
                     <?php if (!(isset($_SESSION['user']))): ?>
-                        <a href="?command=showLogin" class="btn btn-primary me-2">Login/Sign up</a>
+                        <a href="index.php?command=showLogin" class="btn btn-primary me-2">Login/Sign up</a>
                         <!-- <a href="temp.html" class="btn btn-primary me-2">Login/Sign up</a> -->
 
                     <?php else: ?>

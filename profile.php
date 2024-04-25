@@ -4,20 +4,20 @@ require_once 'SubleaseLogic.php';
 require_once 'Database.php';
 $database = new Database();
 // $uri = '/profile';
-$get = $_GET;
-// $post = $_POST;
+// $get = $_GET;
+// // $post = $_POST;
 
-$subleaseLogic = new SubleaseLogic($get);
+// $subleaseLogic = new SubleaseLogic($get);
 
 // Check if the user is not logged in, redirect to login.php or another appropriate page
 if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
+    header("Location: index.php?commmand=showLogin");
     exit;
 }
 
 if (isset($_POST['delete']) && isset($_POST['house_id'])) {
   try {
-      $subleaseLogic->deleteListing($_POST['house_id']);
+      $this->deleteListing($_POST['house_id']);
       $message = "Listing removed successfully.";
   } catch (Exception $e) {
       $message = $e->getMessage(); 
@@ -26,7 +26,7 @@ if (isset($_POST['delete']) && isset($_POST['house_id'])) {
 
 // $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
 
-$userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
+$userListings = $this->getUserListings($_SESSION['user']['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

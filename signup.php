@@ -23,15 +23,9 @@
             <p>Fill out your information to make an account.</p>
         </div>
    
-    <?php if (!empty($_SESSION['errorMessages'])): ?>
-
-      <div class="alert alert-danger" role="alert">
-          <?php foreach ($_SESSION['errorMessages'] as $message): ?>
-              <?= htmlspecialchars($message) ?><br>
-          <?php endforeach; ?>
-          <?php unset($_SESSION['errorMessages']); // Clear messages after displaying ?>
-      </div>
-    <?php endif; ?>
+      
+          <?php $message?>
+           
     <div class="row g-5">
       <div class="info-box">
         

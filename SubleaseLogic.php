@@ -53,11 +53,15 @@ class SubleaseLogic
                         case  "signup":
                                 $this->handleSignup();
                                 break;
+                        case  "showsignup":
+                                $this->showSignup();
+                                break;
                         case "showsubmission":
                                 $this->showsubmission();
                                 break;
                         case "logout":
                                 $this->handleLogout();
+                                break;
                         case "submission":
                                 $this->handlesubmission();
                                 break;
@@ -114,7 +118,7 @@ class SubleaseLogic
                 } 
 
                 if($this->isLoggedOut()) {
-                        header("Location: login.php");
+                        header("Location: index.php?command=showLogin");
                         exit;
                 }
                 
@@ -160,25 +164,29 @@ class SubleaseLogic
                         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                         $result = pg_prepare($dbConnector, "insert_user", "INSERT INTO users (first_name, last_name, email, phone, password) VALUES ($1, $2, $3, $4, $5)");
                         $result = pg_execute($dbConnector, "insert_user", array($firstName, $lastName, $email, $phone, $hashedPassword));
-            
-                        if ($result) {
-                                header("Location: index.php?command=showLogin");
-                                //HERE
-                            exit;
-                        } else {
-                                $this->errormessage  = "An error occurred during signup. Please try again.";
-                        }
+                        header("?command=showLogin");
+                        exit;
+                        // if ($result) {
+                        //         header("?command=showLogin");
+                        //         //HERE
+                        //     exit;
+                        // } else {
+                        //         $this->errormessage  = "An error occurred during signup. Please try again.";
+                        // }
                     }
+                    
             
                 }
-                $this->showSignup(); 
+                header("?command=showsignup");
+                // $this->showSignup(); 
+                
             }
 
             private function showSignup($message="")
         {
                 
                 if (!empty($this->errormessage)) {
-                $message = "<div class='alert alert-danger'>{$this->errormessage}</div>";
+                        $message = "<div class='alert alert-danger'>{$this->errormessage}</div>";
                 }
                 include('signup.php');
         }
@@ -233,8 +241,9 @@ class SubleaseLogic
                     }
             
                     // Here, handle and display the $errorMessages if any
+                    $this->showLogin();
                 }
-                $this->showLogin();
+                
             }
             
             
@@ -265,8 +274,16 @@ class SubleaseLogic
         }
 
 
-        private function showmap()
+        private function showmap($message="")
         {
+                $this->message="";
+                $name = $_SESSION['user'];
+                if ($_SESSION['user']=[]){
+                        $message = "<a href='?command=showLogin' class='btn btn-primary me-2'>Login/Sign up</a>";
+                }else{
+                        $message = "<a href='?command=profile' class='btn btn-primary me-2'>Account</a>";
+                }
+                
                 include('map.php');
         }
         private function handleLogout()
@@ -275,6 +292,8 @@ class SubleaseLogic
                 session_destroy();
                 $_SESSION['user'] = [];
                 $this->showmap();
+                // header("Location: index.php?command=showmap");
+                
                 
         }
 
