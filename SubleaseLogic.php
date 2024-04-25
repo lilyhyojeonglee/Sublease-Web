@@ -12,7 +12,7 @@ class SubleaseLogic
 
         public function __construct($get)
         {
-                session_start(); //
+                session_start(); 
                 // $this->uri = $uri;
                 $this->get = $get;
                 // $this-> showAction();
@@ -47,6 +47,9 @@ class SubleaseLogic
                         case "showLogin":
                                 $this->showLogin();
                                 break;
+                        case "showmap":
+                                $this->showmap();
+                                break;
                         case  "signup":
                                 $this->handleSignup();
                                 break;
@@ -79,6 +82,10 @@ class SubleaseLogic
                 }
         }
 
+        // private function showMap(){
+        //         include 'map.php';
+        // }
+
         private function servePage($page)
         {
                 include $page;
@@ -94,22 +101,22 @@ class SubleaseLogic
         }
 
         private function handleProfile()
-{
-        if ($this->isLoggedIn()) {
-          
-                include 'profile.php'; 
-        } 
+        {
+                if ($this->isLoggedIn()) {
+                
+                        include 'profile.php'; 
+                } 
 
-        if($this->isLoggedOut()) {
-                header("Location: login.php");
-                exit;
+                if($this->isLoggedOut()) {
+                        header("Location: login.php");
+                        exit;
+                }
+                
+                // else {
+                //         header("Location: map.php");
+                //         exit;
+                // }
         }
-        
-        // else {
-        //         header("Location: map.php");
-        //         exit;
-        // }
-}
 
         private function handleSignup() {
                 $database = new Database(); 
