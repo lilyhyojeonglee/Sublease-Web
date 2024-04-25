@@ -189,7 +189,7 @@ class SubleaseLogic
                     if ($phone === $masterPhone && $password === $master) {
                         // Login successful
                         $_SESSION['user'] = ['phone' => $phone]; // Store minimal user info or just a flag in session
-                        header("Location: map.php"); // Redirect to a secure page after successful login
+                        header("?command=showmap"); // Redirect to a secure page after successful login
                         exit;
                     }
                     // Basic validation for phone number and password
@@ -209,8 +209,9 @@ class SubleaseLogic
                             // Check if user exists and password is correct
                             if (password_verify($password, $user['password'])) {
                                 $_SESSION['user'] = $user; // Store user info in session
-                                header("Location: map.php");
-                                exit;
+
+                                header("?command=showmap"); //knknkn
+                                exit; 
                             } else {
                                 $this->errormessage  = "Authentication failed. Please check your credentials.";
                             }
@@ -324,7 +325,7 @@ class SubleaseLogic
                         $area=$_POST['area'] ?? '';
                         $zip = $_POST['zip'] ?? '';
                         $photo = 'images/listing1.webp';
-                        $price=$_POST['price'] ?? '';
+                        $price=$_POST['price']  ?? '';
                         $gender = $_POST['gender'] ?? '';
                         $furnished = $_POST['furnished'] ? 't' : 'f';
                         $pets=$_POST['petsAllowed']? 't' : 'f';
