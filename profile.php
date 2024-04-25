@@ -41,7 +41,7 @@ $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
 <div class="container-header" id="home">
         <div class="header">
           <div class="pl-logo" id="pl-logo">
-            <a href="index.html">
+            <a href="?command=Mainpage">
               <img src="pl_logo.jpg">
             </a>
           </div>
@@ -49,7 +49,7 @@ $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
 
           <div class="logout" style="position: absolute; top: 20px; left: 220px;">
             
-              <a href="/logout" class="btn btn-danger">Log out</a>
+              <a href="?command=logout" class="btn btn-danger">Log out</a>
             
           </div>
         </div>
@@ -88,7 +88,7 @@ $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
    
 
     <div class="webweb">
-        <a href="submission.php">
+        <a href="?command=showsubmission">
             <button type="button">Upload your listing</button>
         </a>
     </div>
