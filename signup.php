@@ -36,7 +36,7 @@
       <div class="info-box">
         
       
-        <form action="/signup" method="POST">
+        <form action="?command=signup" method="POST">
           <div class="form-group  col-12">
             <label for="first_name">First name</label>
             <input type="text" class="form-control" name="first_name" placeholder="First name" required> 

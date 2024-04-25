@@ -151,7 +151,8 @@ class SubleaseLogic
                         $result = pg_execute($dbConnector, "insert_user", array($firstName, $lastName, $email, $phone, $hashedPassword));
             
                         if ($result) {
-                            header("Location: login.php");
+                                header("Location: index.php?command=showLogin");
+                                //HERE
                             exit;
                         } else {
                                 $this->errormessage  = "An error occurred during signup. Please try again.";
