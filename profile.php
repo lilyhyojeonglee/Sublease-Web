@@ -41,7 +41,7 @@ $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
 <div class="container-header" id="home">
         <div class="header">
           <div class="pl-logo" id="pl-logo">
-            <a href="?command=Mainpage">
+            <a href="?command=mainPage">
               <img src="pl_logo.jpg">
             </a>
           </div>
@@ -74,7 +74,7 @@ $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
                 <button>edit</button>
             </a>
 
-            <form action="profile.php" method="post">
+            <form action="?command=profile" method="post">
                 <input type="hidden" name="house_id" value="<?php echo htmlspecialchars($listing['house_id']); ?>">
                 <input type="submit" name="delete" value="Remove" class="btn btn-danger">
             </form>
