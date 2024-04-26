@@ -145,7 +145,8 @@ class SubleaseLogic
                     }
             
                 }
-                $this->showSignup(); 
+                header("Location: index.php?command=showLogin");
+                // $this->showSignup(); //CHECK THIS
             }
 
             private function showSignup($message="")
@@ -195,7 +196,7 @@ class SubleaseLogic
                             // Check if user exists and password is correct
                             if (password_verify($password, $user['password'])) {
                                 $_SESSION['user'] = $user; // Store user info in session
-                                header("Location: index.php?map.php");
+                                header("Location: index.php?command=showmap");
                                 exit;
                             } else {
                                 $this->errormessage  = "Authentication failed. Please check your credentials.";
