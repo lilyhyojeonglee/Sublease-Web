@@ -1,34 +1,10 @@
 <?php
 
-$houseId = isset($_GET['house_id']) ? (int) $_GET['house_id'] : 0;
-
-$jsonDir = 'data/data.json';
-$jsonData = file_get_contents($jsonDir);
-
-// Decode the JSON data into an array
-$houses = json_decode($jsonData, true);
-
-// Search for the house by ID
-$selectedHouse = null;
-foreach ($houses as $house) {
-    if ($house['house_id'] === $houseId) {
-        $selectedHouse = $house;
-        break;
-    }
-}
-
-if (null === $selectedHouse) {
-    echo "House not found";
-    exit;
-}
-
-// display boolean values as 'Yes' or 'No'
 function displayBoolean($value) {
     return $value ? 'Yes' : 'No';
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,15 +47,15 @@ function displayBoolean($value) {
     <div class="row">
         <div class="col-md-6">
             <div class="large-image">
-                <img src="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['image']); ?>" alt="Large Listing Image">
+                <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Large Listing Image">
             </div>
         </div>
         <div class="col-md-6">
             <div class="gallery">
-                <img src="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['image']); ?>" alt="Large Listing Image">
-                <img src="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['image']); ?>" alt="Large Listing Image">
-                <img src="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['image']); ?>" alt="Large Listing Image">
-                <img src="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['image']); ?>" alt="Large Listing Image">
+                <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Large Listing Image">
+                <img src="<?php echo $_SESSION['currentListing']['image'];?>" alt="Large Listing Image">
+                <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Large Listing Image">
+                <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Large Listing Image">
             </div>
         </div>
     </div>
@@ -89,21 +65,21 @@ function displayBoolean($value) {
             <div class="col-12 col-md-12">
             <div class="info-box text-center">
                     <header>Address</header>
-                    <p><?php echo htmlspecialchars($selectedHouse['propertyDetails']['address']); ?></p>
+                    <p><?php echo $_SESSION['currentListing']['address']; ?></p>
                 </div>
                 <div class="info-box">
                     <header>Details</header>
-                    <p>Gender: <?php echo ($selectedHouse['rentalTerms']['gender']); ?><br>
-                        Area: <?php echo ($selectedHouse['propertyDetails']['location']); ?><br>
-                        Furnished: <?php echo displayBoolean($selectedHouse['rentalTerms']['furnished']); ?><br>
-                        Sublease Fee: $<?php echo ($selectedHouse['rentalTerms']['subleaseFee']); ?><br>
-                        Pet: <?php echo displayBoolean($selectedHouse['rentalTerms']['pet']); ?></p>
+                    <p>Gender: <?php echo $_SESSION['currentListing']['gender']; ?><br>
+                        Area: <?php echo $_SESSION['currentListing']['area']; ?><br>
+                        Furnished: <?php echo displayBoolean($_SESSION['currentListing']['furnished']); ?><br>
+                        Sublease Fee: $<?php echo $_SESSION['currentListing']['subleaseFee']; ?><br>
+                        Pet: <?php echo displayBoolean($_SESSION['currentListing']['pet']); ?></p>
                 </div>
             </div>
             <div class="col-md-8">
             <div class="info-box"> 
                     <header>Description</header>
-                    <p><?php echo htmlspecialchars($selectedHouse['propertyDetails']['description']); ?></p>
+                    <p><?php echo $_SESSION['currentListing']['description']; ?></p>
                 </div>
             </div>
 
