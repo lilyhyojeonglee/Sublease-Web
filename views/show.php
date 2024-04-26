@@ -60,7 +60,7 @@ function displayBoolean($value) {
 <div class="container-header" id="home">
     <div class="header">
         <div class="pl-logo" id="pl-logo">
-            <a href="map.php"> 
+            <a href="/?command=mainp"> 
                 <img src="pl_logo.jpg">
             </a>
         </div>

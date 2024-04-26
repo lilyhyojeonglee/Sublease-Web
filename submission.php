@@ -1,49 +1,12 @@
 <?php
 
-require_once 'Database.php'; // Your database connection class
+require_once 'Database.php'; 
 require_once 'SubleaseLogic.php'; 
 
-// $uri = '/submission';
-$get = $_GET;
-// $post = $_POST;
+// $get = $_GET;
+
 // Check if the form has been submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $subleaseLogic = new SubleaseLogic($get );
-  $listingData = [
-    'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
-    'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-    'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-    'latitude' => filter_input(INPUT_POST, 'latitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
-    'longitude' => filter_input(INPUT_POST, 'longitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
-    'photoPath' => 'images/listing1.webp', // Assuming static or handle file upload to get path
-    'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS) . 
-    (!empty($_POST['address2']) ? ' ' . filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : ''),
-    'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-    'furnished' => isset($_POST['furnished']) ? true : false, 
-    'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
-    'petsAllowed' => isset($_POST['petsAllowed']) ? true : false,
-];
-if (empty($listingData['latitude']) || empty($listingData['longitude'])) {
-  echo '<div class="alert alert-danger" role="alert">Please type address and choose one from the suggestions.</div>';
-} 
-elseif(empty($listingData['area'])) {
-  echo '<div class="alert alert-danger" role="alert">Please choose an area.</div>';
-} 
-elseif (empty($listingData['rent'])) {
-  echo '<div class="alert alert-danger" role="alert">Enter sublease fee.</div>';
-} 
-elseif (empty($listingData['gender'])) {
-  echo '<div class="alert alert-danger" role="alert">Please choose a gender preference.</div>';
-} else {
-  try {
-      $subleaseLogic->addListing($listingData);
-  } catch (Exception $e) {
-      echo "Error: " . $e->getMessage();
-  }
-}
-} else {
-// Handle non-POST requests
-}
+
 //   try {
 //       $subleaseLogic->addListing($listingData);
 

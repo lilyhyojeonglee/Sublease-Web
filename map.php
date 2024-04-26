@@ -80,7 +80,7 @@ $listingsData = $application->getAllListings();
         <div class="header">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
-            <a class="navbar-brand" href="#" style="font-size: 30px; padding-left: 20px;" >HomeEZ</a>
+            <a class="navbar-brand" href="?command=mainpage" style="font-size: 30px; padding-left: 20px;" >HomeEZ</a>
             
                 <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
               

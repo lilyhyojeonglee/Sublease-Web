@@ -94,5 +94,53 @@
             "subleaseFee": "4444",
             "pet": true
         }
+    },
+    {
+        "house_id": "32",
+        "propertyDetails": {
+            "area": "Corner",
+            "description": "666",
+            "location": null,
+            "address": "6666 Commerce Street, Springfield, VA, USA 6",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Female",
+            "furnished": true,
+            "subleaseFee": "6666",
+            "pet": true
+        }
+    },
+    {
+        "house_id": "34",
+        "propertyDetails": {
+            "area": "Corner",
+            "description": "",
+            "location": null,
+            "address": "2244 Ivy Road, Charlottesville, VA, USA",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Female",
+            "furnished": true,
+            "subleaseFee": "32",
+            "pet": false
+        }
+    },
+    {
+        "house_id": "33",
+        "propertyDetails": {
+            "area": "MSC",
+            "description": "EDITED",
+            "location": null,
+            "address": "2222 Shepherds Ridge Road, Charlottesville, VA, USA",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Doesn't matter",
+            "furnished": true,
+            "subleaseFee": "9999",
+            "pet": true
+        }
     }
 ]

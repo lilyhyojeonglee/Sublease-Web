@@ -57,7 +57,7 @@ class SubleaseLogic
                                 case "logout":
                                 $this->handleLogout();
                         case "submission":
-                                $this->addListing();
+                                $this->handleSubmission();
                                 break;
                         case "applyFilters":
                                 $this->applyFilters();
@@ -365,6 +365,53 @@ class SubleaseLogic
                 echo "Listing added successfully.";
         }
 }
+        public function handlesubmission(){
+                $this->message = '';
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        // $subleaseLogic = new SubleaseLogic($get );
+                        $listingData = [
+                          'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
+                          'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                          'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                          'latitude' => filter_input(INPUT_POST, 'latitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
+                          'longitude' => filter_input(INPUT_POST, 'longitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
+                          'photoPath' => 'images/listing1.webp', // Assuming static or handle file upload to get path
+                          'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS) . 
+                          (!empty($_POST['address2']) ? ' ' . filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : ''),
+                          'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                          'furnished' => isset($_POST['furnished']) ? true : false, 
+                          'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
+                          'petsAllowed' => isset($_POST['petsAllowed']) ? true : false,
+                      ];
+                      if (empty($listingData['latitude']) || empty($listingData['longitude'])) {
+                        $this->message= '<div class="alert alert-danger" role="alert">Please type address and choose one from the suggestions.</div>';
+                      } 
+                      elseif(empty($listingData['area'])) {
+                        $this->message= '<div class="alert alert-danger" role="alert">Please choose an area.</div>';
+                      } 
+                      elseif (empty($listingData['rent'])) {
+                        $this->message= '<div class="alert alert-danger" role="alert">Enter sublease fee.</div>';
+                      } 
+                      elseif (empty($listingData['gender'])) {
+                        $this->message= '<div class="alert alert-danger" role="alert">Please choose a gender preference.</div>';
+                      } else {
+                        try {
+                            $this->addListing($listingData);
+                        } catch (Exception $e) {
+                                // $this->message= "Error: " . $e->getMessage();
+                        }
+                      }
+                      
+                      if($this->message){
+                        $this->showSubmission(); //check this  
+
+                      }
+
+                      } else {
+                      // Handle non-POST requests
+                      }
+                //       $this->showSubmission(); //check this  
+        }
         public function addListing($listingData) {
                 $this->message = '';
                 $database = new Database();
