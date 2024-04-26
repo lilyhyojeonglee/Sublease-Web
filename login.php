@@ -77,7 +77,7 @@
             <label class="form-check">
               Remember me </label>
               <button type="submit" class="btn btn-primary py-2" style="width: 48%;">LOG in</button>
-              <a href="signup.php" class="btn btn-outline-primary py-2" style="width: 48%;">Sign up</a>
+              <a href="?command=signup" class="btn btn-outline-primary py-2" style="width: 48%;">Sign up</a>
               <p class="mt-5 mb-3 text-body-secondary">© 2017–2024</p>
 
       </form>
@@ -87,11 +87,11 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-  <script>
+  <!-- <script>
     document.getElementById('signupBtn').addEventListener('click', function () {
       window.location.href = 'signup.php';
     });
-  </script>
+  </script> -->
 </body>
 
 </html>
