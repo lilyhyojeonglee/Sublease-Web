@@ -47,10 +47,14 @@ class SubleaseLogic
                         case "showmap":
                                 $this->showmap();
                                 break;
+                        
                         case "signup":
                                 $this->handleSignup();
                                 break;
-                        case "logout":
+                        case "showSignup":
+                                $this->showSignup();
+                                break;
+                                case "logout":
                                 $this->handleLogout();
                         case "submission":
                                 $this->addListing();

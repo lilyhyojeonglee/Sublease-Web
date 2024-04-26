@@ -74,7 +74,7 @@ $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
                 <button>edit</button>
             </a>
 
-            <form action="profile.php" method="post">
+            <form action="?command=profile" method="post">
                 <input type="hidden" name="house_id" value="<?php echo htmlspecialchars($listing['house_id']); ?>">
                 <input type="submit" name="delete" value="Remove" class="btn btn-danger">
             </form>
