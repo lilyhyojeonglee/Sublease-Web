@@ -228,30 +228,31 @@ $listingsData = $application->getAllListings();
                    
                    
                     <!-- <h2>Sublease Availability</h2> -->
-                        <div id="listings" class="list-group list-group-flush border-bottom scrollarea">
-                        <?php 
-                            $listings = json_decode($listingsData); // Decode the JSON string into an array
-                            
-                            foreach ($listings as $item):
-                                $house_id = $item->house_id;
-                                $address = htmlspecialchars($item->address);
-                                $area = htmlspecialchars($item->area);
-                                $subleasefee = htmlspecialchars($item->subleasefee);
-                                $image = htmlspecialchars($item->image);
-                        ?>
-                        <a href="listing.php?id=<?php echo urlencode($house_id); ?>" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-house-id="<?php echo $house_id; ?>">
-                            <div class="d-flex w-100 align-items-center justify-content-between">
-                                <strong class="mb-1"><?php echo $address; ?></strong>
-                                <small><?php echo $area; ?></small>
-                            </div>
-                            <div class="col-10 mb-1 small">$<?php echo $subleasefee; ?></div>
-                            <div class="sublease-image">
-                                <img src="<?php echo $image; ?>" alt="Item image">
-                            </div>
-                        </a>
-                        <?php endforeach; ?>
-                            
-                </div>
+                        <!-- Listing Items -->
+<div id="listings" class="list-group list-group-flush border-bottom scrollarea">
+    <?php 
+        $listings = json_decode($listingsData); // Decode the JSON string into an array
+        
+        foreach ($listings as $item):
+            $house_id = $item->house_id;
+            $address = htmlspecialchars($item->address);
+            $area = htmlspecialchars($item->area);
+            $subleasefee = htmlspecialchars($item->subleasefee);
+            $image = htmlspecialchars($item->image);
+    ?>
+    <a href="/index.php?command=showListing&id=<?php echo urlencode($house_id); ?>" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-house-id="<?php echo $house_id; ?>">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+            <strong class="mb-1"><?php echo $address; ?></strong>
+            <small><?php echo $area; ?></small>
+        </div>
+        <div class="col-10 mb-1 small">$<?php echo $subleasefee; ?></div>
+        <div class="sublease-image">
+            <img src="<?php echo $image; ?>" alt="Item image">
+        </div>
+    </a>
+    <?php endforeach; ?>
+</div>
+
             </section>
         </div>
     </div>
@@ -368,7 +369,7 @@ $listingsData = $application->getAllListings();
                     // Create HTML for each listing item
                     
                     var listingHtml = `
-                        <a href="listing.php?id=${encodeURIComponent(listing.house_id)}" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+<a href="/index.php?command=showListing&id=<?php echo urlencode($house_id); ?>" ...>
                             <div class="d-flex w-100 align-items-center justify-content-between">
                                 <strong class="mb-1">${listing.address}</strong>
                                 <small>${listing.area}</small>

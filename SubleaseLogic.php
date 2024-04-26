@@ -71,6 +71,9 @@ class SubleaseLogic
                         case "showsubmission":
                                 $this->showSubmission();
                                 break;
+                        case "showListing":
+                                $this->showListing();
+                                break;
                         default:
                                $this->showAction();
                                break;
@@ -300,6 +303,32 @@ class SubleaseLogic
         
         //         echo "Listing added successfully.";
         //     }
+
+        public function showListing()
+{
+    if (isset($this->get['id']) && is_numeric($this->get['id'])) {
+        $house_id = $this->get['id'];
+        $database = new Database();
+        $dbConnector = $database->getDbConnector();
+
+        $query = "SELECT * FROM subleases WHERE house_id = $1";
+        $result = pg_prepare($dbConnector, "fetch_listing", $query);
+        $result = pg_execute($dbConnector, "fetch_listing", array($house_id));
+
+        if ($listing = pg_fetch_assoc($result)) {
+            // Assuming you have a method to handle showing the details
+            $this->displayListingDetails($listing);
+        } else {
+            echo "Listing not found.";
+        }
+    } else {
+        echo "Invalid or missing ID.";
+    }
+}
+
+            private function displayListingDetails($listing) {
+                include 'views/show.php';
+            }
         public function editListing() {
                 $this->message = '';
                 $database = new Database();

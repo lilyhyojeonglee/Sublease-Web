@@ -1,6 +1,6 @@
 <?php
 
-// $houseId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+$houseId = isset($_GET['house_id']) ? (int) $_GET['house_id'] : 0;
 
 $jsonDir = 'data/data.json';
 $jsonData = file_get_contents($jsonDir);
