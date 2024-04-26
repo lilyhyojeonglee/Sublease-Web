@@ -3,12 +3,12 @@
 require_once 'Database.php'; // Your database connection class
 require_once 'SubleaseLogic.php'; 
 
-$uri = '/submission';
+// $uri = '/submission';
 $get = $_GET;
-$post = $_POST;
+// $post = $_POST;
 // Check if the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $subleaseLogic = new SubleaseLogic($uri, $get, $post);
+  $subleaseLogic = new SubleaseLogic($get );
   $listingData = [
     'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
     'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
@@ -128,7 +128,7 @@ function initAutocomplete() {
             <div class="info-box">
                 <h4 class="mb-3">Sublease Information</h4>
                 <!-- Update the action to the correct script file or endpoint -->
-                <form class="needs-validation" action="submission.php" method="POST" enctype="multipart/form-data" novalidate="">
+                <form class="needs-validation" action="?command=submission" method="POST" enctype="multipart/form-data" novalidate="">
                     <input type="hidden" id="latitude" name="latitude">
                     <input type="hidden" id="longitude" name="longitude">
                     <div class="Address col-12">

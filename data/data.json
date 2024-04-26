@@ -46,5 +46,53 @@
             "subleaseFee": "123213",
             "pet": false
         }
+    },
+    {
+        "house_id": "29",
+        "propertyDetails": {
+            "area": "Corner",
+            "description": "",
+            "location": null,
+            "address": "00, Georgetown Green, Charlottesville, VA, USA",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Doesn&#039;t matter",
+            "furnished": false,
+            "subleaseFee": "7777",
+            "pet": true
+        }
+    },
+    {
+        "house_id": "30",
+        "propertyDetails": {
+            "area": "Corner",
+            "description": "",
+            "location": null,
+            "address": "00, Georgetown Green, Charlottesville, VA, USA",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Doesn&#039;t matter",
+            "furnished": false,
+            "subleaseFee": "7777",
+            "pet": true
+        }
+    },
+    {
+        "house_id": "31",
+        "propertyDetails": {
+            "area": "Not",
+            "description": "ASD",
+            "location": null,
+            "address": "11th Street Garage, 11th Street Southwest, Charlottesville, VA, USA G",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Female",
+            "furnished": true,
+            "subleaseFee": "4444",
+            "pet": true
+        }
     }
 ]

@@ -88,7 +88,7 @@ $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
    
 
     <div class="webweb">
-        <a href="submission.php">
+        <a href="?command=showsubmission">
             <button type="button">Upload your listing</button>
         </a>
     </div>

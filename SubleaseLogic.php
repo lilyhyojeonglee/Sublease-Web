@@ -68,7 +68,9 @@ class SubleaseLogic
                         case "getContactInfo":
                                 $this->handleContactInfo();
                                 break;
-                                    
+                        case "showsubmission":
+                                $this->showSubmission();
+                                break;
                         default:
                                $this->showAction();
                                break;
@@ -412,7 +414,13 @@ class SubleaseLogic
                 echo "Listing added successfully.";
             }
             
-            
+        private function showSubmission($message=""){
+                if (!empty($this->message)) {
+                        $message = "<div class='alert alert-primary'>{$this->message}</div>";
+                        }
+                        include('submission.php');
+        }
+
             public function getUserListings($userId) {
                 $database = new Database();
                 $dbConnector = $database->getDbConnector();
