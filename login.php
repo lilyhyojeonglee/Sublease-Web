@@ -49,7 +49,7 @@
       
   <main class="form-signin w-100 m-auto">
 
-    <form action="/login" method="POST">
+    <form action="?command=login" method="POST">
       <h1 class="h3 mb-3 fw-normal">Welcome!</h1>
       <div class="col-xs-12">
             <?= isset($message) ? $message : '' ?>

@@ -7,5 +7,5 @@ require_once 'SubleaseLogic.php';
 
 $uri = $_SERVER['REQUEST_URI'];
 
-$sublease = new SubleaseLogic($uri, $_GET, $_POST);
+$sublease = new SubleaseLogic($_GET);
 $sublease->run();

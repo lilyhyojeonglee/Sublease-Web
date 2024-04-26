@@ -1,113 +1,49 @@
 [
     {
-        "house_id": "16",
+        "house_id": "23",
         "propertyDetails": {
             "area": "Corner",
-            "description": "",
+            "description": "GOod house",
             "location": null,
-            "address": "2340 Commonwealth Drive, Charlottesville, VA, USA",
-            "image": "images/listing1.webp"
-        },
-        "rentalTerms": {
-            "gender": "Female",
-            "furnished": false,
-            "subleaseFee": "345",
-            "pet": false
-        }
-    },
-    {
-        "house_id": "17",
-        "propertyDetails": {
-            "area": "Not",
-            "description": "",
-            "location": null,
-            "address": "5678 Heards Mountain Road, Covesville, VA, USA #B",
-            "image": "images/listing1.webp"
-        },
-        "rentalTerms": {
-            "gender": "Female",
-            "furnished": false,
-            "subleaseFee": "700",
-            "pet": true
-        }
-    },
-    {
-        "house_id": "18",
-        "propertyDetails": {
-            "area": "Corner",
-            "description": "",
-            "location": null,
-            "address": "666 Evergreen Avenue, Charlottesville, VA, USA 4",
-            "image": "images/listing1.webp"
-        },
-        "rentalTerms": {
-            "gender": "Male",
-            "furnished": false,
-            "subleaseFee": "3333333",
-            "pet": false
-        }
-    },
-    {
-        "house_id": "19",
-        "propertyDetails": {
-            "area": "Corner",
-            "description": "",
-            "location": null,
-            "address": "00000, Far Hills, NJ, USA 4",
+            "address": "1709 Jefferson Park Avenue, Charlottesville, VA, USA 34",
             "image": "images/listing1.webp"
         },
         "rentalTerms": {
             "gender": "Female",
             "furnished": true,
-            "subleaseFee": "900",
-            "pet": false
-        }
-    },
-    {
-        "house_id": "20",
-        "propertyDetails": {
-            "area": "Corner",
-            "description": "",
-            "location": null,
-            "address": "00000, Far Hills, NJ, USA 4",
-            "image": "images/listing1.webp"
-        },
-        "rentalTerms": {
-            "gender": "Female",
-            "furnished": true,
-            "subleaseFee": "900",
-            "pet": false
-        }
-    },
-    {
-        "house_id": "21",
-        "propertyDetails": {
-            "area": "Not",
-            "description": "",
-            "location": null,
-            "address": "5555 Columbia Pike, Arlington, VA, USA try",
-            "image": "images/listing1.webp"
-        },
-        "rentalTerms": {
-            "gender": "Female",
-            "furnished": false,
-            "subleaseFee": "1232313",
+            "subleaseFee": "9999",
             "pet": true
         }
     },
     {
-        "house_id": "15",
+        "house_id": "26",
         "propertyDetails": {
-            "area": "MSC",
+            "area": "Corner",
             "description": "",
             "location": null,
-            "address": "123 East Main Street, Charlottesville, VA, USA",
+            "address": "1230 River Road, Charlottesville, VA, USA",
             "image": "images/listing1.webp"
         },
         "rentalTerms": {
             "gender": "Male",
             "furnished": false,
             "subleaseFee": "123",
+            "pet": false
+        }
+    },
+    {
+        "house_id": "27",
+        "propertyDetails": {
+            "area": "Corner",
+            "description": "",
+            "location": null,
+            "address": "1230 River Road, Charlottesville, VA, USA 123",
+            "image": "images/listing1.webp"
+        },
+        "rentalTerms": {
+            "gender": "Male",
+            "furnished": false,
+            "subleaseFee": "123213",
             "pet": false
         }
     }

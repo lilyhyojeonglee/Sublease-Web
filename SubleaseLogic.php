@@ -3,19 +3,19 @@ require_once 'Database.php';
 
 class SubleaseLogic
 {
-        private $uri;
+
         private $get;
-        private $post;
+
         private $errormessage;
         private $message;
 
 
-        public function __construct($uri, $get, $post)
+        public function __construct($get)
         {
                 session_start(); //
-                $this->uri = $uri;
+                // $this->uri = $uri;
                 $this->get = $get;
-                $this->post = $post;
+                // $this->post = $post;
         }
 
         public function run()
@@ -23,45 +23,51 @@ class SubleaseLogic
                 //         $this->handleLogout();
                 //         exit; // Stop further execution
                 //     }
-                
-                switch ($this->uri) {
-                        case '/':
-                                if ($this->isLoggedIn()) {
-                                        $this->servePage('index.html'); // Show dashboard if logged in
-                                } else {
-                                        $this->servePage('index.html'); // Show the index page otherwise
-                                }
-                                break;
-                        case '/profile':
+                $command = "";
+                if (isset($this->get['command'])) {
+                        $command = $this->get['command'];
+                }
+                switch ($command) {
+                        // case '/':
+                        //         if ($this->isLoggedIn()) {
+                        //                 $this->servePage('index.html'); // Show dashboard if logged in
+                        //         } else {
+                        //                 $this->servePage('index.html'); // Show the index page otherwise
+                        //         }
+                        //         break;
+                        case "profile":
                                 $this->handleProfile();
                                 break;
-                        case '/login':
+                        case "login":
                                 $this->handleLogin();
                                 break;
-                        case '/showLogin':
+                        case "showLogin":
                                 $this->showLogin();
                                 break;
-                        case '/signup':
+                        case "showmap":
+                                $this->showmap();
+                                break;
+                        case "signup":
                                 $this->handleSignup();
                                 break;
-                        case '/logout':
+                        case "logout":
                                 $this->handleLogout();
-                        case '/submission':
+                        case "submission":
                                 $this->addListing();
                                 break;
-                        case '/applyFilters':
+                        case "applyFilters":
                                 $this->applyFilters();
                                 break;
-                        case '/edit':
+                        case "edit":
                                 $this->editListing();
                                 break;
-                        case '/getContactInfo':
+                        case "getContactInfo":
                                 $this->handleContactInfo();
                                 break;
                                     
                         default:
-                                $this->pageNotFound();
-                                break;
+                               $this->showAction();
+                               break;
                 }
         }
 
@@ -69,9 +75,10 @@ class SubleaseLogic
         {
                 include $page;
         }
-        private function showAction($id)
+        private function showAction()
         {
                 // Your logic here to display something based on the ID
+                include 'index.html';
         }
 
         private function pageNotFound()
@@ -87,7 +94,7 @@ class SubleaseLogic
         } 
 
         if($this->isLoggedOut()) {
-                header("Location: login.php");
+                header("Location: index.php?command=showLogin");
                 exit;
         }
         
@@ -168,7 +175,7 @@ class SubleaseLogic
                     if ($phone === $masterPhone && $password === $master) {
                         // Login successful
                         $_SESSION['user'] = ['phone' => $phone]; // Store minimal user info or just a flag in session
-                        header("Location: map.php"); // Redirect to a secure page after successful login
+                        header("Location: index.php?command=showmap"); // Redirect to a secure page after successful login
                         exit;
                     }
                     // Basic validation for phone number and password
@@ -188,7 +195,7 @@ class SubleaseLogic
                             // Check if user exists and password is correct
                             if (password_verify($password, $user['password'])) {
                                 $_SESSION['user'] = $user; // Store user info in session
-                                header("Location: map.php");
+                                header("Location: index.php?map.php");
                                 exit;
                             } else {
                                 $this->errormessage  = "Authentication failed. Please check your credentials.";

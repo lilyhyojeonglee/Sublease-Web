@@ -2,12 +2,12 @@
 // Check if the user is not logged in, redirect to map.php
 require_once 'SubleaseLogic.php';
 require_once 'Database.php';
-$database = new Database();
-$uri = '/profile';
+// $database = new Database();
+// $uri = '/profile';
 $get = $_GET;
-$post = $_POST;
+// $post = $_POST;
 
-$subleaseLogic = new SubleaseLogic($uri, $get, $post);
+$subleaseLogic = new SubleaseLogic($get);
 
 // Check if the user is not logged in, redirect to login.php or another appropriate page
 if (!isset($_SESSION['user'])) {
@@ -49,7 +49,7 @@ $userListings = $subleaseLogic->getUserListings($_SESSION['user']['id']);
 
           <div class="logout" style="position: absolute; top: 20px; left: 220px;">
             
-              <a href="/logout" class="btn btn-danger">Log out</a>
+              <a href="?command=logout" class="btn btn-danger">Log out</a>
             
           </div>
         </div>
