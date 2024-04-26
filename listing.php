@@ -46,7 +46,7 @@ include 'views/show.php';
    
 <script>
     function revealContact() {
-    fetch('/getContactInfo') 
+    fetch('/?command=getContactInfo') 
         .then(response => response.text())
         .then(data => {
             document.getElementById('contact-info').innerText = data;
