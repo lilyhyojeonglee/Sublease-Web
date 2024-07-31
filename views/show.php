@@ -18,8 +18,9 @@ function displayBoolean($value) {
             padding-top: 20px;
         }
         .gallery {
-            width: 100%;
-            height: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .gallery img, .large-image img {
             width: 100%;
@@ -37,7 +38,7 @@ function displayBoolean($value) {
     <div class="header">
         <div class="pl-logo" id="pl-logo">
             <a href="/?command=mainp"> 
-                <img src="pl_logo.jpg">
+                <img src="pl_logo.jpg" alt="Logo">
             </a>
         </div>
     </div>
@@ -52,18 +53,33 @@ function displayBoolean($value) {
         </div>
         <div class="col-md-6">
             <div class="gallery">
-                <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Large Listing Image">
-                <img src="<?php echo $_SESSION['currentListing']['image'];?>" alt="Large Listing Image">
-                <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Large Listing Image">
-                <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Large Listing Image">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Top Image 1">
+                    </div>
+                    <div class="col-6">
+                        <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Top Image 2">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-4">
+                        <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Bottom Image 1">
+                    </div>
+                    <div class="col-4">
+                        <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Bottom Image 2">
+                    </div>
+                    <div class="col-4">
+                        <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Bottom Image 3">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container mt-4">
         <div class="row">
             <div class="col-12 col-md-12">
-            <div class="info-box text-center">
+                <div class="info-box text-center">
                     <header>Address</header>
                     <p><?php echo $_SESSION['currentListing']['address']; ?></p>
                 </div>
@@ -72,24 +88,22 @@ function displayBoolean($value) {
                     <p>Gender: <?php echo $_SESSION['currentListing']['gender']; ?><br>
                         Area: <?php echo $_SESSION['currentListing']['area']; ?><br>
                         Furnished: <?php echo displayBoolean($_SESSION['currentListing']['furnished']); ?><br>
-                        Sublease Fee: $<?php echo $_SESSION['currentListing']['subleaseFee']; ?><br>
+                        Sublease Fee: $<?php echo $_SESSION['currentListing']['subleasefee']; ?><br>
                         Pet: <?php echo displayBoolean($_SESSION['currentListing']['pet']); ?></p>
                 </div>
             </div>
             <div class="col-md-8">
-            <div class="info-box"> 
+                <div class="info-box"> 
                     <header>Description</header>
                     <p><?php echo $_SESSION['currentListing']['description']; ?></p>
                 </div>
             </div>
-
-
             <div class="col-md-4">
-                    <div class="info-box" id="contact-box" onclick="revealContact()">
-                        <header>Contact</header>
-                        <p id="contact-info">Log in to reveal</p>
-                    </div>
+                <div class="info-box" id="contact-box" onclick="revealContact()">
+                    <header>Contact</header>
+                    <p id="contact-info">Log in to reveal</p>
                 </div>
+            </div>
         </div>
     </div>
 </div>
