@@ -319,7 +319,7 @@ class SubleaseLogic
 
                         if ($listing = pg_fetch_assoc($result)) {
                         // Log or output the data to check its structure
-                        echo '<pre>' . print_r($listing, true) . '</pre>'; // Remove or comment out in production
+// Remove or comment out in production
                         
                         $_SESSION['currentListing'] = $listing;  
                         include 'views/show.php';
