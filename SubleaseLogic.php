@@ -388,17 +388,17 @@ class SubleaseLogic
                         // Update JSON file after successful database insertion
                         try {
                             $database->convertDataToJson();
-                            echo "Listing added successfully and JSON updated.";
+                            // echo "Listing added successfully and JSON updated.";
                             $this->message = "Listing updated successfully.";
                             $this->showProfile();
                             exit;
                         } catch (Exception $e) {
                             // Handle error if JSON conversion fails
-                            echo 'Error updating JSON: ' . $e->getMessage();
+                            // echo 'Error updating JSON: ' . $e->getMessage();
                         }
                     }
             
-                echo "Listing added successfully.";
+                // echo "Listing added successfully.";
         }
 }
 public function handleSubmission() {
@@ -480,13 +480,13 @@ public function addListing($listingData) {
         // Update JSON file after successful database insertion
         try {
             $database->convertDataToJson();
-            echo "Listing added successfully and JSON updated.";
+            // echo "Listing added successfully and JSON updated.";
             $this->message = "Listing added successfully.";
             $this->showProfile();
             exit;
         } catch (Exception $e) {
             // Handle error if JSON conversion fails
-            echo 'Error updating JSON: ' . $e->getMessage();
+            // echo 'Error updating JSON: ' . $e->getMessage();
         }
     }
 
