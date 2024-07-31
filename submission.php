@@ -191,15 +191,14 @@ function initAutocomplete() {
 
           </div>
 
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Submit listing</button>
+                    <button href="?command=handleSubmission" class="w-100 btn btn-primary btn-lg" type="submit">Submit listing</button>
+
                 </form>
             </div>
         </div>
     </main>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        initAutocomplete();
-    });
+    
 </script>
 </body>
 </html>

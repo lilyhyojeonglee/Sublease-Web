@@ -134,7 +134,7 @@ elseif (empty($listingData['gender'])) {
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="description" the form-label">Description</label>
+                        <label for="description the form-label">Description</label>
                         <input type="text" class="form-control" id="description" name="description" value="<?php echo htmlspecialchars($selectedHouse['propertyDetails']['description']); ?>" required>
                     </div>
                     <button class="w-100 btn btn-primary btn-lg" type="submit">Update listing</button>

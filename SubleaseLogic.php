@@ -12,7 +12,9 @@ class SubleaseLogic
 
         public function __construct($get)
         {
-                session_start(); //
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
                 // $this->uri = $uri;
                 $this->get = $get;
                 // $this->post = $post;
@@ -399,101 +401,97 @@ class SubleaseLogic
                 echo "Listing added successfully.";
         }
 }
-        public function handlesubmission(){
-                $this->message = '';
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                        // $subleaseLogic = new SubleaseLogic($get );
-                        $listingData = [
-                          'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
-                          'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-                          'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-                          'latitude' => filter_input(INPUT_POST, 'latitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
-                          'longitude' => filter_input(INPUT_POST, 'longitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
-                          'photoPath' => 'images/listing1.webp', // Assuming static or handle file upload to get path
-                          'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS) . 
-                          (!empty($_POST['address2']) ? ' ' . filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : ''),
-                          'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-                          'furnished' => isset($_POST['furnished']) ? true : false, 
-                          'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
-                          'petsAllowed' => isset($_POST['petsAllowed']) ? true : false,
-                      ];
-                      if (empty($listingData['latitude']) || empty($listingData['longitude'])) {
-                        $this->message= '<div class="alert alert-danger" role="alert">Please type address and choose one from the suggestions.</div>';
-                      } 
-                      elseif(empty($listingData['area'])) {
-                        $this->message= '<div class="alert alert-danger" role="alert">Please choose an area.</div>';
-                      } 
-                      elseif (empty($listingData['rent'])) {
-                        $this->message= '<div class="alert alert-danger" role="alert">Enter sublease fee.</div>';
-                      } 
-                      elseif (empty($listingData['gender'])) {
-                        $this->message= '<div class="alert alert-danger" role="alert">Please choose a gender preference.</div>';
-                      } else {
-                        try {
-                            $this->addListing($listingData);
-                        } catch (Exception $e) {
-                                // $this->message= "Error: " . $e->getMessage();
-                        }
-                      }
-                      
-                      if($this->message){
-                        $this->showSubmission(); //check this  
-
-                      }
-
-                      } else {
-                      // Handle non-POST requests
-                      }
-                //       $this->showSubmission(); //check this  
-        }
-        public function addListing($listingData) {
-                $this->message = '';
-                $database = new Database();
-                $dbConnector = $database->getDbConnector(); 
-            
-                $userId = $_SESSION['user']['id'] ?? null; 
-                if ($userId === null) {
-                    throw new Exception("User not logged in.");
-                }
-            
-                $furnished = isset($listingData['furnished']) && $listingData['furnished'] ? 't' : 'f';
-                $petsAllowed = isset($listingData['petsAllowed']) && $listingData['petsAllowed'] ? 't' : 'f';
-            
-                $query = "INSERT INTO subleases (user_id, area, description, location, latitude, longitude, address, gender, furnished, subleasefee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
-                $result = pg_prepare($dbConnector, "insert_sublease", $query);
-                $result = pg_execute($dbConnector, "insert_sublease", [
-                    $userId,
-                    $listingData['area'], 
-                    $listingData['description'],
-                    $listingData['location'],
-                    $listingData['latitude'],
-                    $listingData['longitude'],
-                    $listingData['address'],
-                    $listingData['gender'],
-                    $listingData['furnished'] ? 't' : 'f',
-                    $listingData['rent'],
-                    $listingData['petsAllowed'] ? 't' : 'f',
-                    $listingData['photoPath']
-                ]);
-            
-                if (!$result) {
-                        throw new Exception('Failed to update listing: ' . pg_last_error($dbConnector));
-                    } else {
-                        // Update JSON file after successful database insertion
-                        try {
-                            $database->convertDataToJson();
-                            echo "Listing added successfully and JSON updated.";
-                            $this->message = "Listing added successfully.";
-                            $this->showProfile();
-                            exit;
-                        } catch (Exception $e) {
-                            // Handle error if JSON conversion fails
-                            echo 'Error updating JSON: ' . $e->getMessage();
-                        }
-                    }
-            
-                echo "Listing added successfully.";
+public function handleSubmission() {
+    $this->message = '';
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $listingData = [
+            'area' => filter_input(INPUT_POST, 'area', FILTER_SANITIZE_FULL_SPECIAL_CHARS), 
+            'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            'location' => filter_input(INPUT_POST, 'location', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            'latitude' => filter_input(INPUT_POST, 'latitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
+            'longitude' => filter_input(INPUT_POST, 'longitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
+            'photoPath' => 'images/listing1.webp', // Assuming static or handle file upload to get path
+            'address' => filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS) . 
+            (!empty($_POST['address2']) ? ' ' . filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : ''),
+            'gender' => filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            'furnished' => isset($_POST['furnished']) ? true : false, 
+            'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
+            'petsAllowed' => isset($_POST['petsAllowed']) ? true : false,
+        ];
+        if (empty($listingData['latitude']) || empty($listingData['longitude'])) {
+            $this->message = '<div class="alert alert-danger" role="alert">Please type address and choose one from the suggestions.</div>';
+        } elseif (empty($listingData['area'])) {
+            $this->message = '<div class="alert alert-danger" role="alert">Please choose an area.</div>';
+        } elseif (empty($listingData['rent'])) {
+            $this->message = '<div class="alert alert-danger" role="alert">Enter sublease fee.</div>';
+        } elseif (empty($listingData['gender'])) {
+            $this->message = '<div class="alert alert-danger" role="alert">Please choose a gender preference.</div>';
+        } else {
+            try {
+                $this->addListing($listingData);
+            } catch (Exception $e) {
+                $this->message = "Error: " . $e->getMessage();
             }
+        }
+        
+        if ($this->message) {
+            $this->showSubmission(); // check this  
+        }
+
+    } else {
+        // Handle non-POST requests
+    }
+}
+
+public function addListing($listingData) {
+    $this->message = '';
+    $database = new Database();
+    $dbConnector = $database->getDbConnector(); 
+
+    $userId = $_SESSION['user']['id'] ?? null; 
+    if ($userId === null) {
+        throw new Exception("User not logged in.");
+    }
+
+    $furnished = isset($listingData['furnished']) && $listingData['furnished'] ? 't' : 'f';
+    $petsAllowed = isset($listingData['petsAllowed']) && $listingData['petsAllowed'] ? 't' : 'f';
+
+    $query = "INSERT INTO subleases (user_id, area, description, location, latitude, longitude, address, gender, furnished, subleasefee, pet, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
+    $result = pg_prepare($dbConnector, "insert_sublease", $query);
+    $result = pg_execute($dbConnector, "insert_sublease", [
+        $userId,
+        $listingData['area'], 
+        $listingData['description'],
+        $listingData['location'],
+        $listingData['latitude'],
+        $listingData['longitude'],
+        $listingData['address'],
+        $listingData['gender'],
+        $listingData['furnished'] ? 't' : 'f',
+        $listingData['rent'],
+        $listingData['petsAllowed'] ? 't' : 'f',
+        $listingData['photoPath']
+    ]);
+
+    if (!$result) {
+        throw new Exception('Failed to update listing: ' . pg_last_error($dbConnector));
+    } else {
+        // Update JSON file after successful database insertion
+        try {
+            $database->convertDataToJson();
+            echo "Listing added successfully and JSON updated.";
+            $this->message = "Listing added successfully.";
+            $this->showProfile();
+            exit;
+        } catch (Exception $e) {
+            // Handle error if JSON conversion fails
+            echo 'Error updating JSON: ' . $e->getMessage();
+        }
+    }
+
+    echo "Listing added successfully.";
+}
+
             
         private function showSubmission($message=""){
                 if (!empty($this->message)) {
