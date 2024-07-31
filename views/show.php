@@ -46,61 +46,31 @@ function displayBoolean($value) {
 
 <div class="container">
     <div id="carouselExampleIndicators" class="carousel slide">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="<?php echo $_SESSION['currentListing']['image']; ?>" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="<?php echo $_SESSION['currentListing']['image']; ?>" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="<?php echo $_SESSION['currentListing']['image']; ?>" class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-    <!-- <div class="row">
-        <div class="col-md-6">
-            <div class="large-image">
-                <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Large Listing Image">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="<?php echo $_SESSION['currentListing']['image']; ?>" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="<?php echo $_SESSION['currentListing']['image']; ?>" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="<?php echo $_SESSION['currentListing']['image']; ?>" class="d-block w-100" alt="...">
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="gallery">
-                <div class="row">
-                    <div class="col-6">
-                        <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Top Image 1">
-                    </div>
-                    <div class="col-6">
-                        <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Top Image 2">
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-4">
-                        <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Bottom Image 1">
-                    </div>
-                    <div class="col-4">
-                        <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Bottom Image 2">
-                    </div>
-                    <div class="col-4">
-                        <img src="<?php echo $_SESSION['currentListing']['image']; ?>" alt="Bottom Image 3">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
 
     <div class="container mt-4">
         <div class="row">
@@ -125,15 +95,25 @@ function displayBoolean($value) {
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="info-box" id="contact-box" onclick="revealContact()">
+                <div class="info-box" id="contact-box">
                     <header>Contact</header>
-                    <p id="contact-info">Log in to reveal</p>
+                    <p id="contact-info" onclick="revealContact()">Click to reveal</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+function revealContact() {
+    fetch('/?command=getContactInfo')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('contact-info').innerText = data;
+        })
+        .catch(error => console.error('Error fetching contact info:', error));
+}
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
