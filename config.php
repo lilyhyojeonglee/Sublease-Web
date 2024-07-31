@@ -5,7 +5,7 @@ class Config {
         "port" => "5432",
         "user" => "localuser",
         "password" => "cs4640LocalUser!",
-        "database" => "example"
+        "database" => "postgres"
         // "user" => "postgres",
         // "password" => "qwer1234",
         // "database" => "postgres"

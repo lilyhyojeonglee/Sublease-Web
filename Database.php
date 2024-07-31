@@ -5,28 +5,27 @@ require_once 'Database.php';
 class Database {
     private $dbConnector;
 
-    public function __construct(){
-
+    public function __construct() {
         $host = Config::$db["host"];
-        $user = Config::$db["user"]; //change to user when deploy server maybe
+        $user = Config::$db["user"];
         $database = Config::$db["database"];
         $password = Config::$db["password"];
         $port = Config::$db["port"];
 
         $this->dbConnector = pg_connect("host=$host port=$port dbname=$database user=$user password=$password");
         if (!$this->dbConnector) {
-            error_log('Database connection failed');
-            throw new Exception('Database connection failed');
+            error_log('Database connection failed: ' . pg_last_error());
+            throw new Exception('Database connection failed: ' . pg_last_error());
         }
         $this->createTables();
     }
 
-    public function createTables(){
+    public function createTables() {
         $this->createUsersTable();
         $this->createSubleaseTable();
     }
 
-    private function createUsersTable(){
+    private function createUsersTable() {
         $createQuery = "
         CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,
@@ -37,14 +36,14 @@ class Database {
             password VARCHAR(255)
         );
     ";
-    $result = pg_query($this->dbConnector, $createQuery);
-    if (!$result) {
-        error_log('Failed to create tables: ' . pg_last_error($this->dbConnector));
-        throw new Exception('Failed to create tables');
-    }
+        $result = pg_query($this->dbConnector, $createQuery);
+        if (!$result) {
+            error_log('Failed to create tables: ' . pg_last_error($this->dbConnector));
+            throw new Exception('Failed to create tables: ' . pg_last_error($this->dbConnector));
+        }
     }
 
-    private function createSubleaseTable(){
+    private function createSubleaseTable() {
         $createQuery = "
             CREATE TABLE IF NOT EXISTS subleases (
                 house_id SERIAL PRIMARY KEY,
@@ -69,11 +68,10 @@ class Database {
         $result = pg_query($this->dbConnector, $createQuery);
         if (!$result) {
             error_log('Failed to create subleases table: ' . pg_last_error($this->dbConnector));
-            throw new Exception('Failed to create subleases table');
+            throw new Exception('Failed to create subleases table: ' . pg_last_error($this->dbConnector));
         }
     }
 
-    
     public function getDbConnector() {
         return $this->dbConnector;
     }
@@ -85,7 +83,7 @@ class Database {
 
         if (!$result) {
             error_log('Query failed: ' . pg_last_error($this->dbConnector));
-            throw new Exception('Query failed');
+            throw new Exception('Query failed: ' . pg_last_error($this->dbConnector));
         }
 
         $listings = [];
@@ -110,13 +108,12 @@ class Database {
         
             $listings[] = $listing;
         }
-        
 
         // Convert the $listings array to JSON
         $jsonData = json_encode($listings, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         if ($jsonData === false) {
             error_log('JSON encode failed: ' . json_last_error_msg());
-            throw new Exception('JSON encode failed');
+            throw new Exception('JSON encode failed: ' . json_last_error_msg());
         }
 
         // Write JSON data to file
@@ -128,7 +125,4 @@ class Database {
 
         echo "Data successfully written to {$filePath}";
     }
-
 }
-
-

@@ -8,7 +8,7 @@ class SubleaseLogic
 
         private $errormessage;
         private $message;
-
+        private $database;
 
         public function __construct($get)
         {
