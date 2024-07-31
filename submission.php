@@ -191,7 +191,7 @@ function initAutocomplete() {
 
           </div>
 
-                    <button href="?command=handleSubmission" class="w-100 btn btn-primary btn-lg" type="submit">Submit listing</button>
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Submit listing</button>
 
                 </form>
             </div>

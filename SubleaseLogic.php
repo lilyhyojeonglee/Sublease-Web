@@ -418,9 +418,10 @@ public function handleSubmission() {
             'rent' => filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT),
             'petsAllowed' => isset($_POST['petsAllowed']) ? true : false,
         ];
-        if (empty($listingData['latitude']) || empty($listingData['longitude'])) {
-            $this->message = '<div class="alert alert-danger" role="alert">Please type address and choose one from the suggestions.</div>';
-        } elseif (empty($listingData['area'])) {
+        // if (empty($listingData['latitude']) || empty($listingData['longitude'])) {
+        //     $this->message = '<div class="alert alert-danger" role="alert">Please type address and choose one from the suggestions.</div>';
+        // } else
+        if (empty($listingData['area'])) {
             $this->message = '<div class="alert alert-danger" role="alert">Please choose an area.</div>';
         } elseif (empty($listingData['rent'])) {
             $this->message = '<div class="alert alert-danger" role="alert">Enter sublease fee.</div>';
